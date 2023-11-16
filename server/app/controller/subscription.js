@@ -1,6 +1,6 @@
 const Controller = require("../core/controller");
 
-class SubscriptionController extends Controller {
+class BizController extends Controller {
   async subscribe() {
     const { ctx } = this;
     ctx.validate(
@@ -9,12 +9,12 @@ class SubscriptionController extends Controller {
       },
       ctx.params,
     );
-    const { userid } = ctx;
+    const { currentUserId } = ctx;
     const channelId = ctx.params.userid;
-    if (userid === channelId) {
+    if (currentUserId === channelId) {
       ctx.throw(422, "用户不能订阅自己");
     }
-    const res = await ctx.service.subscription.subscribe(userid, channelId);
+    const res = await ctx.service.subscription.subscribe(currentUserId, channelId);
     ctx.success(res);
   }
 
@@ -26,14 +26,14 @@ class SubscriptionController extends Controller {
       },
       ctx.params,
     );
-    const { userid } = ctx;
+    const { currentUserId } = ctx;
     const channelId = ctx.params.userid;
-    if (userid === channelId) {
+    if (currentUserId === channelId) {
       ctx.throw(422, "用户不能订阅自己");
     }
-    const res = await ctx.service.subscription.unsubscribe(userid, channelId);
+    const res = await ctx.service.subscription.unsubscribe(currentUserId, channelId);
     ctx.success(res);
   }
 }
 
-module.exports = SubscriptionController;
+module.exports = BizController;

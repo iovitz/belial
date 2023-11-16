@@ -8,6 +8,15 @@ module.exports = class SubscriptionService extends Service {
     return this.app.model.Subscription;
   }
 
+  async getSubscribeRecord(userid, channelId) {
+    const { Subscription } = this;
+    const record = await Subscription.findOne({
+      user: userid,
+      channel: channelId,
+    });
+    return record
+  }
+
   async subscribe(userid, channelId) {
     const { User, Subscription } = this;
     const user = await User.findById(channelId);

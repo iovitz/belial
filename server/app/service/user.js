@@ -47,7 +47,7 @@ module.exports = class UserService extends Service {
   }
 
   async updateUser(data) {
-    return this.User.findByIdAndUpdate(this.ctx.userid, data, {
+    return this.User.findByIdAndUpdate(this.ctx.currentUserId, data, {
       new: true,
     });
   }

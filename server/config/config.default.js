@@ -1,4 +1,5 @@
 const path = require("path");
+const secretConfig = require('./config.secret')
 
 module.exports = (appInfo) => {
   const config = (exports = {});
@@ -45,13 +46,13 @@ module.exports = (appInfo) => {
 
   exports.mongoose = {
     client: {
-      url: "mongodb+srv://touyube:touyube@cluster0.jjabd.mongodb.net/touyube?retryWrites=true&w=majority",
+      url: secretConfig.mongoDBUrl,
       options: {},
-      // mongoose global plugins, expected a function or an array of function and options
       plugins: [],
     },
   };
   return {
+    ...secretConfig,
     ...config,
   };
 };

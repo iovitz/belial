@@ -17,14 +17,15 @@ module.exports = (app) => {
   authRouter.post("/login/v1", auth.login);
   authRouter.post("/register/v1", auth.register);
 
-  const userRouter = router.namespace("/api/user", authMiddleware);
-  userRouter.get("/getCurrentUser", user.getCurrentUser);
-  userRouter.post("/update", user.update);
+  const userRouter = router.namespace("/api/user");
+  userRouter.get("/getCurrentUser", authMiddleware, user.getCurrentUser);
+  userRouter.get("/getUser/:userid", user.getUser);
+  userRouter.patch("/update", authMiddleware, user.update);
 
   const subscriptionRouter = router.namespace(
     "/api/subscription",
     authMiddleware,
   );
   subscriptionRouter.post("/subscribe/:userid", subscription.subscribe);
-  subscriptionRouter.post("/unsubscribe/:userid", subscription.unsubscribe);
+  subscriptionRouter.delete("/subscribe/:userid", subscription.unsubscribe);
 };

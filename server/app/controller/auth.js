@@ -1,6 +1,6 @@
 const Controller = require("../core/controller");
 
-class AuthController extends Controller {
+class BizController extends Controller {
   async login() {
     const { ctx } = this;
     ctx.validate({
@@ -67,4 +67,4 @@ class AuthController extends Controller {
   }
 }
 
-module.exports = AuthController;
+module.exports = BizController;

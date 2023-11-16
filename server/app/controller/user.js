@@ -1,9 +1,9 @@
 const Controller = require("../core/controller");
 
-class UserController extends Controller {
+class BizController extends Controller {
   async getCurrentUser() {
     const { ctx } = this;
-    const user = await ctx.service.user.findById(ctx.userid);
+    const user = await ctx.service.user.findById(ctx.currentUserId);
     const userService = ctx.service.user;
 
     ctx.success({
@@ -26,7 +26,7 @@ class UserController extends Controller {
       email: { type: "email", required: false },
     });
     const userService = ctx.service.user;
-    const user = await userService.findById(ctx.userid);
+    const user = await userService.findById(ctx.currentUserId);
 
     if (!Object.keys(body).length) {
       return ctx.success(userService.getUserInfoByModel(user));
@@ -60,6 +60,25 @@ class UserController extends Controller {
     const updatedUser = await userService.updateUser(body);
     return ctx.success(userService.getUserInfoByModel(updatedUser));
   }
+
+  async getUser() {
+    const { ctx } = this;
+    ctx.validate(
+      {
+        userid: { type: "string", required: true },
+      },
+      ctx.params,
+    );
+    const user = await ctx.service.user.findById(ctx.params.userid)
+    if(!user) {
+      ctx.throw(422, "用户不存在")
+    }
+    const subscriptionRecord = await ctx.service.subscription.getSubscribeRecord(ctx.currentUserId, ctx.params.userid)
+    ctx.success({
+      ...ctx.service.user.getUserInfoByModel(user),
+      isSubscribed: Boolean(subscriptionRecord)
+    })
+  }
 }
 
-module.exports = UserController;
+module.exports = BizController;

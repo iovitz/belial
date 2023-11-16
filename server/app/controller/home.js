@@ -1,6 +1,6 @@
 const Controller = require("../core/controller");
 
-class HomeController extends Controller {
+class BizController extends Controller {
   async getStatus() {
     const { ctx } = this;
 
@@ -8,4 +8,4 @@ class HomeController extends Controller {
   }
 }
 
-module.exports = HomeController;
+module.exports = BizController;

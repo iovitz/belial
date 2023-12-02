@@ -23,5 +23,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
     'prettier/prettier': ['error'],
+    'no-undef': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
   },
 }

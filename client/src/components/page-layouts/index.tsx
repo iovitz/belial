@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout } from 'antd'
+import { Layout, theme } from 'antd'
 import PageSider from './page-sider'
 import PageHeader from './page-header'
 import styles from './styles.module.less'
@@ -9,6 +9,9 @@ const { Content } = Layout
 const PageLayout: React.FC<{
   children: JSX.Element
 }> = ({ children }) => {
+  const {
+    token: { colorText },
+  } = theme.useToken()
   return (
     <Layout className={styles.layout}>
       <PageHeader />
@@ -19,7 +22,9 @@ const PageLayout: React.FC<{
         <Layout className={styles.content}>
           <PageSider></PageSider>
           <Content>
-            <div className={styles['content-wrapper']}>{children}</div>
+            <div className={styles['content-wrapper']} style={{ color: colorText }}>
+              {children}
+            </div>
           </Content>
         </Layout>
       </Content>

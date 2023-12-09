@@ -5,7 +5,7 @@ import VideoCard from '../video-card'
 export default function VideoList() {
   return (
     <Row gutter={14}>
-      <Col span={8}>
+      <Col span={6}>
         <VideoCard />
       </Col>
     </Row>

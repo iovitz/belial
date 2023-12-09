@@ -11,7 +11,7 @@ const PageHeader: React.FC = () => {
   } = theme.useToken()
 
   return (
-    <Header style={{ background: colorBgContainer, border: `1px solid ${colorBorder}` }}>
+    <Header style={{ background: colorBgContainer, borderBottom: `1px solid ${colorBorder}` }}>
       <div className={styles['header-wrapper']}>
         <div className={styles['header-logo']}>TouYube</div>
         <div>

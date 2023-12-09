@@ -1,5 +1,5 @@
 import React from 'react'
-import type { MenuProps } from 'antd'
+import { Avatar, MenuProps } from 'antd'
 import { Layout, Menu, theme } from 'antd'
 import {
   HomeOutlined,
@@ -9,7 +9,11 @@ import {
   HistoryOutlined,
   ContainerOutlined,
   InboxOutlined,
+  CloseOutlined,
 } from '@ant-design/icons'
+import classnames from 'classnames'
+import styles from './styles.module.less'
+import { utilStyles } from '@/style'
 
 const { Sider } = Layout
 
@@ -59,18 +63,30 @@ const menuItems: MenuProps['items'] = [
 
 const PageSider: React.FC = () => {
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer, colorBorder },
   } = theme.useToken()
 
   return (
-    <Sider style={{ background: colorBgContainer }} width={200}>
+    <Sider style={{ background: colorBgContainer, borderRight: `1px solid ${colorBorder}` }} width={200}>
       <Menu
+        style={{ borderRight: 'none' }}
         mode='inline'
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
-        style={{ height: '100%' }}
         items={menuItems}
       />
+
+      <Menu style={{ borderRight: 'none' }} mode='inline' selectable={false}>
+        <Menu.Item className={styles['like-list-item']}>
+          <div className={styles['like-channel']}>
+            <Avatar src={`https://pic.imgdb.cn/item/657429aac458853aef4ac52d.jpg`} />
+            <span className={classnames(styles['channel-name'], utilStyles.default['text-esipsis-line'])}>
+              法尔哈哈无法awdawd
+            </span>
+            <CloseOutlined className={styles['close-icon']} />
+          </div>
+        </Menu.Item>
+      </Menu>
     </Sider>
   )
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-export default function Home() {
-  const { uid } = useParams<{
-    uid: string
+export default function Player() {
+  const { vid } = useParams<{
+    vid: string
   }>()
   return (
     <>
-      <h1>{uid}</h1>
+      <h1>{vid}</h1>
     </>
   )
 }

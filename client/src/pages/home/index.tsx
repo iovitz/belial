@@ -1,13 +1,10 @@
+import VideoList from '@/components/video-list'
 import React from 'react'
-import { useParams } from 'react-router-dom'
 
-export default function Home() {
-  const { uid } = useParams<{
-    uid: string
-  }>()
+export default function Index() {
   return (
     <>
-      <h1>{uid}</h1>
+      <VideoList />
     </>
   )
 }

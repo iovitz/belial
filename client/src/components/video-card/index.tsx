@@ -19,7 +19,7 @@ function VideoCover(props: { url: string }) {
 
 export default function VideoCard() {
   return (
-    <Card hoverable cover={<VideoCover url='https://pic.imgdb.cn/item/657428dbc458853aef47dd7c.png' />}>
+    <Card hoverable cover={<VideoCover url='https://s11.ax1x.com/2023/12/14/pihQIZ6.png' />}>
       <Meta
         avatar={<Avatar src='https://pic.imgdb.cn/item/657429aac458853aef4ac52d.jpg' />}
         title='Card title'

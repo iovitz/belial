@@ -1,15 +1,15 @@
 import React from 'react'
 import { useRoutes } from 'react-router-dom'
 import History from './history'
-import Index from './index'
-import Player from './player'
 import Home from './home'
+import Player from './player'
+import People from './people'
 
 export default function RouterElements() {
   const elements = useRoutes([
     {
       path: '/',
-      element: <Index />,
+      element: <Home />,
     },
     {
       path: '/history',
@@ -21,7 +21,7 @@ export default function RouterElements() {
     },
     {
       path: '/u/:uid',
-      element: <Home />,
+      element: <People />,
     },
   ])
   return elements

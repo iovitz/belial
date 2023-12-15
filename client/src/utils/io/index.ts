@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { Socket } from '../socket'
+import { Socket } from './socket'
 import { IOConfig } from './types'
+import { InferParamaters } from '@/types'
 
 export class IO {
   socket: Socket
@@ -23,19 +24,27 @@ export class IO {
     return this.axios.request<R>(config)
   }
 
-  onMessage() {
-    //
+  onMessage(...args: InferParamaters<typeof this.socket.connection.on>) {
+    this.socket.connection.on(...args)
   }
 
-  sendMessage() {
-    //
+  sendMessage(...args: InferParamaters<typeof this.socket.connection.off>) {
+    this.socket.connection.off(...args)
   }
 
   watch() {
-    //
+    this.socket.connect()
   }
 
   unwatch() {
-    //
+    this.socket.disconnect()
   }
 }
+
+export const IOWrap = new IO({
+  socketConfig: {
+    socketUrl: 'localhost:4321',
+    socketPath: '/socket.io',
+    socketAuth: 'awefawfe',
+  },
+})

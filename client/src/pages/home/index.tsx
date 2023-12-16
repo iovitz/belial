@@ -1,11 +1,11 @@
 import PageSider from '@/components/page-sider'
-import VideoList from '@/components/video-list'
 import { Layout, theme } from 'antd'
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import Home from './home'
 import styles from './styles.module.less'
 
-export default function Index() {
+export default function HomeWrapper() {
   const {
     token: { colorText },
   } = theme.useToken()
@@ -26,7 +26,7 @@ export default function Index() {
           <Layout.Content>
             <div className={styles['content-wrapper']} style={{ color: colorText }}>
               {/* 处理Index路由 */}
-              {isIndex ? <VideoList /> : <Outlet />}
+              {isIndex ? <Home /> : <Outlet />}
             </div>
           </Layout.Content>
         </Layout>

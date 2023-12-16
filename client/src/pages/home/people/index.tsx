@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 
-export default function Home() {
+export default function People() {
   const { uid } = useParams<{
     uid: string
   }>()

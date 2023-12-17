@@ -1,5 +1,6 @@
 import PageSider from '@/components/page-sider'
 import { Layout, theme } from 'antd'
+import classNames from 'classnames'
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Home from './home'
@@ -13,14 +14,11 @@ export default function HomeWrapper() {
 
   return (
     <>
-      <Layout.Content
-        style={{
-          height: '100%',
-        }}>
+      <Layout.Content className={styles['page-main']}>
         <Layout className={styles.content}>
           <PageSider></PageSider>
           <Layout.Content>
-            <div className={styles['content-wrapper']}>
+            <div className={classNames(styles['content-wrapper'], 'pretty-scroll-bar')}>
               {/* 处理Index路由 */}
               {isIndex ? <Home /> : <Outlet />}
             </div>

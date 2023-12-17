@@ -14,7 +14,12 @@ export default function Player() {
     <div className={style['watch-page-container']}>
       <Layout>
         <Layout.Content className={style['watch-page-main']}>
-          <VideoInfo />
+          <VideoInfo
+            read={100}
+            title={'阿尔法违法违法阿尔法违法违法阿尔法违法违法阿尔法违法违法'}
+            comment={14214}
+            timestamp={Date.now()}
+          />
           <VideoPlayer />
         </Layout.Content>
         <Layout.Sider width={350}>Sider</Layout.Sider>

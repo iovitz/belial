@@ -8,6 +8,48 @@ export default function VideoList() {
       <Col span={6}>
         <VideoCard />
       </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
+      <Col span={6}>
+        <VideoCard />
+      </Col>
     </Row>
   )
 }

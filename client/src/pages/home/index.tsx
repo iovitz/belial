@@ -6,10 +6,6 @@ import Home from './home'
 import styles from './styles.module.less'
 
 export default function HomeWrapper() {
-  const {
-    token: { colorText },
-  } = theme.useToken()
-
   const location = useLocation()
 
   // 处理Index路由
@@ -24,7 +20,7 @@ export default function HomeWrapper() {
         <Layout className={styles.content}>
           <PageSider></PageSider>
           <Layout.Content>
-            <div className={styles['content-wrapper']} style={{ color: colorText }}>
+            <div className={styles['content-wrapper']}>
               {/* 处理Index路由 */}
               {isIndex ? <Home /> : <Outlet />}
             </div>

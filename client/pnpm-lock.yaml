@@ -223,6 +223,9 @@ dependencies:
     version: registry.npmmirror.com/workbox-webpack-plugin@6.6.0(webpack@5.89.0)
 
 devDependencies:
+  '@types/lodash':
+    specifier: ^4.14.202
+    version: 4.14.202
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.11.0
     version: registry.npmmirror.com/@typescript-eslint/eslint-plugin@6.13.2(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@4.9.5)
@@ -475,6 +478,10 @@ packages:
   /@types/aria-query@5.0.4:
     resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==, tarball: https://registry.npmmirror.com/@types/aria-query/-/aria-query-5.0.4.tgz}
     dev: false
+
+  /@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.202.tgz}
+    dev: true
 
   /@videojs/http-streaming@3.7.0(video.js@8.6.1):
     resolution: {integrity: sha512-5uLFKBL8CvD56dxxJyuxqB5CY0tdoa4SE9KbXakeiAy6iFBUEPvTr2YGLKEWvQ8Lojs1wl+FQndLdv+GO7t9Fw==, tarball: https://registry.npmmirror.com/@videojs/http-streaming/-/http-streaming-3.7.0.tgz}

@@ -4,21 +4,26 @@ import RouterElements from './pages'
 import ErrorHandler from './components/error-handler'
 import ToastManager from './components/toast'
 import { IOWrap } from './utils/io'
+import { theme } from 'antd'
 
 const App: React.FC = () => {
+  const {
+    token: { colorText },
+  } = theme.useToken()
   useEffect(() => {
     IOWrap.watch()
-    console.log(IOWrap)
   }, [])
   return (
-    <ErrorHandler>
-      <>
-        <ToastManager />
-        <PageLayout>
-          <RouterElements />
-        </PageLayout>
-      </>
-    </ErrorHandler>
+    <div style={{ color: colorText, height: '100%' }}>
+      <ErrorHandler>
+        <>
+          <ToastManager />
+          <PageLayout>
+            <RouterElements />
+          </PageLayout>
+        </>
+      </ErrorHandler>
+    </div>
   )
 }
 

@@ -2,37 +2,31 @@ import { Avatar, Card } from 'antd'
 import Meta from 'antd/es/card/Meta'
 import React from 'react'
 import style from './styles.module.less'
-import moment from 'moment'
-
-function VideoDesc(props: { description: string; views: number; time: number }) {
-  return (
-    <div>
-      <p className={style['video-description']}>{props.description}</p>
-      <p className={style['video-info']}>{`${props.views} views • ${moment(props.time).fromNow()}`}</p>
-    </div>
-  )
-}
+import { VideoDesc, VideoDescProp } from './video-desc'
+import { useNavigate } from 'react-router-dom'
 
 function VideoCover(props: { url: string }) {
   return <img className={style['video-cover']} src={props.url} />
 }
 
-export default function VideoCard() {
+interface VideoCardProp extends VideoDescProp {
+  id: string
+  cover: string
+  title: string
+  author_avatar: string
+}
+
+export default function VideoCard(props: VideoCardProp) {
+  const navigate = useNavigate()
+  const handleGoPlay = () => {
+    navigate(`/v/${props.id}`)
+  }
   return (
-    <Card
-      className={style['video-card']}
-      hoverable
-      cover={<VideoCover url='https://s11.ax1x.com/2023/12/14/pihQIZ6.png' />}>
+    <Card className={style['video-card']} hoverable cover={<VideoCover url={props.cover} />} onClick={handleGoPlay}>
       <Meta
-        avatar={<Avatar src='https://pic.imgdb.cn/item/657429aac458853aef4ac52d.jpg' />}
-        title='Card title'
-        description={
-          <VideoDesc
-            description='DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription'
-            views={30}
-            time={1702096644685}
-          />
-        }
+        avatar={<Avatar src={props.author_avatar} />}
+        title={props.title}
+        description={<VideoDesc description={props.description} views={props.views} time={props.time} />}
       />
     </Card>
   )

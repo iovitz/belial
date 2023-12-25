@@ -29,9 +29,11 @@ export default class VideoPlayer extends Component {
   handleResize = throttle(() => {
     const { player } = this
     if (!player) return
-    const nextWidth = Math.floor((player.currentWidth() * 9) / 16)
-    if (player.currentHeight() === nextWidth) return
-    player.height(nextWidth)
+    const currentWidth = player.currentWidth()
+    const nextHeight = Math.floor((currentWidth * 9) / 16)
+
+    if (player.currentHeight() === nextHeight) return
+    player.dimensions(currentWidth, nextHeight)
   }, 300)
 
   render() {

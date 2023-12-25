@@ -1,10 +1,10 @@
 const path = require("path");
-const secretConfig = require('./config.secret')
+const secretConfig = require("./config.secret");
 
 module.exports = (appInfo) => {
   const config = (exports = {});
 
-  config.middleware = ["errorHandler"];
+  config.middleware = ["errorHandler", "access"];
 
   // 需要进行jwt鉴权的路由前缀
   config.needAuthPrefixList = [];

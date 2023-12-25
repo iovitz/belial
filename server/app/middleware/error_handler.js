@@ -22,16 +22,9 @@ module.exports = (_, app) => {
 
       ctx.logger.error(err);
 
-      const message =
-        status === 500 && isProd
-          ? "Internal Server Error"
-          : err.message ?? err.msg;
+      const message = status === 500 && isProd ? "Internal Server Error" : err.message ?? err.msg;
 
-      ctx.serverError(
-        message,
-        typeof status === "number" ? status : 500,
-        typeof code === "number" ? code : 50000,
-      );
+      ctx.serverError(message, typeof status === "number" ? status : 500, typeof code === "number" ? code : 50000);
     }
   };
 };

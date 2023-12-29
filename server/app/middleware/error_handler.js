@@ -1,9 +1,9 @@
-module.exports = (_, app) => {
+module.exports = (app) => {
   const { isProd } = app;
   return async function notFoundHandler(ctx, next) {
     try {
       if (!isProd) {
-        console.log("请求参数", ctx.$body);
+        ctx.logger.info("请求参数", ctx.$body);
       }
       await next();
     } catch (err) {

@@ -11,18 +11,11 @@ class BizController extends Controller {
       email: { type: "email", required: true },
     });
     const userService = this.service.user;
-    const user = await userService
-      .findByEmail(ctx.$body.email)
-      .select("+password");
+    const user = await userService.findByEmail(ctx.$body.email).select("+password");
     if (!user) {
       return ctx.throw(422, "用户不存在");
     }
-    if (
-      !(await ctx.service.user.comparePassword(
-        ctx.$body.password,
-        user.password,
-      ))
-    ) {
+    if (!(await ctx.service.user.comparePassword(ctx.$body.password, user.password))) {
       return ctx.throw(422, "邮箱或密码错误");
     }
     const token = userService.createToken({

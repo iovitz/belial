@@ -9,25 +9,53 @@ module.exports = (app) => {
   // Socket.IO
   // io.route("chat", io.controller.chat.ping);
 
-  // Rest API
+  // 普通请求
   const homeRouter = router.namespace("/api");
+  registerRouter(homeRouter, "get", "/status/:id", home.getStatus);
 
-  homeRouter.get("/status", home.getStatus);
-
+  // 账号相关
   const authRouter = router.namespace("/api/auth");
-  authRouter.post("/login/v1", auth.login);
-  authRouter.post("/register/v1", auth.register);
+  registerRouter(authRouter, "post", "/login/v1", auth.login);
+  registerRouter(authRouter, "post", "/register/v1", auth.register);
 
+  // 用户信息
   const userRouter = router.namespace("/api/user");
-  userRouter.get("/getUser/:userid", user.getUser);
-  userRouter.get("/getCurrentUser", authMiddleware, user.getCurrentUser);
-  userRouter.patch("/update", authMiddleware, user.update);
+  registerRouter(userRouter, "get", "/getUser/:userid", user.getUser);
+  registerRouter(userRouter, "get", "/getCurrentUser", user.getCurrentUser, {
+    auth: true,
+  });
+  registerRouter(userRouter, "patch", "/update", user.update, {
+    auth: true,
+  });
 
-  const subscriptionRouter = router.namespace("/api/subscription", authMiddleware);
-  subscriptionRouter.post("/subscribe/:userid", subscription.subscribe);
-  subscriptionRouter.delete("/subscribe/:userid", subscription.unsubscribe);
+  // 订阅服务
+  const subscriptionRouter = router.namespace("/api/subscription");
+  registerRouter(subscriptionRouter, "post", "/subscribe/:userid", subscription.subscribe, {
+    auth: true,
+  });
+  registerRouter(subscriptionRouter, "delete", "/subscribe/:userid", subscription.unsubscribe, {
+    auth: true,
+  });
 
+  // 其他三方服务
   const serviceRouter = router.namespace("/api/service", authMiddleware);
-  serviceRouter.get("/createUploadVideo", service.createUploadVideo);
-  serviceRouter.get("/refreshUploadVideo", service.refreshUploadVideo);
+  registerRouter(serviceRouter, "get", "/createUploadVideo", service.createUploadVideo, {
+    auth: true,
+  });
+  registerRouter(serviceRouter, "get", "/refreshUploadVideo", service.refreshUploadVideo, {
+    auth: true,
+  });
+
+  function registerRouter(router, method, path, fn, config = {}) {
+    const configMiddlewares = [];
+
+    const middlewares1 = [middleware.errorHandler(app)];
+    // 放在Auth之后的中间件
+    const middlewares2 = [middleware.access(app)];
+
+    config.auth && configMiddlewares.push(middleware.auth(app));
+    const middlewares = [...middlewares1, ...configMiddlewares, ...middlewares2];
+
+    router[method](path, ...middlewares, fn);
+  }
 };

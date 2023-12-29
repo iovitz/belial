@@ -34,20 +34,14 @@ class BizController extends Controller {
 
     // 用户名重名校验
     if (body.username) {
-      if (
-        body.username === user.username ||
-        (await userService.findByUsername(user.username))
-      ) {
+      if (body.username === user.username || (await userService.findByUsername(user.username))) {
         return ctx.throw(422, "用户名已存在");
       }
     }
 
     // 邮箱重复校验
     if (body.email) {
-      if (
-        body.email === user.email ||
-        (await userService.findByEmail(user.email))
-      ) {
+      if (body.email === user.email || (await userService.findByEmail(user.email))) {
         return ctx.throw(422, "邮箱已存在");
       }
     }
@@ -69,15 +63,15 @@ class BizController extends Controller {
       },
       ctx.params,
     );
-    const user = await ctx.service.user.findById(ctx.params.userid)
-    if(!user) {
-      ctx.throw(422, "用户不存在")
+    const user = await ctx.service.user.findById(ctx.params.userid);
+    if (!user) {
+      ctx.throw(422, "用户不存在");
     }
-    const subscriptionRecord = await ctx.service.subscription.getSubscribeRecord(ctx.currentUserId, ctx.params.userid)
+    const subscriptionRecord = await ctx.service.subscription.getSubscribeRecord(ctx.currentUserId, ctx.params.userid);
     ctx.success({
       ...ctx.service.user.getUserInfoByModel(user),
-      isSubscribed: Boolean(subscriptionRecord)
-    })
+      isSubscribed: Boolean(subscriptionRecord),
+    });
   }
 }
 

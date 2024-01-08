@@ -49,6 +49,9 @@ module.exports = (appInfo) => {
       plugins: [],
     },
   };
+
+  config.gzipThreshold = 1000;
+
   return {
     ...secretConfig,
     ...config,

@@ -2,7 +2,6 @@
 
 module.exports = (app) => {
   const { router, controller, middleware } = app;
-  const authMiddleware = middleware.auth();
   // const { io } = app;
   const { home, auth, user, subscription, service } = controller;
 
@@ -38,7 +37,7 @@ module.exports = (app) => {
   });
 
   // 其他三方服务
-  const serviceRouter = router.namespace("/api/service", authMiddleware);
+  const serviceRouter = router.namespace("/api/service");
   registerRouter(serviceRouter, "get", "/createUploadVideo", service.createUploadVideo, {
     auth: true,
   });
@@ -49,12 +48,13 @@ module.exports = (app) => {
   function registerRouter(router, method, path, fn, config = {}) {
     const configMiddlewares = [];
 
-    const middlewares1 = [middleware.errorHandler(app)];
+    const frontMiddlewares = [middleware.gzip(app), middleware.errorHandler(app)];
     // 放在Auth之后的中间件
-    const middlewares2 = [middleware.access(app)];
+    const rearMiddlewares = [middleware.access(app)];
 
     config.auth && configMiddlewares.push(middleware.auth(app));
-    const middlewares = [...middlewares1, ...configMiddlewares, ...middlewares2];
+
+    const middlewares = [...frontMiddlewares, ...configMiddlewares, ...rearMiddlewares];
 
     router[method](path, ...middlewares, fn);
   }

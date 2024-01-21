@@ -4,6 +4,8 @@ import styles from './styles.module.less'
 import { NotificationOutlined, VideoCameraAddOutlined } from '@ant-design/icons'
 import UserAvatar from './avatar/avatar'
 import { useNavigate } from 'react-router-dom'
+import NotifyIcon from './header-icons/notify-icon'
+import UplaodIcon from './header-icons/upload-icon'
 
 const { Header } = Layout
 
@@ -28,18 +30,9 @@ const PageHeader: React.FC = () => {
             <Input placeholder='Search' style={{ width: '300px' }} />
           </div>
           <div className={styles['header-right']}>
-            <div className={styles['header-icon']}>
-              <VideoCameraAddOutlined />
-            </div>
-            <div className={styles['header-right']}>
-              <div className={styles['header-icon']}>
-                <VideoCameraAddOutlined />
-              </div>
-              <div className={styles['header-icon']}>
-                <NotificationOutlined />
-              </div>
-              <UserAvatar />
-            </div>
+            <UplaodIcon />
+            <NotifyIcon />
+            <UserAvatar />
           </div>
         </div>
       </Header>

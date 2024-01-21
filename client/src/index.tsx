@@ -10,9 +10,11 @@ const root = ReactDOM.createRoot(document.getElementById('__APP_CONTAINER__') as
 root.render(
   <React.StrictMode>
     <ConfigProvider
-      theme={{
-        algorithm: theme.darkAlgorithm,
-      }}>
+      theme={
+        {
+          // algorithm: theme.darkAlgorithm,
+        }
+      }>
       <BrowserRouter>
         <App />
       </BrowserRouter>

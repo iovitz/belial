@@ -1,6 +1,16 @@
-import { Avatar, Button, Form, Input, Modal } from 'antd'
+import {
+  Avatar,
+  Button,
+  Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
+} from '@chakra-ui/react'
 import React, { useState } from 'react'
-import styles from './styles.module.less'
 import { UserOutlined } from '@ant-design/icons'
 
 type FieldType = {
@@ -25,30 +35,22 @@ export default function UserAvatar() {
 
   return (
     <>
-      <Modal title='Login To Your Account' open={isLoginModalOpen} footer={null} onCancel={handleCloseLoginModal}>
-        <Form labelCol={{ span: 5 }} name='basic' initialValues={{ remember: true }} autoComplete='off'>
-          <Form.Item<FieldType>
-            label='Username'
-            name='username'
-            rules={[{ required: true, message: 'Please input your username!' }]}>
-            <Input />
-          </Form.Item>
+      <Modal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>注册</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>content</ModalBody>
 
-          <Form.Item<FieldType>
-            label='Password'
-            name='password'
-            rules={[{ required: true, message: 'Please input your password!' }]}>
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 5, span: 19 }}>
-            <Button type='primary' htmlType='submit' block>
-              Submit
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={handleCloseLoginModal}>
+              Close
             </Button>
-          </Form.Item>
-        </Form>
+            <Button variant='ghost'>Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
       </Modal>
-      <Avatar className={styles['header-avatar']} icon={<UserOutlined />} onClick={handleAvatarClick} />
+      <Avatar icon={<UserOutlined />} ml={'20px'} onClick={handleAvatarClick} />
     </>
   )
 }

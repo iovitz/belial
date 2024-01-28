@@ -1,16 +1,22 @@
 import React from 'react'
-import { Layout } from 'antd'
 import PageHeader from './page-header'
+import { Grid, GridItem, MenuList, MenuItem, Menu, MenuButton, Portal } from '@chakra-ui/react'
 import styles from './styles.module.less'
 
 const PageLayout: React.FC<{
   children: JSX.Element
 }> = ({ children }) => {
   return (
-    <Layout className={styles.layout}>
-      <PageHeader />
-      {children}
-    </Layout>
+    <Grid
+      templateAreas={`"header header"
+                  "main main"`}
+      gridTemplateRows={'70px 1fr'}
+      h='100%'>
+      <GridItem area={'header'}>
+        <PageHeader />
+      </GridItem>
+      <GridItem area={'main'}>{children}</GridItem>
+    </Grid>
   )
 }
 

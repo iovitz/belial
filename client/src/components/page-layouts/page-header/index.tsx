@@ -1,17 +1,10 @@
 import React from 'react'
-import { Input, Layout, theme } from 'antd'
-import styles from './styles.module.less'
 import UserAvatar from './avatar/avatar'
 import { useNavigate } from 'react-router-dom'
-import NotifyIcon from './header-icons/notify-icon'
-import UplaodIcon from './header-icons/upload-icon'
-
-const { Header } = Layout
+import { Flex, Heading, Input, Wrap, WrapItem, IconButton, Center } from '@chakra-ui/react'
+import { BiVideoPlus, BiBell } from 'react-icons/bi'
 
 const PageHeader: React.FC = () => {
-  const {
-    token: { colorBgContainer, colorBorder },
-  } = theme.useToken()
   const navigate = useNavigate()
 
   const handleGoHomePage = () => {
@@ -20,21 +13,29 @@ const PageHeader: React.FC = () => {
 
   return (
     <>
-      <Header style={{ background: colorBgContainer, borderBottom: `1px solid ${colorBorder}` }}>
-        <div className={styles['header-wrapper']}>
-          <div className={styles['header-logo']} onClick={handleGoHomePage}>
-            {t('oil_tube')}
-          </div>
-          <div>
-            <Input placeholder='Search' style={{ width: '300px' }} />
-          </div>
-          <div className={styles['header-right']}>
-            <UplaodIcon />
-            <NotifyIcon />
-            <UserAvatar />
-          </div>
-        </div>
-      </Header>
+      <Flex flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} h='100%' px='15px'>
+        <Heading as='h1' size='lg'>
+          {t('oil_tube')}
+        </Heading>
+        <Input placeholder='站内搜索' size='md' w={500} />
+        <Wrap>
+          <WrapItem>
+            <Center h='100%'>
+              <IconButton colorScheme='gray' aria-label='Search database' size={'sm'} icon={<BiVideoPlus />} />
+            </Center>
+          </WrapItem>
+          <WrapItem>
+            <Center h='100%'>
+              <IconButton colorScheme='gray' aria-label='Search database' size={'sm'} icon={<BiBell />} />
+            </Center>
+          </WrapItem>
+          <WrapItem>
+            <Center h='100%'>
+              <UserAvatar />
+            </Center>
+          </WrapItem>
+        </Wrap>
+      </Flex>
     </>
   )
 }

@@ -4,7 +4,8 @@ import React from 'react'
 export default function Home() {
   return (
     <>
-      <VideoList />
+      {/* <VideoList /> */}
+      <h1>123</h1>
     </>
   )
 }

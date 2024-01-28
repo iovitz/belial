@@ -3,7 +3,7 @@ import React from 'react'
 import VideoCard from '../video-card'
 
 export default function VideoList() {
-  const videoList = new Array(30).fill({
+  const videoList = new Array(30).fill(1).map((_, i) => ({
     id: Math.random().toString(),
     title: '标题标题标题标题标题标题标题标题标题标题标题标题',
     cover: 'https://s11.ax1x.com/2023/12/14/pihQIZ6.png',
@@ -12,7 +12,7 @@ export default function VideoList() {
       'DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription',
     views: Math.floor(Math.random() * 100),
     time: Date.now(),
-  })
+  }))
 
   return (
     <Row gutter={14}>

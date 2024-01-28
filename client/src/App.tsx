@@ -5,6 +5,8 @@ import ErrorHandler from './components/error-handler'
 import ToastManager from './components/toast'
 import { IOWrap } from './utils/io'
 import { theme } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { utilStyles } from './style'
 
 const App: React.FC = () => {
   const {
@@ -13,8 +15,15 @@ const App: React.FC = () => {
   useEffect(() => {
     IOWrap.watch()
   }, [])
+  const { t } = useTranslation()
+  useEffect(() => {
+    window.t = t
+    return () => {
+      console.error('App Unmount')
+    }
+  }, [])
   return (
-    <div style={{ color: colorText, height: '100%' }}>
+    <div className='h-full' style={{ color: colorText }}>
       <ErrorHandler>
         <>
           <ToastManager />

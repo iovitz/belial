@@ -67,7 +67,9 @@ const PageSider: React.FC = () => {
   } = theme.useToken()
 
   return (
-    <Sider style={{ background: colorBgContainer, borderRight: `1px solid ${colorBorder}` }} width={200}>
+    <Sider
+      style={{ background: colorBgContainer, borderRight: `1px solid ${colorBorder}`, height: '100%' }}
+      width={200}>
       <Menu
         style={{ borderRight: 'none' }}
         mode='inline'

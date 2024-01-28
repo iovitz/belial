@@ -1,6 +1,6 @@
 import { Avatar, Card } from 'antd'
 import Meta from 'antd/es/card/Meta'
-import React from 'react'
+import React, { useEffect } from 'react'
 import style from './styles.module.less'
 import { VideoDesc, VideoDescProp } from './video-desc'
 import { useNavigate } from 'react-router-dom'
@@ -21,6 +21,9 @@ export default function VideoCard(props: VideoCardProp) {
   const handleGoPlay = () => {
     navigate(`/v/${props.id}`)
   }
+  useEffect(() => {
+    console.log('加载')
+  }, [])
   return (
     <Card className={style['video-card']} hoverable cover={<VideoCover url={props.cover} />} onClick={handleGoPlay}>
       <Meta

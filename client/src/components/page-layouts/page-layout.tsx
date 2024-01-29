@@ -1,7 +1,6 @@
 import React from 'react'
-import PageHeader from './page-header'
+import PageHeader from './page-header/page-header'
 import { Grid, GridItem, MenuList, MenuItem, Menu, MenuButton, Portal } from '@chakra-ui/react'
-import styles from './styles.module.less'
 
 const PageLayout: React.FC<{
   children: JSX.Element

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useRoutes } from 'react-router-dom'
-import History from './home/history'
-import HomeWrapper from './home'
+import History from './home/history/history'
+import HomeWrapper from './home/home'
 import Watch from './watch'
-import People from './home/people'
+import People from './home/people/people'
 
 export default function RouterElements() {
   const elements = useRoutes([

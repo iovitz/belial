@@ -11,7 +11,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { UserOutlined } from '@ant-design/icons'
+import { BiUser } from 'react-icons/bi'
 
 type FieldType = {
   username?: string
@@ -50,7 +50,7 @@ export default function UserAvatar() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Avatar icon={<UserOutlined />} ml={'20px'} onClick={handleAvatarClick} />
+      <Avatar icon={<BiUser />} onClick={handleAvatarClick} />
     </>
   )
 }

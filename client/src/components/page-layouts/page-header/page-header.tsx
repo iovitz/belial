@@ -13,7 +13,14 @@ const PageHeader: React.FC = () => {
 
   return (
     <>
-      <Flex flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'} h='100%' px='15px'>
+      <Flex
+        flexDirection={'row'}
+        justifyContent={'space-between'}
+        alignItems={'center'}
+        h='100%'
+        px='15px'
+        borderBottom='1px'
+        borderColor='gray.200'>
         <Heading as='h1' size='lg'>
           {t('oil_tube')}
         </Heading>

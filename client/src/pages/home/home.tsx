@@ -12,11 +12,11 @@ export default function HomeWrapper() {
 
   return (
     <>
-      <Grid templateAreas={`"nav main"`} gridTemplateColumns={'200px 1fr'} h='100%' bg='gray.50'>
-        <GridItem px='2' h='100%' area={'nav'}>
+      <Grid templateAreas={`"nav main"`} gridTemplateColumns={'200px 1fr'} h='100%'>
+        <GridItem h='100%' area={'nav'}>
           <PageSider />
         </GridItem>
-        <GridItem h={'100%'} overflowY={'scroll'} overflowX={'hidden'} area={'main'}>
+        <GridItem h={'100%'} overflowY={'scroll'} overflowX={'hidden'} area={'main'} bg='gray.50'>
           {/* 处理Index路由 */}
           {isIndex ? <Home /> : <Outlet />}
         </GridItem>

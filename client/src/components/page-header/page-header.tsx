@@ -3,6 +3,7 @@ import UserAvatar from './avatar/avatar'
 import { useNavigate } from 'react-router-dom'
 import { Flex, Heading, Input, Wrap, WrapItem, IconButton, Center } from '@chakra-ui/react'
 import { BiVideoPlus, BiBell } from 'react-icons/bi'
+import UploadButton from './upload/upload-button'
 
 const PageHeader: React.FC = () => {
   const navigate = useNavigate()
@@ -21,14 +22,14 @@ const PageHeader: React.FC = () => {
         px='15px'
         borderBottom='1px'
         borderColor='gray.200'>
-        <Heading as='h1' size='lg'>
+        <Heading as='h1' size={'md'} cursor={'pointer'}>
           {t('oil_tube')}
         </Heading>
-        <Input placeholder='站内搜索' size='md' w={500} />
+        <Input placeholder='站内搜索' size='sm' w={500} />
         <Wrap>
           <WrapItem>
             <Center h='100%'>
-              <IconButton colorScheme='gray' aria-label='Search database' size={'sm'} icon={<BiVideoPlus />} />
+              <UploadButton />
             </Center>
           </WrapItem>
           <WrapItem>

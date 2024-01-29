@@ -1,7 +1,6 @@
 import {
   Avatar,
   Button,
-  Input,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -13,29 +12,23 @@ import {
 import React, { useState } from 'react'
 import { BiUser } from 'react-icons/bi'
 
-type FieldType = {
-  username?: string
-  password?: string
-  remember?: string
-}
-
 export default function UserAvatar() {
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
   // const title = {
   //   login: 'Login To Your Account',
   //   register: 'Create Your Account',
   // }
-  function handleAvatarClick() {
-    setIsLoginModalOpen(true)
+  function handleOpenModal() {
+    setModalOpen(true)
   }
 
-  function handleCloseLoginModal() {
-    setIsLoginModalOpen(false)
+  function handleCloseModal() {
+    setModalOpen(false)
   }
 
   return (
     <>
-      <Modal isOpen={isLoginModalOpen} onClose={handleCloseLoginModal}>
+      <Modal isOpen={modalOpen} onClose={handleCloseModal}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>注册</ModalHeader>
@@ -43,14 +36,14 @@ export default function UserAvatar() {
           <ModalBody>content</ModalBody>
 
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={handleCloseLoginModal}>
-              Close
+            <Button colorScheme='blue' mr={3} onClick={handleCloseModal}>
+              关闭
             </Button>
-            <Button variant='ghost'>Secondary Action</Button>
+            <Button variant='ghost'>确认</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Avatar icon={<BiUser />} onClick={handleAvatarClick} />
+      <Avatar icon={<BiUser />} cursor={'pointer'} size={'sm'} onClick={handleOpenModal} />
     </>
   )
 }

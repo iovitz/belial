@@ -28,18 +28,18 @@ export default function Home() {
 
           <CardFooter justify='space-between' flexWrap='wrap'>
             <Box w={'100%'}>
-              <Heading size='md' mb={'1em'} className='text-elipsis' w={'100%'}>
+              <Heading size='sm' mb={'.5em'} className='text-elipsis' w={'100%'}>
                 Segun Adebayoawe发哇嘎哇嘎额外噶我饿给
               </Heading>
               <Box>
                 <Flex flex='1' gap='4' alignItems='center' flexWrap='wrap' w={'100%'}>
-                  <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
+                  <Avatar size={'sm'} name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
                   <Box flex={1} w={0}>
-                    <Heading className='text-elipsis' w={'100%'} size='sm'>
-                      Segun AdebayoAdebayoAdebayoAdebayoAdebayoAdebayo
+                    <Heading className='text-elipsis' w={'100%'} size='xs'>
+                      Segun Adebayo
                     </Heading>
                     <Text className='text-elipsis' fontSize={'xs'}>
-                      With ChakraChakraChakraChakraChakraChakra UI,
+                      With Chakra UI,
                     </Text>
                   </Box>
                 </Flex>

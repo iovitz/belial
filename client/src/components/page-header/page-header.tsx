@@ -1,8 +1,20 @@
 import React from 'react'
 import UserAvatar from './avatar/avatar'
 import { useNavigate } from 'react-router-dom'
-import { Flex, Heading, Input, Wrap, WrapItem, IconButton, Center } from '@chakra-ui/react'
-import { BiVideoPlus, BiBell } from 'react-icons/bi'
+import {
+  Flex,
+  Heading,
+  Input,
+  Wrap,
+  WrapItem,
+  IconButton,
+  Center,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Icon,
+} from '@chakra-ui/react'
+import { BiVideoPlus, BiBell, BiSearchAlt } from 'react-icons/bi'
 import UploadButton from './upload/upload-button'
 
 const PageHeader: React.FC = () => {
@@ -25,7 +37,13 @@ const PageHeader: React.FC = () => {
         <Heading as='h1' size={'md'} cursor={'pointer'}>
           {t('oil_tube')}
         </Heading>
-        <Input placeholder='站内搜索' size='sm' w={500} />
+
+        <InputGroup w={500}>
+          <InputRightElement pointerEvents='none' h={'100%'}>
+            <Icon as={BiSearchAlt} />
+          </InputRightElement>
+          <Input placeholder='站内搜索' size='sm' variant={'filled'} />
+        </InputGroup>
         <Wrap>
           <WrapItem>
             <Center h='100%'>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useRoutes } from 'react-router-dom'
 import History from './home/history/history'
-import HomeWrapper from './home/home'
+import HomeWrapper from './home/layout'
 import Watch from './watch'
 import People from './home/people/people'
 

@@ -8,9 +8,13 @@ import {
   ModalBody,
   ModalFooter,
   ModalCloseButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  MenuButton,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-import { BiUser } from 'react-icons/bi'
+import { BiCog, BiLogOut, BiUser, BiUserPin } from 'react-icons/bi'
 
 export default function UserAvatar() {
   const [modalOpen, setModalOpen] = useState(false)
@@ -44,6 +48,13 @@ export default function UserAvatar() {
         </ModalContent>
       </Modal>
       <Avatar icon={<BiUser />} cursor={'pointer'} size={'sm'} onClick={handleOpenModal} />
+      {/* <Menu>
+        <Avatar as={MenuButton} icon={<BiUser />} cursor={'pointer'} size={'sm'} />
+        <MenuList>
+          <MenuItem icon={<BiUserPin />}>个人中心</MenuItem>
+          <MenuItem icon={<BiLogOut />}>登出</MenuItem>
+        </MenuList>
+      </Menu> */}
     </>
   )
 }

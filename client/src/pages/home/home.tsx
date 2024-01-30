@@ -1,7 +1,7 @@
 import PageSider from '@/components/page-sider/page-sider'
 import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import Home from './home'
+import Home from './home/home'
 import { Grid, GridItem } from '@chakra-ui/react'
 
 export default function HomeWrapper() {

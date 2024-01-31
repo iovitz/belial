@@ -1,69 +1,195 @@
 import React from 'react'
-import UserAvatar from './avatar/avatar'
-import { useNavigate } from 'react-router-dom'
-import {
-  Flex,
-  Heading,
-  Input,
-  Wrap,
-  WrapItem,
-  IconButton,
-  Center,
-  InputGroup,
-  InputLeftElement,
-  InputRightElement,
-  Icon,
-} from '@chakra-ui/react'
-import { BiVideoPlus, BiBell, BiSearchAlt } from 'react-icons/bi'
-import UploadButton from './upload/upload-button'
+import { useColorScheme } from '@mui/joy/styles'
+import Box from '@mui/joy/Box'
+import Typography from '@mui/joy/Typography'
+import IconButton from '@mui/joy/IconButton'
+import Stack from '@mui/joy/Stack'
+import Avatar from '@mui/joy/Avatar'
+import Input from '@mui/joy/Input'
+import Button from '@mui/joy/Button'
+import Tooltip from '@mui/joy/Tooltip'
+import Dropdown from '@mui/joy/Dropdown'
+import Menu from '@mui/joy/Menu'
+import MenuButton from '@mui/joy/MenuButton'
+import MenuItem from '@mui/joy/MenuItem'
+import ListDivider from '@mui/joy/ListDivider'
+import Drawer from '@mui/joy/Drawer'
+import ModalClose from '@mui/joy/ModalClose'
+import DialogTitle from '@mui/joy/DialogTitle'
 
-const PageHeader: React.FC = () => {
-  const navigate = useNavigate()
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
+import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
+import BookRoundedIcon from '@mui/icons-material/BookRounded'
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
+import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
+import TeamNav from '../navigation/navigation'
 
-  const handleGoHomePage = () => {
-    navigate('/')
+function ColorSchemeToggle() {
+  const { mode, setMode } = useColorScheme()
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+  if (!mounted) {
+    return <IconButton size='sm' variant='outlined' color='primary' />
   }
-
   return (
-    <>
-      <Flex
-        flexDirection={'row'}
-        justifyContent={'space-between'}
-        alignItems={'center'}
-        h='100%'
-        px='15px'
-        borderBottom='1px'
-        borderColor='gray.200'>
-        <Heading as='h1' size={'md'} cursor={'pointer'}>
-          {t('oil_tube')}
-        </Heading>
-
-        <InputGroup w={500}>
-          <InputRightElement pointerEvents='none' h={'100%'}>
-            <Icon as={BiSearchAlt} />
-          </InputRightElement>
-          <Input placeholder='站内搜索' size='sm' variant={'filled'} />
-        </InputGroup>
-        <Wrap>
-          <WrapItem>
-            <Center h='100%'>
-              <UploadButton />
-            </Center>
-          </WrapItem>
-          <WrapItem>
-            <Center h='100%'>
-              <IconButton colorScheme='gray' aria-label='Search database' size={'sm'} icon={<BiBell />} />
-            </Center>
-          </WrapItem>
-          <WrapItem>
-            <Center h='100%'>
-              <UserAvatar />
-            </Center>
-          </WrapItem>
-        </Wrap>
-      </Flex>
-    </>
+    <Tooltip title='Change theme' variant='outlined'>
+      <IconButton
+        id='toggle-mode'
+        size='sm'
+        variant='plain'
+        color='neutral'
+        sx={{ alignSelf: 'center' }}
+        onClick={() => {
+          if (mode === 'light') {
+            setMode('dark')
+          } else {
+            setMode('light')
+          }
+        }}>
+        {mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
+      </IconButton>
+    </Tooltip>
   )
 }
 
-export default PageHeader
+export default function Header() {
+  const [open, setOpen] = React.useState(false)
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexGrow: 1,
+        justifyContent: 'space-between',
+      }}>
+      <Stack
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
+        spacing={1}
+        sx={{ display: { xs: 'none', sm: 'flex' } }}>
+        <h1>HahaVideo</h1>
+        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
+          Email
+        </Button>
+        <Button variant='plain' color='neutral' aria-pressed='true' size='sm' sx={{ alignSelf: 'center' }}>
+          Team
+        </Button>
+        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
+          Files
+        </Button>
+      </Stack>
+      <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
+        <IconButton variant='plain' color='neutral' onClick={() => setOpen(true)}>
+          <MenuRoundedIcon />
+        </IconButton>
+        <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
+          <ModalClose />
+          <DialogTitle>Acme Co.</DialogTitle>
+          <Box sx={{ px: 1 }}>
+            <TeamNav />
+          </Box>
+        </Drawer>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 1.5,
+          alignItems: 'center',
+        }}>
+        <Input
+          size='sm'
+          variant='outlined'
+          placeholder='Search anything…'
+          startDecorator={<SearchRoundedIcon color='primary' />}
+          sx={{
+            alignSelf: 'center',
+            display: {
+              xs: 'none',
+              sm: 'flex',
+            },
+          }}
+        />
+        <IconButton
+          size='sm'
+          variant='outlined'
+          color='neutral'
+          sx={{ display: { xs: 'inline-flex', sm: 'none' }, alignSelf: 'center' }}>
+          <SearchRoundedIcon />
+        </IconButton>
+        <Tooltip title='Joy UI overview' variant='outlined'>
+          <IconButton
+            size='sm'
+            variant='plain'
+            color='neutral'
+            component='a'
+            href='/blog/first-look-at-joy/'
+            sx={{ alignSelf: 'center' }}>
+            <BookRoundedIcon />
+          </IconButton>
+        </Tooltip>
+        <ColorSchemeToggle />
+        <Dropdown>
+          <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
+            <Avatar
+              src='https://i.pravatar.cc/40?img=2'
+              srcSet='https://i.pravatar.cc/80?img=2'
+              sx={{ maxWidth: '32px', maxHeight: '32px' }}
+            />
+          </MenuButton>
+          <Menu
+            placement='bottom-end'
+            size='sm'
+            sx={{
+              zIndex: '99999',
+              p: 1,
+              gap: 1,
+              '--ListItem-radius': 'var(--joy-radius-sm)',
+            }}>
+            <MenuItem>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}>
+                <Avatar
+                  src='https://i.pravatar.cc/40?img=2'
+                  srcSet='https://i.pravatar.cc/80?img=2'
+                  sx={{ borderRadius: '50%' }}
+                />
+                <Box sx={{ ml: 1.5 }}>
+                  <Typography level='title-sm' textColor='text.primary'>
+                    Rick Sanchez
+                  </Typography>
+                  <Typography level='body-xs' textColor='text.tertiary'>
+                    rick@email.com
+                  </Typography>
+                </Box>
+              </Box>
+            </MenuItem>
+            <ListDivider />
+            <MenuItem>
+              <HelpRoundedIcon />
+              Help
+            </MenuItem>
+            <MenuItem>
+              <SettingsRoundedIcon />
+              Settings
+            </MenuItem>
+            <ListDivider />
+            <MenuItem>
+              <LogoutRoundedIcon />
+              Log out
+            </MenuItem>
+          </Menu>
+        </Dropdown>
+      </Box>
+    </Box>
+  )
+}

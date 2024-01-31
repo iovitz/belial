@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
-import PageLayout from '@/components/page-layouts/page-layout'
-import RouterElements from './pages'
+import RouterElements from './pages/routes'
 import ErrorHandler from './components/error-handler/error-handler'
-import { Box } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 const App: React.FC = () => {
@@ -14,15 +12,11 @@ const App: React.FC = () => {
     }
   }, [])
   return (
-    <Box h='100%'>
-      <ErrorHandler>
-        <>
-          <PageLayout>
-            <RouterElements />
-          </PageLayout>
-        </>
-      </ErrorHandler>
-    </Box>
+    <ErrorHandler>
+      <>
+        <RouterElements />
+      </>
+    </ErrorHandler>
   )
 }
 

@@ -72,7 +72,13 @@ export default function Header() {
         alignItems='center'
         spacing={1}
         sx={{ display: { xs: 'none', sm: 'flex' } }}>
-        <h1>HahaVideo</h1>
+        <Box
+          component={'h1'}
+          sx={{
+            fontSize: '1.5em',
+          }}>
+          YoVideo
+        </Box>
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
           Email
         </Button>

@@ -9,13 +9,15 @@ import FolderRoundedIcon from '@mui/icons-material/FolderRounded'
 import Layout from '@/components/page-layouts/page-layout'
 import Header from '@/components/page-header/page-header'
 import Navigation from '@/components/navigation/navigation'
-import { Outlet } from 'react-router-dom'
+// import { Outlet } from 'react-router-dom'
+import Home from './home/home'
+import Box from '@mui/joy/Box'
 
 export default function HomeContainer() {
   const [drawerOpen, setDrawerOpen] = React.useState(false)
 
   return (
-    <>
+    <Box height={'100%'}>
       {drawerOpen && (
         <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
           <Navigation />
@@ -72,7 +74,7 @@ export default function HomeContainer() {
       <Layout.Root
         sx={{
           ...(drawerOpen && {
-            height: '100vh',
+            height: '100%',
             overflow: 'hidden',
           }),
         }}>
@@ -82,10 +84,16 @@ export default function HomeContainer() {
         <Layout.SideNav>
           <Navigation />
         </Layout.SideNav>
-        <Layout.Main>
-          <Outlet />
+        <Layout.Main
+          flex={1}
+          sx={{
+            height: '100%',
+            overflowY: 'scroll',
+          }}>
+          {/* <Outlet /> */}
+          <Home />
         </Layout.Main>
       </Layout.Root>
-    </>
+    </Box>
   )
 }

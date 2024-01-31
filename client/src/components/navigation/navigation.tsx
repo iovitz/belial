@@ -17,7 +17,7 @@ export default function Navigation() {
   return (
     <List size='sm' sx={{ '--ListItem-radius': 'var(--joy-radius-sm)', '--List-gap': '4px' }}>
       <ListItem nested>
-        <ListSubheader sx={{ letterSpacing: '2px', fontWeight: '800' }}>Browse</ListSubheader>
+        <ListSubheader sx={{ letterSpacing: '2px', fontWeight: '800' }}>Menu</ListSubheader>
         <List
           aria-labelledby='nav-list-browse'
           sx={{

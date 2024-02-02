@@ -77,16 +77,16 @@ export default function Header() {
           sx={{
             fontSize: '1.5em',
           }}>
-          YoVideo
+          {t('yo_video')}
         </Box>
-        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
-          Email
-        </Button>
         <Button variant='plain' color='neutral' aria-pressed='true' size='sm' sx={{ alignSelf: 'center' }}>
-          Team
+          主页
         </Button>
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
-          Files
+          创作
+        </Button>
+        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
+          空间
         </Button>
       </Stack>
       <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
@@ -95,12 +95,26 @@ export default function Header() {
         </IconButton>
         <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
           <ModalClose />
-          <DialogTitle>Acme Co.</DialogTitle>
+          <DialogTitle>{t('yo_video')}</DialogTitle>
           <Box sx={{ px: 1 }}>
             <TeamNav />
           </Box>
         </Drawer>
       </Box>
+
+      <Input
+        size='sm'
+        variant='outlined'
+        placeholder='Search anything…'
+        startDecorator={<SearchRoundedIcon color='primary' />}
+        sx={{
+          alignSelf: 'center',
+          display: {
+            xs: 'none',
+            sm: 'flex',
+          },
+        }}
+      />
 
       <Box
         sx={{
@@ -109,19 +123,6 @@ export default function Header() {
           gap: 1.5,
           alignItems: 'center',
         }}>
-        <Input
-          size='sm'
-          variant='outlined'
-          placeholder='Search anything…'
-          startDecorator={<SearchRoundedIcon color='primary' />}
-          sx={{
-            alignSelf: 'center',
-            display: {
-              xs: 'none',
-              sm: 'flex',
-            },
-          }}
-        />
         <IconButton
           size='sm'
           variant='outlined'

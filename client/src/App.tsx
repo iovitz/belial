@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import RouterElements from './pages/routes'
 import ErrorHandler from './components/error-handler/error-handler'
-import { useTranslation } from 'react-i18next'
+import { useWindowI18n } from './hooks/useWindowI18n'
 
 const App: React.FC = () => {
-  const { t } = useTranslation()
-  useEffect(() => {
-    window.t = t
-    return () => {
-      console.error('App Unmount')
-    }
-  }, [])
+  useWindowI18n()
   return (
     <ErrorHandler>
       <>

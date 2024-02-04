@@ -1,4 +1,4 @@
-import logger from '@/utils/logger'
+import logger from '@/common/logger'
 import React, { ErrorInfo, ReactElement } from 'react'
 interface ErrorHandlerProp {
   children: ReactElement

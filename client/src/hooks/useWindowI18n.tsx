@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-export function useWindowI18n() {
+export function useGlobalI18n() {
   const { t } = useTranslation()
   useEffect(() => {
     if (window.t !== t) {

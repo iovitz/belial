@@ -1,18 +1,11 @@
 import React from 'react'
 import { useColorScheme } from '@mui/joy/styles'
 import Box from '@mui/joy/Box'
-import Typography from '@mui/joy/Typography'
 import IconButton from '@mui/joy/IconButton'
 import Stack from '@mui/joy/Stack'
-import Avatar from '@mui/joy/Avatar'
 import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
 import Tooltip from '@mui/joy/Tooltip'
-import Dropdown from '@mui/joy/Dropdown'
-import Menu from '@mui/joy/Menu'
-import MenuButton from '@mui/joy/MenuButton'
-import MenuItem from '@mui/joy/MenuItem'
-import ListDivider from '@mui/joy/ListDivider'
 import Drawer from '@mui/joy/Drawer'
 import ModalClose from '@mui/joy/ModalClose'
 import DialogTitle from '@mui/joy/DialogTitle'
@@ -21,11 +14,9 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import BookRoundedIcon from '@mui/icons-material/BookRounded'
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
-import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 import TeamNav from '../navigation/navigation'
+import HeaderAvatar from './header-avatar'
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme()
@@ -77,7 +68,7 @@ export default function Header() {
           sx={{
             fontSize: '1.5em',
           }}>
-          {t('yo_video')}
+          {t('egg_video')}
         </Box>
         <Button variant='plain' color='neutral' aria-pressed='true' size='sm' sx={{ alignSelf: 'center' }}>
           主页
@@ -86,7 +77,7 @@ export default function Header() {
           创作
         </Button>
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
-          空间
+          漫游
         </Button>
       </Stack>
       <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
@@ -95,7 +86,7 @@ export default function Header() {
         </IconButton>
         <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
           <ModalClose />
-          <DialogTitle>{t('yo_video')}</DialogTitle>
+          <DialogTitle>{t('egg_video')}</DialogTitle>
           <Box sx={{ px: 1 }}>
             <TeamNav />
           </Box>
@@ -142,60 +133,7 @@ export default function Header() {
           </IconButton>
         </Tooltip>
         <ColorSchemeToggle />
-        <Dropdown>
-          <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
-            <Avatar
-              src='https://i.pravatar.cc/40?img=2'
-              srcSet='https://i.pravatar.cc/80?img=2'
-              sx={{ maxWidth: '32px', maxHeight: '32px' }}
-            />
-          </MenuButton>
-          <Menu
-            placement='bottom-end'
-            size='sm'
-            sx={{
-              zIndex: '99999',
-              p: 1,
-              gap: 1,
-              '--ListItem-radius': 'var(--joy-radius-sm)',
-            }}>
-            <MenuItem>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}>
-                <Avatar
-                  src='https://i.pravatar.cc/40?img=2'
-                  srcSet='https://i.pravatar.cc/80?img=2'
-                  sx={{ borderRadius: '50%' }}
-                />
-                <Box sx={{ ml: 1.5 }}>
-                  <Typography level='title-sm' textColor='text.primary'>
-                    Rick Sanchez
-                  </Typography>
-                  <Typography level='body-xs' textColor='text.tertiary'>
-                    rick@email.com
-                  </Typography>
-                </Box>
-              </Box>
-            </MenuItem>
-            <ListDivider />
-            <MenuItem>
-              <HelpRoundedIcon />
-              Help
-            </MenuItem>
-            <MenuItem>
-              <SettingsRoundedIcon />
-              Settings
-            </MenuItem>
-            <ListDivider />
-            <MenuItem>
-              <LogoutRoundedIcon />
-              Log out
-            </MenuItem>
-          </Menu>
-        </Dropdown>
+        <HeaderAvatar />
       </Box>
     </Box>
   )

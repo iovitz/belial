@@ -13,10 +13,10 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import VideoCallIcon from '@mui/icons-material/VideoCall'
 import TeamNav from '../navigation/navigation'
 import HeaderAvatar from './header-avatar'
 import HeaderSearch from './header-search'
+import HeaderUplaod from './header-upload'
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme()
@@ -112,11 +112,7 @@ export default function Header() {
           sx={{ display: { xs: 'inline-flex', sm: 'none' }, alignSelf: 'center' }}>
           <SearchRoundedIcon />
         </IconButton>
-        <Tooltip title='上传视频' variant='outlined'>
-          <IconButton size='sm' variant='plain' color='neutral' sx={{ alignSelf: 'center' }}>
-            <VideoCallIcon />
-          </IconButton>
-        </Tooltip>
+        <HeaderUplaod />
         <ColorSchemeToggle />
         <HeaderAvatar />
       </Box>

@@ -14,7 +14,7 @@ module.exports = class SubscriptionService extends Service {
       user: userid,
       channel: channelId,
     });
-    return record
+    return record;
   }
 
   async subscribe(userid, channelId) {

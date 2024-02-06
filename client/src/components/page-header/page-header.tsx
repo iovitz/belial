@@ -3,7 +3,6 @@ import { useColorScheme } from '@mui/joy/styles'
 import Box from '@mui/joy/Box'
 import IconButton from '@mui/joy/IconButton'
 import Stack from '@mui/joy/Stack'
-import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
 import Tooltip from '@mui/joy/Tooltip'
 import Drawer from '@mui/joy/Drawer'
@@ -13,10 +12,11 @@ import DialogTitle from '@mui/joy/DialogTitle'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
-import BookRoundedIcon from '@mui/icons-material/BookRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
+import VideoCallIcon from '@mui/icons-material/VideoCall'
 import TeamNav from '../navigation/navigation'
 import HeaderAvatar from './header-avatar'
+import HeaderSearch from './header-search'
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme()
@@ -28,7 +28,7 @@ function ColorSchemeToggle() {
     return <IconButton size='sm' variant='outlined' color='primary' />
   }
   return (
-    <Tooltip title='Change theme' variant='outlined'>
+    <Tooltip title='切换主题' variant='outlined'>
       <IconButton
         id='toggle-mode'
         size='sm'
@@ -74,6 +74,9 @@ export default function Header() {
           主页
         </Button>
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
+          播放
+        </Button>
+        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
           创作
         </Button>
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
@@ -93,19 +96,7 @@ export default function Header() {
         </Drawer>
       </Box>
 
-      <Input
-        size='sm'
-        variant='outlined'
-        placeholder='Search anything…'
-        startDecorator={<SearchRoundedIcon color='primary' />}
-        sx={{
-          alignSelf: 'center',
-          display: {
-            xs: 'none',
-            sm: 'flex',
-          },
-        }}
-      />
+      <HeaderSearch />
 
       <Box
         sx={{
@@ -121,15 +112,9 @@ export default function Header() {
           sx={{ display: { xs: 'inline-flex', sm: 'none' }, alignSelf: 'center' }}>
           <SearchRoundedIcon />
         </IconButton>
-        <Tooltip title='Joy UI overview' variant='outlined'>
-          <IconButton
-            size='sm'
-            variant='plain'
-            color='neutral'
-            component='a'
-            href='/blog/first-look-at-joy/'
-            sx={{ alignSelf: 'center' }}>
-            <BookRoundedIcon />
+        <Tooltip title='上传视频' variant='outlined'>
+          <IconButton size='sm' variant='plain' color='neutral' sx={{ alignSelf: 'center' }}>
+            <VideoCallIcon />
           </IconButton>
         </Tooltip>
         <ColorSchemeToggle />

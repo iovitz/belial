@@ -14,13 +14,14 @@ module.exports = (app) => {
 
   // 账号相关
   const authRouter = router.namespace("/api/auth");
-  registerRouter(authRouter, "post", "/login/v1", auth.login);
-  registerRouter(authRouter, "post", "/register/v1", auth.register);
+  registerRouter(authRouter, "post", "/login", auth.login);
+  registerRouter(authRouter, "post", "/register", auth.register);
+  registerRouter(authRouter, "get", "/login_code", auth.getVerifyCode);
 
   // 用户信息
   const userRouter = router.namespace("/api/user");
-  registerRouter(userRouter, "get", "/getUser/:userid", user.getUser);
-  registerRouter(userRouter, "get", "/getCurrentUser", user.getCurrentUser, {
+  registerRouter(userRouter, "get", "/user/:userid", user.getUser);
+  registerRouter(userRouter, "get", "/current_user", user.getCurrentUser, {
     auth: true,
   });
   registerRouter(userRouter, "patch", "/update", user.update, {

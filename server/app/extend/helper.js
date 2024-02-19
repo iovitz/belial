@@ -1,9 +1,5 @@
 module.exports = {
-  md5(val) {
-    const lang = this.ctx.get("Accept-Language");
-    if (lang.includes("zh-CN")) {
-      return `￥ ${val}`;
-    }
-    return `$ ${val}`;
+  gzip(t) {
+    return t;
   },
 };

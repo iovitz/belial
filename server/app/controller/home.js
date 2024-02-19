@@ -3,7 +3,9 @@ const Controller = require("../core/controller");
 class BizController extends Controller {
   async getStatus() {
     const { ctx } = this;
-    ctx.service.mail.sendMail("HAHAHAH");
+    console.log(ctx.session);
+    // ctx.service.mail.sendMail("HAHAHAH");
+    ctx.session.name = "zhangsan";
     ctx.success("work");
   }
 }

@@ -58,6 +58,24 @@ class BizController extends Controller {
       token,
     });
   }
+
+  getVerifyCode() {
+    const { ctx } = this;
+    console.log(ctx.session);
+    ctx.validate(
+      {
+        width: { type: "string", required: true },
+        height: { type: "string", required: true },
+      },
+      ctx.query,
+    );
+    const data = ctx.service.code.getVerifyCode("login", Number(ctx.query.width), Number(ctx.query.height));
+
+    ctx.session.code = "text";
+    ctx.session.time = "Date.now()";
+
+    ctx.success(data);
+  }
 }
 
 module.exports = BizController;

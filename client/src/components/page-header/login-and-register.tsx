@@ -1,28 +1,15 @@
-import { Box, Button, DialogContent, DialogTitle, FormControl, FormLabel, Input, Stack } from '@mui/joy'
+import { Box, DialogContent, DialogTitle } from '@mui/joy'
 import React, { useState } from 'react'
+import LoginForm from './login-form'
+import RegisterForm from './register-form'
 
 export default function LoginAndRegister() {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   return (
     <>
       <DialogTitle>{isLogin ? '登录' : '注册'}</DialogTitle>
-      <DialogContent>{isLogin ? '使用你的邮箱和密码进行登录' : '注册新账号'}</DialogContent>
-      <form
-        onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-          event.preventDefault()
-        }}>
-        <Stack spacing={2}>
-          <FormControl>
-            <FormLabel>邮箱</FormLabel>
-            <Input autoFocus type='email' required />
-          </FormControl>
-          <FormControl>
-            <FormLabel>密码</FormLabel>
-            <Input type='password' required />
-          </FormControl>
-          <Button type='submit'>Submit</Button>
-        </Stack>
-      </form>
+      <DialogContent>{isLogin ? '使用你的邮箱和密码进行登录' : '使用你的常用邮箱注册账号'}</DialogContent>
+      {isLogin ? <LoginForm /> : <RegisterForm />}
       <DialogContent
         sx={{
           textAlign: 'center',

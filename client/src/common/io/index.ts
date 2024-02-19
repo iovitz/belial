@@ -20,7 +20,7 @@ export class IO {
     })
   }
 
-  request<R>(config: AxiosRequestConfig) {
+  request<R = unknown>(config: AxiosRequestConfig) {
     return this.axios.request<R>(config)
   }
 
@@ -41,10 +41,12 @@ export class IO {
   }
 }
 
-export const IOWrap = new IO({
+export const IOInstance = new IO({
   socketConfig: {
-    socketUrl: 'localhost:4321',
-    socketPath: '/socket.io',
+    socketUrl: process.env.REACT_APP_SOCKET_URL!,
+    socketPath: process.env.REACT_APP_SOCKET_PATH!,
     socketAuth: 'awefawfe',
   },
+  baseURL: process.env.REACT_APP_REQUEST_BASE_URL,
+  timeout: Number(process.env.REACT_APP_REQUEST_TIMEOUT),
 })

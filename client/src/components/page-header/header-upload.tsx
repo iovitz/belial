@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   DialogTitle,
   FormControl,
@@ -13,11 +14,24 @@ import {
   Tooltip,
   Typography,
 } from '@mui/joy'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import AddIcon from '@mui/icons-material/Add'
 import VideoCallIcon from '@mui/icons-material/VideoCall'
 
 export default function HeaderUplaod() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const fileUploaderRef = useRef<HTMLInputElement>(null)
+
+  const handleUploadFile = () => {
+    fileUploaderRef.current?.click()
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files) return
+    console.log(files)
+  }
+
   return (
     <>
       <Tooltip title='上传视频' variant='outlined'>
@@ -44,13 +58,40 @@ export default function HeaderUplaod() {
                 autoFocus
                 required
                 sx={{
-                  width: '500px',
+                  width: {
+                    xs: '100%',
+                    md: '600px',
+                  },
                 }}
               />
             </FormControl>
             <FormControl>
-              <Textarea placeholder='视频描述' variant='soft' minRows={2} />
+              <Textarea placeholder='视频描述' variant='soft' minRows={4} maxRows={4} />
             </FormControl>
+
+            <Box
+              sx={{
+                border: '1px dashed',
+                borderColor: 'neutral.outlinedBorder',
+                color: 'neutral.outlinedBorder',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingY: '40px',
+                cursor: 'pointer',
+              }}
+              onClick={handleUploadFile}>
+              <AddIcon
+                sx={{
+                  fontSize: '100px',
+                  outlineColor: 'neutral.outlinedBorder',
+                  color: 'inherit',
+                }}
+              />
+              点击上传或拖放视频到此处
+            </Box>
+
+            <input type='file' ref={fileUploaderRef} hidden onChange={handleFileChange} />
 
             <LinearProgress determinate variant='outlined' color='neutral' size='sm' thickness={24} value={40} sx={{}}>
               <Typography level='body-xs' fontWeight='xl' sx={{ mixBlendMode: 'difference' }}>

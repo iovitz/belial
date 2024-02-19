@@ -89,7 +89,7 @@ export default function HeaderAvatar() {
       )}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalDialog>
+        <ModalDialog maxWidth={350} minWidth={350}>
           <ModalClose />
           <LoginAndRegister />
         </ModalDialog>

@@ -50,6 +50,15 @@ module.exports = (appInfo) => {
     },
   };
 
+  exports.session = {
+    key: "serve_session",
+    maxAge: 30 * 24 * 3600 * 1000, // 1 天
+    httpOnly: false,
+    encrypt: false,
+    renew: true,
+    sameSite: "none",
+  };
+
   config.gzipThreshold = 1000;
 
   return {

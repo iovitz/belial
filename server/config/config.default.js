@@ -7,6 +7,8 @@ module.exports = (appInfo) => {
   // 需要进行jwt鉴权的路由前缀
   config.needAuthPrefixList = [];
 
+  config.keys = 'b22db542-2691-47d9-997d-512a0c554d5b'
+
   config.static = {
     prefix: "/",
     dir: path.join(appInfo.baseDir, "app/public"),
@@ -51,7 +53,7 @@ module.exports = (appInfo) => {
   };
 
   exports.session = {
-    key: "serve_session",
+    key: "__server_session__",
     maxAge: 30 * 24 * 3600 * 1000, // 1 天
     httpOnly: false,
     encrypt: false,

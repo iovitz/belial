@@ -10,7 +10,7 @@ module.exports = (app) => {
 
   // 普通请求
   const homeRouter = router.namespace("/api");
-  registerRouter(homeRouter, "get", "/status/:id", home.getStatus);
+  registerRouter(homeRouter, "get", "/status", home.getStatus);
 
   // 账号相关
   const authRouter = router.namespace("/api/auth");

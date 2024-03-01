@@ -1,3 +1,4 @@
 # 根目录请求
 
-GET http://127.0.0.1:4321/api/status HTTP/1.1
+# 测试服务器运行状态
+GET {{hostname}}/status HTTP/1.1

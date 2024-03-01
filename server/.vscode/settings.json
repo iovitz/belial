@@ -1,3 +1,16 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "rest-client.environmentVariables": {
+    // 共享变量
+    "$shared": {
+    },
+    // 开发环境
+    "local": {
+      "hostname": "http://127.0.0.1:4321/api",
+    },
+    // 线上环境
+    "production": {
+      "hostname": "http://127.0.0.1:1234/api",
+    }
+  }
 }

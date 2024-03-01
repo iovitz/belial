@@ -16,7 +16,7 @@ module.exports = (app) => {
   const authRouter = router.namespace("/api/auth");
   registerRouter(authRouter, "post", "/login", auth.login);
   registerRouter(authRouter, "post", "/register", auth.register);
-  registerRouter(authRouter, "get", "/login_code", auth.getVerifyCode);
+  registerRouter(authRouter, "get", "/login_verify_code", auth.getLoginVerifyCode);
 
   // 用户信息
   const userRouter = router.namespace("/api/user");

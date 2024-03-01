@@ -59,7 +59,7 @@ class BizController extends Controller {
     });
   }
 
-  getVerifyCode() {
+  getLoginVerifyCode() {
     const { ctx } = this;
     console.log(ctx.session);
     ctx.validate(

@@ -21,9 +21,3 @@ Content-Type: application/json
     "email": "eggvideo@gmail.com",
     "password": "eggvideo"
 }
-
-### 验证码
-# @name LoginVerifyCode
-GET  {{baseUrl}}/login_verify_code
-    ?width=200
-    &height=100

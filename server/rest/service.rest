@@ -1,0 +1,9 @@
+# 根目录请求
+@baseUrl = {{hostname}}/service
+
+### 验证码
+# @name VerifyCode
+GET  {{baseUrl}}/verify_code
+    ?width=200
+    &height=100
+    &field=login

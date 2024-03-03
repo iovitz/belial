@@ -35,10 +35,14 @@ class BizController extends Controller {
       username: { type: "string", required: true, max: 10, min: 2 },
       password: { type: "string", required: true, max: 16, min: 6 },
       email: { type: "string", required: true, max: 20, min: 6 },
+      vcode: { type: "string", required: true, max: 4, min: 4 },
+      field: { type: "string", required: true, max: 20 },
     });
     ctx.validate({
       email: { type: "email", required: true },
     });
+    ctx.service.code.checkVerifyCode("login", ctx.$body.vcode);
+
     const userService = this.service.user;
     if (await userService.findByUsername(body.username)) {
       return ctx.throw(422, "用户名已存在");
@@ -57,24 +61,6 @@ class BizController extends Controller {
       ...userService.getUserInfoByModel(user),
       token,
     });
-  }
-
-  getLoginVerifyCode() {
-    const { ctx } = this;
-    console.log(ctx.session);
-    ctx.validate(
-      {
-        width: { type: "string", required: true },
-        height: { type: "string", required: true },
-      },
-      ctx.query,
-    );
-    const data = ctx.service.code.getVerifyCode("login", Number(ctx.query.width), Number(ctx.query.height));
-
-    ctx.session.code = "text";
-    ctx.session.time = "Date.now()";
-
-    ctx.success(data);
   }
 }
 

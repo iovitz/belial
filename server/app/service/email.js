@@ -5,6 +5,7 @@ let _transporter = null;
 
 module.exports = class MailService extends Service {
   get transporter() {
+    console.log(this.config.email)
     if (!_transporter) {
       _transporter = nodemailer.createTransport({
         host: this.config.email.host,

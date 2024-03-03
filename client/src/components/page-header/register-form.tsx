@@ -1,8 +1,28 @@
+import { IOInstance } from '@/common/io'
 import { Box, Button, FormControl, Input, Stack } from '@mui/joy'
-import React from 'react'
+import React, { useState } from 'react'
 import VerifyCode from '../verify-code/verify-code'
 
 export default function RegisterForm() {
+  const [nickname, setNickname] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [vcode, setVcode] = useState('')
+
+  async function handleRegister() {
+    const res = await IOInstance.request({
+      method: 'post',
+      url: '/auth/register',
+      data: {
+        username: nickname,
+        email,
+        password,
+        vcode,
+        field: 'login',
+      },
+    })
+    console.log(res)
+  }
   return (
     <>
       <form
@@ -10,6 +30,23 @@ export default function RegisterForm() {
           event.preventDefault()
         }}>
         <Stack spacing={2}>
+          <FormControl>
+            <Input
+              autoFocus
+              size='lg'
+              variant='soft'
+              required
+              placeholder='选择一个你喜欢的昵称'
+              slotProps={{
+                input: {
+                  minLength: 1,
+                  maxLength: 10,
+                },
+              }}
+              value={nickname}
+              onChange={(event) => setNickname(event.target.value)}
+            />
+          </FormControl>
           <FormControl>
             <Input
               autoFocus
@@ -25,6 +62,8 @@ export default function RegisterForm() {
                   pattern: '^([\\w]+)@([\\w]+)\\.([a-zA-Z]{2,4})$',
                 },
               }}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
           </FormControl>
           <FormControl>
@@ -40,6 +79,8 @@ export default function RegisterForm() {
                   maxLength: 16,
                 },
               }}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
             />
           </FormControl>
           <FormControl>
@@ -57,28 +98,15 @@ export default function RegisterForm() {
                       maxLength: 4,
                     },
                   }}
+                  value={vcode}
+                  onChange={(event) => setVcode(event.target.value)}
                 />
               </Box>
             </Stack>
           </FormControl>
-          <Button type='submit' size='lg' variant='soft'>
-            发送邮箱验证码
-          </Button>
         </Stack>
       </form>
-      <Input
-        size='lg'
-        variant='soft'
-        required
-        placeholder='请输入邮箱验证码'
-        slotProps={{
-          input: {
-            minLength: 6,
-            maxLength: 16,
-          },
-        }}
-      />
-      <Button type='submit' size='lg'>
+      <Button type='submit' size='lg' onClick={handleRegister}>
         登录
       </Button>
     </>

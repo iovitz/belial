@@ -16,10 +16,11 @@ export default function VerifyCode() {
       const width = svgDom.offsetWidth
       IOInstance.request<unknown>({
         method: 'get',
-        url: '/auth/login_code',
+        url: '/service/verify_code',
         params: {
           width,
           height,
+          field: 'login',
         },
       }).then((res) => {
         svgDom.innerHTML = res.data as string

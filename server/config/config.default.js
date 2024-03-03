@@ -7,7 +7,7 @@ module.exports = (appInfo) => {
   // 需要进行jwt鉴权的路由前缀
   config.needAuthPrefixList = [];
 
-  config.keys = 'b22db542-2691-47d9-997d-512a0c554d5b'
+  config.keys = "b22db542-2691-47d9-997d-512a0c554d5b";
 
   config.static = {
     prefix: "/",

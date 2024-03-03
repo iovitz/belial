@@ -16,7 +16,6 @@ module.exports = (app) => {
   const authRouter = router.namespace("/api/auth");
   registerRouter(authRouter, "post", "/login", auth.login);
   registerRouter(authRouter, "post", "/register", auth.register);
-  registerRouter(authRouter, "get", "/login_verify_code", auth.getLoginVerifyCode);
 
   // 用户信息
   const userRouter = router.namespace("/api/user");
@@ -39,6 +38,7 @@ module.exports = (app) => {
 
   // 其他三方服务
   const serviceRouter = router.namespace("/api/service");
+  registerRouter(serviceRouter, "get", "/verify_code", service.getVerifyCode);
   registerRouter(serviceRouter, "get", "/createUploadVideo", service.createUploadVideo, {
     auth: true,
   });

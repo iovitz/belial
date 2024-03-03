@@ -20,7 +20,7 @@ export class IO {
     })
   }
 
-  request<R = unknown>(config: AxiosRequestConfig) {
+  request<R = unknown>(config: AxiosRequestConfig<R>) {
     return this.axios.request<R>(config)
   }
 

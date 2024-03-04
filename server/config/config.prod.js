@@ -3,8 +3,7 @@ module.exports = () => {
 
   config.cors = {
     origin: "http://localhost:8765",
-    // cookie跨域配置
-    credentials: true,
+    allowMethods: "GET,HEAD,PUT,POST,DELETE,PATCH",
   };
   return {
     ...config,

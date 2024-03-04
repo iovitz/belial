@@ -1,7 +1,7 @@
 lockfileVersion: '6.0'
 
 settings:
-  autoInstallPeers: false
+  autoInstallPeers: true
   excludeLinksFromLockfile: false
 
 dependencies:
@@ -37,7 +37,7 @@ dependencies:
     version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
   '@testing-library/user-event':
     specifier: ^13.5.0
-    version: 13.5.0
+    version: 13.5.0(@testing-library/dom@8.20.1)
   '@types/jest':
     specifier: ^27.5.2
     version: 27.5.2
@@ -97,7 +97,7 @@ dependencies:
     version: 1.0.1
   eslint-config-react-app:
     specifier: ^7.0.1
-    version: 7.0.1(eslint@8.55.0)(jest@27.5.1)(typescript@4.9.5)
+    version: 7.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(jest@27.5.1)(typescript@4.9.5)
   eslint-webpack-plugin:
     specifier: ^3.1.1
     version: 3.2.0(eslint@8.55.0)(webpack@5.89.0)
@@ -3052,13 +3052,14 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@testing-library/user-event@13.5.0:
+  /@testing-library/user-event@13.5.0(@testing-library/dom@8.20.1):
     resolution: {integrity: sha512-5Kwtbo3Y/NowpkbRuSepbyMFkZmHgD+vPzYB/RJ4oxt5Gj/avFFBYjhw27cqSVPVw/3a67NK1PbiIr9k4Gwmdg==}
     engines: {node: '>=10', npm: '>=6'}
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
     dependencies:
       '@babel/runtime': 7.23.5
+      '@testing-library/dom': 8.20.1
     dev: false
 
   /@tootallnate/once@1.1.2:
@@ -3846,8 +3847,10 @@ packages:
       - supports-color
     dev: false
 
-  /ajv-formats@2.1.1:
+  /ajv-formats@2.1.1(ajv@8.12.0):
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
     peerDependenciesMeta:
       ajv:
         optional: true
@@ -5625,7 +5628,7 @@ packages:
       eslint: 8.55.0
     dev: true
 
-  /eslint-config-react-app@7.0.1(eslint@8.55.0)(jest@27.5.1)(typescript@4.9.5):
+  /eslint-config-react-app@7.0.1(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(jest@27.5.1)(typescript@4.9.5):
     resolution: {integrity: sha512-K6rNzvkIeHaTd8m/QEh1Zko0KI7BACWkkneSs6s9cKZC/J27X3eZR6Upt1jkmZ/4FK+XUOPPxMEN7+lbUXfSlA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -5643,7 +5646,7 @@ packages:
       babel-preset-react-app: 10.0.1
       confusing-browser-globals: 1.0.11
       eslint: 8.55.0
-      eslint-plugin-flowtype: 8.0.3(eslint@8.55.0)
+      eslint-plugin-flowtype: 8.0.3(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)
       eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.62.0)(eslint@8.55.0)
       eslint-plugin-jest: 25.7.0(@typescript-eslint/eslint-plugin@5.62.0)(eslint@8.55.0)(jest@27.5.1)(typescript@4.9.5)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.55.0)
@@ -5699,7 +5702,7 @@ packages:
       - supports-color
     dev: false
 
-  /eslint-plugin-flowtype@8.0.3(eslint@8.55.0):
+  /eslint-plugin-flowtype@8.0.3(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0):
     resolution: {integrity: sha512-dX8l6qUL6O+fYPtpNRideCFSpmWOUVx5QcaGLVqe/vlDiBSe4vYljDWDETwnyFzpl7By/WVIu6rcrniCgH9BqQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -5707,6 +5710,8 @@ packages:
       '@babel/plugin-transform-react-jsx': ^7.14.9
       eslint: ^8.1.0
     dependencies:
+      '@babel/plugin-syntax-flow': 7.23.3(@babel/core@7.23.5)
+      '@babel/plugin-transform-react-jsx': 7.23.4(@babel/core@7.23.5)
       eslint: 8.55.0
       lodash: 4.17.21
       string-natural-compare: 3.0.1
@@ -10091,7 +10096,7 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.15
       ajv: 8.12.0
-      ajv-formats: 2.1.1
+      ajv-formats: 2.1.1(ajv@8.12.0)
       ajv-keywords: 5.1.0(ajv@8.12.0)
     dev: false
 

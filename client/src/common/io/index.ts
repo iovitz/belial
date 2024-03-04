@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Socket } from './socket'
 import { IOConfig } from './types'
 import { InferParamaters } from '@/types'
@@ -7,11 +7,21 @@ export class IO {
   socket: Socket
   axios: AxiosInstance
 
+  errorHandler = new Set<(err: AxiosError) => void>()
+
   constructor(config: IOConfig) {
     const { socketConfig } = config
     this.socket = new Socket(socketConfig.socketUrl, socketConfig.socketPath, socketConfig.socketAuth)
     this.axios = axios.create(config)
     this.addInterceptors()
+  }
+
+  public addErrorHandler(handler: (err: AxiosError) => void) {
+    this.errorHandler.add(handler)
+  }
+
+  public removeErrorHandler(handler: (err: AxiosError) => void) {
+    this.errorHandler.delete(handler)
   }
 
   private addInterceptors() {
@@ -21,7 +31,10 @@ export class IO {
   }
 
   request<R = unknown>(config: AxiosRequestConfig<R>) {
-    return this.axios.request<R>(config)
+    return this.axios.request<R>(config).catch((e: AxiosError) => {
+      this.errorHandler.forEach((fn) => fn(e))
+      throw e
+    })
   }
 
   onMessage(...args: InferParamaters<typeof this.socket.connection.on>) {

@@ -1,26 +1,21 @@
 import { IOInstance } from '@/common/io'
 import logger from '@/common/logger'
-import { Snackbar } from '@mui/joy'
 import { AxiosError } from 'axios'
 import { get } from 'lodash'
 import React, { ErrorInfo, ReactElement } from 'react'
+import { toast } from 'sonner'
+
 interface ErrorHandlerProp {
   children: ReactElement
 }
-interface ErrorHanlderState {
-  errorTipText: string
-}
-export default class ErrorHandler extends React.PureComponent<ErrorHandlerProp, ErrorHanlderState> {
+export default class ErrorHandler extends React.PureComponent<ErrorHandlerProp> {
   constructor(props: ErrorHandlerProp) {
     super(props)
-    this.state = {
-      errorTipText: '',
-    }
   }
 
   ioErrorHandler = (e: AxiosError) => {
-    this.setState({
-      errorTipText: get(e, 'response.data.msg') ?? '',
+    toast.error(get(e, 'response.data.msg') ?? '', {
+      duration: 1500,
     })
   }
 
@@ -33,23 +28,6 @@ export default class ErrorHandler extends React.PureComponent<ErrorHandlerProp, 
     logger.error('!!!React Did Catch', error, info)
   }
   render() {
-    return (
-      <>
-        {this.props.children || null}
-
-        <Snackbar
-          autoHideDuration={1500}
-          open={Boolean(this.state.errorTipText)}
-          color='danger'
-          variant='soft'
-          onClose={() => {
-            this.setState({
-              errorTipText: '',
-            })
-          }}>
-          {this.state.errorTipText}
-        </Snackbar>
-      </>
-    )
+    return <>{this.props.children || null}</>
   }
 }

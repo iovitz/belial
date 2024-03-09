@@ -1,4 +1,9 @@
 declare module 'socket.io-client'
+
+interface PropsWithChildren {
+  children: string | JSX.Element | JSX.Element[]
+}
+
 declare module '*.module.less' {
   const classes: { readonly [key: string]: string }
   export default classes

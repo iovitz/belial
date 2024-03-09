@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import { Provider } from 'mobx-react'
-import { settingStore } from './config.store'
-import { userStore } from './user.store'
+import { RootStore } from './root.store'
 
-interface Props {
-  children: JSX.Element[]
-}
+const rootStore = new RootStore()
+const rootStoreContext = createContext(rootStore)
 
-export default function StoreProvider(props: Props) {
+export const StoreProvider: React.FC<PropsWithChildren> = (props) => {
   return (
-    <Provider configStore={settingStore} userStore={userStore}>
-      {props.children}
+    <Provider rootStore={rootStore}>
+      <rootStoreContext.Provider value={rootStore}>{props.children}</rootStoreContext.Provider>
     </Provider>
   )
+}
+
+export const useRootStore = () => {
+  return useContext(rootStoreContext)
 }

@@ -7,7 +7,7 @@ import 'normalize.css'
 import './style/global.less'
 import { BrowserRouter } from 'react-router-dom'
 import './i18n/i18n'
-import StoreProvider from './store'
+import { StoreProvider } from './store'
 
 const root = ReactDOM.createRoot(document.getElementById('__APP_CONTAINER__') as HTMLElement)
 root.render(

@@ -14,6 +14,7 @@ export default class ErrorHandler extends React.PureComponent<ErrorHandlerProp> 
   }
 
   ioErrorHandler = (e: AxiosError) => {
+    logger.error('请求失败', e.response)
     toast.error(get(e, 'response.data.msg') ?? '', {
       duration: 1500,
     })

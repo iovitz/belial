@@ -1,4 +1,4 @@
-enum LogLevel {
+export enum LogLevel {
   verbose = 1,
   log = 2,
   info = 3,
@@ -6,26 +6,37 @@ enum LogLevel {
   error = 5,
 }
 
-class Logger {
-  constructor(private level: LogLevel) {}
+export class Logger {
+  private level: LogLevel
+  private module?: string
+
+  constructor({ module, level }: { module: string; level?: LogLevel }) {
+    this.module = module
+    this.level = level ?? 2
+  }
+
+  setLevel(level: LogLevel) {
+    this.level = level
+  }
 
   verbose(message: string, ...args: unknown[]) {
-    if (LogLevel.verbose >= this.level) console.log(message, ...args)
+    if (LogLevel.verbose >= this.level) console.log(`${this.module ?? ''} - ${message}`, ...args)
   }
 
   info(message: string, ...args: unknown[]) {
-    if (LogLevel.info >= this.level) console.info(message, ...args)
+    if (LogLevel.info >= this.level) console.info(`${this.module ?? ''} - ${message}`, ...args)
   }
 
   warn(message: string, ...args: unknown[]) {
-    if (LogLevel.warn >= this.level) console.warn(message, ...args)
+    if (LogLevel.warn >= this.level) console.warn(`${this.module ?? ''} - ${message}`, ...args)
   }
 
   error(message: string, ...args: unknown[]) {
-    if (LogLevel.error >= this.level) console.error(message, ...args)
+    if (LogLevel.error >= this.level) console.error(`${this.module ?? ''} - ${message}`, ...args)
   }
 }
 
-const logger = new Logger(Number(localStorage.getItem('log_level')) || 3)
-
-export default logger
+export const logger = new Logger({
+  module: 'app',
+  level: Number(localStorage.getItem('log_level')),
+})

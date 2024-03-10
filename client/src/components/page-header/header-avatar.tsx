@@ -39,7 +39,7 @@ export default observer(function HeaderAvatar() {
     <>
       {isLogged ? (
         <Dropdown>
-          <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
+          <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '99999px' }}>
             <UserAvatar />
           </MenuButton>
           <Menu

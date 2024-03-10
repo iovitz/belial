@@ -73,9 +73,6 @@ export default function Header() {
         <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
           创作
         </Button>
-        <Button variant='plain' color='neutral' size='sm' sx={{ alignSelf: 'center' }}>
-          漫游
-        </Button>
       </Stack>
 
       <HeaderSearch />

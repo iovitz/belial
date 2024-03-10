@@ -7,7 +7,6 @@ import ListItemButton from '@mui/joy/ListItemButton'
 import ListItemDecorator from '@mui/joy/ListItemDecorator'
 import ListItemContent from '@mui/joy/ListItemContent'
 
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AssignmentIndRoundedIcon from '@mui/icons-material/AssignmentIndRounded'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
@@ -24,46 +23,38 @@ export default function Navigation() {
             '& .JoyListItemButton-root': { p: '8px' },
           }}>
           <ListItem>
-            <ListItemButton selected>
+            <ListItemButton>
               <ListItemDecorator>
-                <PeopleRoundedIcon fontSize='small' />
+                <ArticleRoundedIcon />
               </ListItemDecorator>
-              <ListItemContent>Peopfffle</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator sx={{ color: 'neutral.500' }}>
-                <AssignmentIndRoundedIcon fontSize='small' />
-              </ListItemDecorator>
-              <ListItemContent>Managing accounts</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator sx={{ color: 'neutral.500' }}>
-                <AccountTreeRoundedIcon fontSize='small' />
-              </ListItemDecorator>
-              <ListItemContent>Org chart</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator sx={{ color: 'neutral.500' }}>
-                <TodayRoundedIcon fontSize='small' />
-              </ListItemDecorator>
-              <ListItemContent>Time off</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator sx={{ color: 'neutral.500' }}>
-                <ArticleRoundedIcon fontSize='small' />
-              </ListItemDecorator>
-              <ListItemContent>Policies</ListItemContent>
+              <ListItemContent>视频推荐</ListItemContent>
               <Chip variant='soft' color='warning' size='sm'>
                 2
               </Chip>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemDecorator>
+                <AssignmentIndRoundedIcon />
+              </ListItemDecorator>
+              <ListItemContent>高级搜索</ListItemContent>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemDecorator>
+                <AccountTreeRoundedIcon />
+              </ListItemDecorator>
+              <ListItemContent>观看历史</ListItemContent>
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton>
+              <ListItemDecorator>
+                <TodayRoundedIcon />
+              </ListItemDecorator>
+              <ListItemContent>视频分析</ListItemContent>
             </ListItemButton>
           </ListItem>
         </List>

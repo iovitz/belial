@@ -10,8 +10,7 @@ function Root(props: BoxProps) {
           bgcolor: 'background.appBody',
           display: 'grid',
           gridTemplateColumns: {
-            sm: 'minmax(64px, 200px) minmax(450px, 1fr)',
-            md: 'minmax(100px, 200px) minmax(500px, 1fr)',
+            sm: 'minmax(120px, 200px) minmax(450px, 1fr)',
           },
           gridTemplateRows: '64px 1fr',
           height: '100%',

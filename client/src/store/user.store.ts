@@ -3,9 +3,10 @@ import { logger } from '@/common/logger'
 import { get } from 'lodash'
 import { action, makeAutoObservable } from 'mobx'
 import { makePersistable } from 'mobx-persist-store'
+import { UserInfo } from './types/user.types'
 
 export class UserStore {
-  userInfo = {}
+  userInfo: UserInfo = {}
 
   constructor() {
     makeAutoObservable(this)
@@ -21,7 +22,7 @@ export class UserStore {
   }
 
   get isLogged() {
-    return !!get(this.userInfo, 'username')
+    return !!get(this.userInfo, 'email')
   }
 
   async register(nickname: string, email: string, password: string, vcode: string) {

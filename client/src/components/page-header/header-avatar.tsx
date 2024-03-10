@@ -16,9 +16,14 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import LoginAndRegister from './login-and-register'
+import { observer } from 'mobx-react'
+import { useRootStore } from '@/store'
+import UserAvatar from './avatar-image'
 
-export default function HeaderAvatar() {
-  const isLogin = false
+export default observer(function HeaderAvatar() {
+  const store = useRootStore()
+  const isLogin = store.userStore.isLogged
+  const { username, email } = store.userStore.userInfo
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -27,11 +32,7 @@ export default function HeaderAvatar() {
       {isLogin ? (
         <Dropdown>
           <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
-            <Avatar
-              src='https://i.pravatar.cc/40?img=2'
-              srcSet='https://i.pravatar.cc/80?img=2'
-              sx={{ maxWidth: '32px', maxHeight: '32px' }}
-            />
+            <UserAvatar />
           </MenuButton>
           <Menu
             placement='bottom-end'
@@ -48,17 +49,13 @@ export default function HeaderAvatar() {
                   display: 'flex',
                   alignItems: 'center',
                 }}>
-                <Avatar
-                  src='https://i.pravatar.cc/40?img=2'
-                  srcSet='https://i.pravatar.cc/80?img=2'
-                  sx={{ borderRadius: '50%' }}
-                />
+                <UserAvatar />
                 <Box sx={{ ml: 1.5 }}>
                   <Typography level='title-sm' textColor='text.primary'>
-                    Rick Sanchez
+                    {username}
                   </Typography>
                   <Typography level='body-xs' textColor='text.tertiary'>
-                    rick@email.com
+                    {email}
                   </Typography>
                 </Box>
               </Box>
@@ -96,4 +93,4 @@ export default function HeaderAvatar() {
       </Modal>
     </>
   )
-}
+})

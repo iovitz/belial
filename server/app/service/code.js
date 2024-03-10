@@ -26,6 +26,8 @@ module.exports = class CodeService extends Service {
     if (text.toLowerCase() !== code.toLowerCase()) {
       return ctx.throw(422, "验证码错误");
     }
+    delete ctx.session[`#c_${field}`];
+    delete ctx.session[`#t_${field}`];
     return true;
   }
 };

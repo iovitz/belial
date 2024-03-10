@@ -1,27 +1,17 @@
-import { IOInstance } from '@/common/io'
 import { Box, Button, FormControl, Input, Stack } from '@mui/joy'
 import React, { useState } from 'react'
 import VerifyCode from '../verify-code/verify-code'
+import { useRootStore } from '@/store'
 
 export default function RegisterForm() {
   const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [vcode, setVcode] = useState('')
+  const store = useRootStore()
 
   async function handleRegister() {
-    const res = await IOInstance.request({
-      method: 'post',
-      url: '/auth/register',
-      data: {
-        username: nickname,
-        email,
-        password,
-        vcode,
-        field: 'login',
-      },
-    })
-    console.log(res)
+    store.userStore.register(nickname, email, password, vcode)
   }
   return (
     <>

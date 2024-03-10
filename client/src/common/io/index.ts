@@ -26,11 +26,12 @@ export class IO {
 
   private addInterceptors() {
     this.axios.interceptors.response.use((res: AxiosResponse) => {
-      return res.data
+      return res.data.data
     })
   }
 
-  request<R = unknown>(config: AxiosRequestConfig<R>) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  request<R = any>(config: AxiosRequestConfig<unknown>): any {
     return this.axios.request<R>(config).catch((e: AxiosError) => {
       this.errorHandler.forEach((fn) => fn(e))
       throw e

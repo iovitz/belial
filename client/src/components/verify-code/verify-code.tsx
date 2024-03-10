@@ -22,8 +22,8 @@ export default function VerifyCode() {
           height,
           field: 'login',
         },
-      }).then((res) => {
-        svgDom.innerHTML = res.data as string
+      }).then((res: string) => {
+        svgDom.innerHTML = res
       })
     }
   }

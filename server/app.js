@@ -30,6 +30,7 @@ module.exports = class AppBootHook {
 
   async serverDidReady() {
     // Server is listening.
+    this.app.logger.info(`Server running in http://localhost:${this.app.config.cluster.listen.port}"`);
   }
 
   async beforeClose() {

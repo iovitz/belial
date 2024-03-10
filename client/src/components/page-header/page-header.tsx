@@ -5,15 +5,10 @@ import IconButton from '@mui/joy/IconButton'
 import Stack from '@mui/joy/Stack'
 import Button from '@mui/joy/Button'
 import Tooltip from '@mui/joy/Tooltip'
-import Drawer from '@mui/joy/Drawer'
-import ModalClose from '@mui/joy/ModalClose'
-import DialogTitle from '@mui/joy/DialogTitle'
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import TeamNav from '../navigation/navigation'
 import HeaderAvatar from './header-avatar'
 import HeaderSearch from './header-search'
 import HeaderUplaod from './header-upload'
@@ -49,7 +44,6 @@ function ColorSchemeToggle() {
 }
 
 export default function Header() {
-  const [open, setOpen] = React.useState(false)
   return (
     <Box
       sx={{
@@ -83,18 +77,6 @@ export default function Header() {
           漫游
         </Button>
       </Stack>
-      <Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
-        <IconButton variant='plain' color='neutral' onClick={() => setOpen(true)}>
-          <MenuRoundedIcon />
-        </IconButton>
-        <Drawer sx={{ display: { xs: 'inline-flex', sm: 'none' } }} open={open} onClose={() => setOpen(false)}>
-          <ModalClose />
-          <DialogTitle>{t('egg_video')}</DialogTitle>
-          <Box sx={{ px: 1 }}>
-            <TeamNav />
-          </Box>
-        </Drawer>
-      </Box>
 
       <HeaderSearch />
 

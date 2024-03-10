@@ -28,7 +28,7 @@ export default function Navigation() {
               <ListItemDecorator>
                 <PeopleRoundedIcon fontSize='small' />
               </ListItemDecorator>
-              <ListItemContent>People</ListItemContent>
+              <ListItemContent>Peopfffle</ListItemContent>
             </ListItemButton>
           </ListItem>
           <ListItem>

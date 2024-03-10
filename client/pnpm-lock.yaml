@@ -20,9 +20,6 @@ dependencies:
   '@mui/joy':
     specifier: 5.0.0-beta.24
     version: 5.0.0-beta.24(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
-  '@mui/material':
-    specifier: ^5.15.11
-    version: 5.15.11(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.43)(react-dom@18.2.0)(react@18.2.0)
   '@pmmmwh/react-refresh-webpack-plugin':
     specifier: ^0.5.3
     version: 0.5.11(react-refresh@0.11.0)(webpack-dev-server@4.15.1)(webpack@5.89.0)

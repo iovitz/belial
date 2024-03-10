@@ -2,8 +2,13 @@ import { Box, Button, FormControl, Input, Stack } from '@mui/joy'
 import React, { useState } from 'react'
 import VerifyCode from '../verify-code/verify-code'
 import { useRootStore } from '@/store'
+import { toast } from 'sonner'
 
-export default function RegisterForm() {
+interface Props {
+  closeModal: () => void
+}
+
+export default function RegisterForm(props: Props) {
   const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -11,7 +16,10 @@ export default function RegisterForm() {
   const store = useRootStore()
 
   async function handleRegister() {
-    store.userStore.register(nickname, email, password, vcode)
+    store.userStore.register(nickname, email, password, vcode).then(() => {
+      props.closeModal()
+      toast.success('登录成功')
+    })
   }
   return (
     <>

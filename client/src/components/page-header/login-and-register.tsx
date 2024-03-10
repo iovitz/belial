@@ -3,13 +3,17 @@ import React, { useState } from 'react'
 import LoginForm from './login-form'
 import RegisterForm from './register-form'
 
-export default function LoginAndRegister() {
+interface Props {
+  closeModal: () => void
+}
+
+export default function LoginAndRegister(props: Props) {
   const [isLogin, setIsLogin] = useState(false)
   return (
     <>
       <DialogTitle>{isLogin ? '登录' : '注册'}</DialogTitle>
       <DialogContent>{isLogin ? '使用你的邮箱和密码进行登录' : '使用你的常用邮箱注册账号'}</DialogContent>
-      {isLogin ? <LoginForm /> : <RegisterForm />}
+      {isLogin ? <LoginForm closeModal={props.closeModal} /> : <RegisterForm closeModal={props.closeModal} />}
       <DialogContent
         sx={{
           textAlign: 'center',

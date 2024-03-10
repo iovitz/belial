@@ -2,7 +2,12 @@ import { Box, Button, FormControl, Input, Stack } from '@mui/joy'
 import React from 'react'
 import VerifyCode from '../verify-code/verify-code'
 
-export default function LoginForm() {
+interface Props {
+  closeModal: () => void
+}
+
+export default function LoginForm(props: Props) {
+  console.log(props)
   return (
     <form
       onSubmit={(event: React.FormEvent<HTMLFormElement>) => {

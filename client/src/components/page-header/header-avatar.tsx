@@ -22,14 +22,22 @@ import UserAvatar from './avatar-image'
 
 export default observer(function HeaderAvatar() {
   const store = useRootStore()
-  const isLogin = store.userStore.isLogged
+  const isLogged = store.userStore.isLogged
   const { username, email } = store.userStore.userInfo
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const handleLogOut = () => {
+    store.userStore.logout()
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
   return (
     <>
-      {isLogin ? (
+      {isLogged ? (
         <Dropdown>
           <MenuButton variant='plain' size='sm' sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}>
             <UserAvatar />
@@ -70,7 +78,7 @@ export default observer(function HeaderAvatar() {
               Settings
             </MenuItem>
             <ListDivider />
-            <MenuItem>
+            <MenuItem onClick={handleLogOut}>
               <LogoutRoundedIcon />
               Log out
             </MenuItem>
@@ -88,7 +96,7 @@ export default observer(function HeaderAvatar() {
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalDialog maxWidth={350} minWidth={350}>
           <ModalClose />
-          <LoginAndRegister />
+          <LoginAndRegister closeModal={closeModal} />
         </ModalDialog>
       </Modal>
     </>

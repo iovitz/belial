@@ -41,4 +41,8 @@ export class UserStore {
     logger.verbose('注册成功', res)
     return res
   }
+
+  logout() {
+    this.userInfo = {}
+  }
 }

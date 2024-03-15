@@ -12,6 +12,7 @@ module.exports = () => {
       const tokenInfo = await jwt.verify(token, app.config.jwt.secret);
       ctx.currentUserId = tokenInfo.userid;
     } catch (e) {
+      console.error("fail", e);
       throw {
         status: 401,
         code: 40001,

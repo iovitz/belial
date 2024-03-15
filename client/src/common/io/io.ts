@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { Socket } from './socket'
 import { IOConfig } from './types'
 import { InferParamaters } from '@/types'
@@ -13,7 +13,6 @@ export class IO {
     const { socketConfig } = config
     this.socket = new Socket(socketConfig.socketUrl, socketConfig.socketPath, socketConfig.socketAuth)
     this.axios = axios.create(config)
-    this.addInterceptors()
   }
 
   public addErrorHandler(handler: (err: AxiosError) => void) {
@@ -24,10 +23,14 @@ export class IO {
     this.errorHandler.delete(handler)
   }
 
-  private addInterceptors() {
-    this.axios.interceptors.response.use((res: AxiosResponse) => {
-      return res.data.data
-    })
+  public addResponseInterceptor(interceptor: (res: AxiosResponse) => AxiosResponse<unknown, unknown>) {
+    this.axios.interceptors.response.use(interceptor)
+  }
+
+  public addRequestInterceptor(
+    interceptor: (value: InternalAxiosRequestConfig<unknown>) => InternalAxiosRequestConfig<unknown>,
+  ) {
+    this.axios.interceptors.request.use(interceptor)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,13 +57,3 @@ export class IO {
     this.socket.disconnect()
   }
 }
-
-export const IOInstance = new IO({
-  socketConfig: {
-    socketUrl: process.env.REACT_APP_SOCKET_URL!,
-    socketPath: process.env.REACT_APP_SOCKET_PATH!,
-    socketAuth: 'awefawfe',
-  },
-  baseURL: process.env.REACT_APP_REQUEST_BASE_URL,
-  timeout: Number(process.env.REACT_APP_REQUEST_TIMEOUT),
-})

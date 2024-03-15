@@ -1,4 +1,4 @@
-import { IOInstance } from '@/common/io'
+import { IOInstance } from '@/common/io/instance'
 import { Box } from '@mui/joy'
 import React, { useEffect, useRef } from 'react'
 

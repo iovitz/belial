@@ -1,7 +1,7 @@
 import { RefObject, useEffect } from 'react'
 import Plyr from 'plyr'
 import 'plyr/dist/plyr.css'
-import { logger } from '@/common/logger'
+import { logger } from '@/common/logger/logger'
 
 interface HookOptions {
   divRev: RefObject<HTMLVideoElement>

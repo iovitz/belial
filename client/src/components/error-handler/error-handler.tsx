@@ -1,5 +1,5 @@
-import { IOInstance } from '@/common/io'
-import { logger } from '@/common/logger'
+import { IOInstance } from '@/common/io/instance'
+import { logger } from '@/common/logger/logger'
 import { AxiosError } from 'axios'
 import { get } from 'lodash'
 import React, { ErrorInfo, ReactElement } from 'react'

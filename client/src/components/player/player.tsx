@@ -2,7 +2,11 @@ import { logger } from '@/common/logger/logger'
 import { usePlayer } from '@/hooks/player'
 import React from 'react'
 
-export const Player: React.FC = () => {
+interface Props {
+  url: string
+}
+
+export const Player: React.FC<Props> = (props) => {
   const divRef = React.useRef<HTMLVideoElement>(null)
   usePlayer({
     divRev: divRef,
@@ -14,7 +18,7 @@ export const Player: React.FC = () => {
 
   return (
     <video ref={divRef} id='videoAr'>
-      <source src='https://prod-streaming-video-msn-com.akamaized.net/a8c412fa-f696-4ff2-9c76-e8ed9cdffe0f/604a87fc-e7bc-463e-8d56-cde7e661d690.mp4' />
+      <source src={props.url} />
     </video>
   )
 }

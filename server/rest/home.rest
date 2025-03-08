@@ -1,5 +1,0 @@
-# 根目录请求
-@baseUrl = {{hostname}}
-
-# 测试服务器运行状态
-GET {{baseUrl}}/status HTTP/1.1

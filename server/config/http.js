@@ -9,10 +9,15 @@
  * https://sailsjs.com/config/http
  */
 
+const crypto = require('node:crypto')
 const { ulid } = require('ulid')
 
 const COOKIE_CLIENT_ID_KEY = 'client-id'
+const HEADER_CLIENT_IP_KEY = 'x-forward-for'
+const HEADER_USER_AGENT = 'user-agent'
 const HEADER_TRACE_ID_KEY = 'x-sails-log-id'
+
+const IP_REG = /\d+\.\d+\.\d+\.\d+/
 
 module.exports.http = {
 
@@ -42,6 +47,7 @@ module.exports.http = {
       'poweredBy',
       'www',
       'favicon',
+      'clientVars',
       'logger',
       'router',
     ],
@@ -54,22 +60,30 @@ module.exports.http = {
     *                                                                          *
     ***************************************************************************/
 
-    logger: (function () {
+    clientVars: (function () {
       return function (req, res, next) {
-        const clientId = req.cookies[COOKIE_CLIENT_ID_KEY] ?? ulid()
+        const clientIp = (req.header(HEADER_CLIENT_IP_KEY) ?? req.ip).match(IP_REG)?.[0]
+        const clientId = req.cookies[COOKIE_CLIENT_ID_KEY]
+          ?? crypto.createHash('md5').update(`${clientIp}-${req.header(HEADER_USER_AGENT)}`).digest('hex')
+        const traceId = req.header(HEADER_TRACE_ID_KEY) ?? `${clientId}-${ulid()}`
+
+        req.clientId = res.clientId = clientId
+        req.clientIp = res.clientIp = clientIp
+        req.traceId = res.traceId = traceId
         res.cookie(COOKIE_CLIENT_ID_KEY, clientId, {
           signed: false,
           maxAge: 360 * 24 * 60 * 60 * 1000,
           sameSite: 'strict',
           httpOnly: true,
         })
-        // TODO 校验Log ID是否合法
-        const traceId = req.header(HEADER_TRACE_ID_KEY) ?? `${clientId}-${ulid()}`
+        return next()
+      }
+    })(),
 
-        req.clientId = res.clientId =clientId
-        req.traceId = res.traceId = traceId
+    logger: (function () {
+      return function (req, res, next) {
         req.logger = res.logger = globalThis.rootLogger.child({
-          scope: traceId,
+          scope: req.traceId,
         })
         return next()
       }

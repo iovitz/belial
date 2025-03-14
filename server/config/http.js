@@ -10,6 +10,7 @@
  */
 
 const crypto = require('node:crypto')
+const jwt = require('jsonwebtoken')
 const { ulid } = require('ulid')
 
 const COOKIE_CLIENT_ID_KEY = 'client-id'
@@ -20,6 +21,12 @@ const HEADER_TRACE_ID_KEY = 'x-sails-log-id'
 const IP_REG = /\d+\.\d+\.\d+\.\d+/
 
 module.exports.http = {
+
+  jwtSecret: '2ISGS',
+
+  whiteList: [
+    'GET ',
+  ],
 
   /****************************************************************************
   *                                                                           *
@@ -49,6 +56,7 @@ module.exports.http = {
       'favicon',
       'clientVars',
       'logger',
+      'auth',
       'router',
     ],
 
@@ -86,6 +94,32 @@ module.exports.http = {
           scope: req.traceId,
         })
         return next()
+      }
+    })(),
+
+    auth: (function () {
+      return function (req, res, next) {
+        const token = req.header('authorization')?.split(' ')?.[1]
+        // 如果没有提供 token，返回 401 错误
+        if (!token) {
+          return res.forbidden()
+        }
+
+        // 验证 token
+        try {
+          // 验证并解码 token，验证过程中如果失败，会抛出异常
+          const user = jwt.verify(token, sails.config.http.jwtSecret)
+
+          // 将解码后的用户信息（如 user ID）保存到 req.user 上，供后续使用
+          req.user = user
+
+          // 继续执行后续中间件或控制器
+          return next()
+        }
+        catch (err) {
+          req.logger.warn('Authorization Fail', err)
+          return res.loginRequired()
+        }
       }
     })(),
 

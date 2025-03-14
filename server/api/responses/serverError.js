@@ -7,9 +7,9 @@
 const statuses = require('statuses')
 
 module.exports = async function (err) {
-  const errorCode = _.get(err, 'code') ?? 500
+  const errorCode = _.get(err, 'raw.code') ?? 500
   const code = Number.isInteger(errorCode) ? errorCode : 500
-  const message = _.get(err, 'message')
+  const message = _.get(err, 'raw.message')
   if (code < 500) {
     this.res.logger.error('Biz Error', err)
   }
@@ -18,7 +18,7 @@ module.exports = async function (err) {
   }
 
   return this.res.status(code).send({
-    code: code || 50000,
-    message: message || statuses(500),
+    code,
+    message: message || statuses(code),
   })
 }

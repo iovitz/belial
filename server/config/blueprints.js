@@ -9,7 +9,7 @@
  * https://sailsjs.com/config/blueprints
  */
 
-const { ulid } = require('ulid');
+const { ulid } = require('ulid')
 
 module.exports.blueprints = {
 
@@ -41,28 +41,36 @@ module.exports.blueprints = {
 
   pluralize: false,
 
-  restPrefix: "/api/v1",
+  restPrefix: '/api/v1',
 
-  parseBlueprintOptions: function(req) {
-
+  parseBlueprintOptions(req) {
+    // if (req.options.blueprintAction === 'update') {
+    //   req.body._userId = '12312333333'
+    //   req.body.name = '12312333333'
+    // }
+    // 校验UserID是否是他自己，如果不是就报错
     // Get the default query options.
-    var queryOptions = req._sails.hooks.blueprints.parseBlueprintOptions(req);
+    const queryOptions = req._sails.hooks.blueprints.parseBlueprintOptions(req)
 
     // If this is the "find" or "populate" blueprint action, and the normal query options
     // indicate that the request is attempting to set an exceedingly high `limit` clause,
     // then prevent it (we'll say `limit` must not exceed 100).
     if (req.options.blueprintAction === 'find' || req.options.blueprintAction === 'populate') {
       if (queryOptions.criteria.limit > 100) {
-        queryOptions.criteria.limit = 100;
+        queryOptions.criteria.limit = 100
       }
     }
-    // 所有的id由服务端生成
-    if(req.options.blueprintAction === 'create') {
-      req.body.id = ulid()
+
+    // 所有模型的id由服务端生成
+    if (req.options.blueprintAction === 'create') {
+      queryOptions.newRecord.id = ulid()
     }
 
-    return queryOptions;
+    else if (req.options.blueprintAction === 'update') {
+      queryOptions.valuesToSet.userId = 'demo'
+    }
 
-  }
+    return queryOptions
+  },
 
 }

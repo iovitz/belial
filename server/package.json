@@ -22,6 +22,7 @@
     "lint:fix": "eslint . --fix",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo",
     "generate": "plop",
+    "yac": "node_modules/.bin/httpyac ./yac.http  -e dev",
     "g": "plop"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "chalk": "2.3.0",
+    "jsonwebtoken": "^9.0.2",
     "limiter": "^2.1.0",
     "lru-cache": "^11.0.2",
     "plop": "^4.0.1",
@@ -52,6 +54,7 @@
     "cross-env": "7.0.3",
     "decamelize": "5.0.1",
     "eslint": "9.21.0",
+    "httpyac": "^6.16.6",
     "nodemon": "^3.1.9"
   }
 }

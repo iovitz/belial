@@ -26,4 +26,5 @@ module.exports.custom = {
     limiterTokens: 100,
     limiterInterval: 'minute',
   },
+
 }

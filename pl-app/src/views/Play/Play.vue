@@ -4,7 +4,11 @@ import { NavBar } from 'vant'
 
 <template>
   <NavBar
-    title="Todos"
+    title="Play"
     safe-area-inset-top
   />
 </template>
+
+<style lang="scss" scoped>
+
+</style>

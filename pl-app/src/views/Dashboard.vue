@@ -1,10 +1,18 @@
 <script setup lang="ts">
-import { NavBar } from 'vant'
+import { Search } from 'vant'
+import { ref } from 'vue'
+
+const searchValue = ref('')
+
+function onSearch() {
+  // alert('search')
+}
 </script>
 
 <template>
-  <NavBar
-    title="Dashboard"
-    safe-area-inset-top
+  <Search
+    v-model="searchValue"
+    shape="round" placeholder="请输入搜索关键词"
+    @search="onSearch"
   />
 </template>

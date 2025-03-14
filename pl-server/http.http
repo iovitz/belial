@@ -1,0 +1,70 @@
+@prefixUrl = http://localhost:13131
+{{
+  exports.defaultHeaders = {
+  };
+}}
+###
+@username = {{$random.alphabetic()}}
+POST {{prefixUrl}}/api/auth/register
+content-type: application/json
+{
+  "nickname": "{{username}}",
+  "email": "{{username}}@gmail.com",
+  "password": "123123",
+  "code": "PASS"
+}
+
+HTTP/1.1 200  - OK
+accept-ranges: bytes
+x-pl-trace-id: oVglQutAG8
+set-cookie: clientid=kdXdDDBaEZ; path=/; max-age=2592000; expires=Sat, 12 Apr 2025 06:51:28 GMT; samesite=strict; httponly, locale=en-us; path=/; max-age=31557600; expires=Fri, 13 Mar 2026 12:51:28 GMT
+session-id: 52c1e98e-7b4a-4da5-aa0b-cfc5121c1123
+content-type: application/json; charset=utf-8
+content-length: 233
+date: Thu, 13 Mar 2025 06:51:28 GMT
+connection: close
+###
+POST {{prefixUrl}}/api/auth/login
+content-type: application/json
+
+{
+  "email": "dJElsySoej@gmail.com",
+  "password": "123123",
+  "code": "PASS"
+}
+###
+GET {{prefixUrl}}/api/security/verify-code?width=200&height=300&type=login
+content-type: application/json
+
+HTTP/1.1 400  - Bad Request
+accept-ranges: bytes
+x-pl-trace-id: G4x0ngKJQI
+set-cookie: clientid=kdXdDDBaEZ; path=/; max-age=2592000; expires=Sat, 12 Apr 2025 06:48:07 GMT; samesite=strict; httponly
+content-type: application/json; charset=utf-8
+content-length: 54
+date: Thu, 13 Mar 2025 06:48:07 GMT
+connection: close
+###
+GET {{prefixUrl}}/api/label/all_labels
+content-type: application/json
+
+HTTP/1.1 200  - OK
+accept-ranges: bytes
+x-pl-trace-id: DUJ5HK323C
+set-cookie: clientid=kdXdDDBaEZ; path=/; max-age=2592000; expires=Sat, 12 Apr 2025 06:48:07 GMT; samesite=strict; httponly, locale=en-us; path=/; max-age=31557600; expires=Fri, 13 Mar 2026 12:48:07 GMT
+content-type: application/json; charset=utf-8
+content-length: 12124
+date: Thu, 13 Mar 2025 06:48:07 GMT
+connection: close
+###
+GET {{prefixUrl}}/api/setting
+content-type: application/json
+
+HTTP/1.1 404  - Not Found
+accept-ranges: bytes
+x-pl-trace-id: Vo5Zy7yEhz
+set-cookie: clientid=kdXdDDBaEZ; path=/; max-age=2592000; expires=Sat, 12 Apr 2025 06:49:15 GMT; samesite=strict; httponly
+content-type: application/json; charset=utf-8
+content-length: 52
+date: Thu, 13 Mar 2025 06:49:15 GMT
+connection: close

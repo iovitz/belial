@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>霹雳霹雳视频网</title>
+  </head>
+  <body>
+    <script type="module">
+      import { io } from "https://cdn.socket.io/4.7.5/socket.io.esm.min.js";
+
+      const socket = io("http://127.0.0.1:13131/socket.io", {
+        transports: ["websocket"],
+      });
+      // 监听连接事件
+      socket.on("connect", () => {
+        console.log("Connected to server");
+
+        // 发送消息到服务器
+        socket.emit("niubi", "Hello from client!");
+      });
+
+      // 监听从服务器发送的消息
+      socket.on("message", (data) => {
+        console.log("Received from server: " + data);
+      });
+
+      // 监听断开连接事件
+      socket.on("disconnect", () => {
+        console.log("Disconnected from server");
+      });
+    </script>
+  </body>
+</html>

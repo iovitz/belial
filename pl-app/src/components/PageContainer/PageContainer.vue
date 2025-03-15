@@ -27,9 +27,6 @@ onUnmounted(() => {
   top: 0;
 }
 
-.page-active {
-}
-
 @keyframes PageFadeIn {
   from {
     left: 100px; /* 初始位置 */

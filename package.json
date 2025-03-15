@@ -42,8 +42,5 @@
     "*.{js,ts,jsx,tsx}": [
       "eslint --fix"
     ]
-  },
-  "dependencies": {
-    "vant": "^4.9.17"
   }
 }

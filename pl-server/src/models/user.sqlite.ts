@@ -2,23 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Goal } from './goal.sqlite'
-import { Session } from './session.sqlite'
 
 @Entity('user')
 export class User {
-  @PrimaryGeneratedColumn()
-  id!: number
-
+  @PrimaryColumn()
   @Column({
     type: 'varchar',
-    length: 10,
+    length: 30,
   })
-  userId: string
+  id: string
 
   @Column({
     type: 'varchar',
@@ -35,7 +30,6 @@ export class User {
   @Column({
     type: 'varchar',
     length: 100,
-    nullable: true,
   })
   avatar: string
 
@@ -44,6 +38,26 @@ export class User {
     length: 32,
   })
   password: string
+
+  @Column({
+    type: 'varchar',
+    length: 20,
+    nullable: true,
+  })
+  phone?: string
+
+  @Column({
+    type: 'varchar',
+    length: 100,
+    nullable: true,
+  })
+  desc?: string
+
+  @Column({
+    type: 'int',
+    default: 0,
+  })
+  sex: number
 
   @CreateDateColumn({
     type: 'date',
@@ -54,10 +68,4 @@ export class User {
     type: 'date',
   })
   updatedAt: Date
-
-  @OneToMany(() => Session, session => session.user)
-  sessions: Session[]
-
-  @OneToMany(() => Goal, goal => goal.user)
-  goals: Goal[]
 }

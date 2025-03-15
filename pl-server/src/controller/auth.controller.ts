@@ -85,17 +85,15 @@ export class APIController {
   async login(@Body() body: LoginDTO) {
     // 校验验证码
     // 本地开发环境时，允许跳过验证码逻辑（有点入侵）
-    if (this.ctx.app.getEnv() !== 'local' && body.code !== 'PASS') {
-      const isVerifyCodeRight = this.verify.checkVerifyCode(
-        this.ctx.get(CookieKeys.ClientId),
-        this.ctx.get(CookieKeys.UserAgent),
-        'login',
-        body.code,
-      )
+    const isVerifyCodeRight = this.verify.checkVerifyCode(
+      this.ctx.get(CookieKeys.ClientId),
+      this.ctx.get(CookieKeys.UserAgent),
+      'login',
+      body.code,
+    )
 
-      if (!isVerifyCodeRight) {
-        throw new BadRequestError('请求错误')
-      }
+    if (!isVerifyCodeRight) {
+      throw new BadRequestError('请求错误')
     }
 
     const existsUser = await this.auth.findUserBy(

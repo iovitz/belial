@@ -2,12 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './user.sqlite'
 
 @Entity('session')
 export class Session {
@@ -19,10 +16,6 @@ export class Session {
     length: 36,
   })
   sessionId: string
-
-  @JoinColumn({ name: 'userId' })
-  @ManyToOne(() => User, user => user.sessions)
-  user: User
 
   @Column({
     type: 'varchar',

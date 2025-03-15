@@ -43,8 +43,7 @@ export class AuthService {
   }
 
   genUserId() {
-    const id = this.encrypt.genRandomId('u')
-    return id
+    return this.encrypt.genRandomId('usr')
   }
 
   async createUser(email: string, password: string) {
@@ -52,7 +51,7 @@ export class AuthService {
     const key = this.app.getConfig('secrets.multiAvatar')
     const user = new User()
 
-    user.userId = id
+    user.id = id
 
     user.nickname = `用户${id.substring(0, 5)}`
     user.email = email

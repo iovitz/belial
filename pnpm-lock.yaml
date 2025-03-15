@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      vant:
-        specifier: ^4.9.17
-        version: 4.9.17(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.5.0
@@ -2098,11 +2094,6 @@ packages:
 
   '@vant/popperjs@1.3.0':
     resolution: {integrity: sha512-hB+czUG+aHtjhaEmCJDuXOep0YTZjdlRR+4MSmIFnkCQIxJaXLQdSsR90XWvAI2yvKUI7TCGqR8pQg2RtvkMHw==}
-
-  '@vant/use@1.6.0':
-    resolution: {integrity: sha512-PHHxeAASgiOpSmMjceweIrv2AxDZIkWXyaczksMoWvKV2YAYEhoizRuk/xFnKF+emUIi46TsQ+rvlm/t2BBCfA==}
-    peerDependencies:
-      vue: ^3.0.0
 
   '@vitejs/plugin-react-swc@3.7.1':
     resolution: {integrity: sha512-vgWOY0i1EROUK0Ctg1hwhtC3SdcDjZcdit4Ups4aPkDcB1jYhmo+RMYWY87cmXMhvtD5uf8lV89j2w16vkdSVg==}
@@ -7186,11 +7177,6 @@ packages:
     resolution: {integrity: sha512-aeVK81SIuT6aMJfNo9Vte8Dw0/FZINGBV8BfCraGtqVxIeLAEhJyoWs8SmvRVmXfGss2PmmOwZCuBPbZR+IYWg==}
     engines: {node: '>= 10.13.0'}
 
-  vant@4.9.17:
-    resolution: {integrity: sha512-so/plH9G4au9rUrqy7yLB1slmZqY2Ub3Gq8ckMSQXbUEwTzmViVjEDqh/hNck/XELxwL+gIy2hLXiSgVcf2EBQ==}
-    peerDependencies:
-      vue: ^3.0.0
-
   varint@6.0.0:
     resolution: {integrity: sha512-cXEIW6cfr15lFv563k4GuVuW/fiwjknytD37jIOLSdSWuOI6WnO/oKwmP2FQTU2l01LP8/M5TSAJpzUaGe3uWg==}
 
@@ -9653,10 +9639,6 @@ snapshots:
   '@vant/auto-import-resolver@1.3.0': {}
 
   '@vant/popperjs@1.3.0': {}
-
-  '@vant/use@1.6.0(vue@3.5.13(typescript@5.6.3))':
-    dependencies:
-      vue: 3.5.13(typescript@5.6.3)
 
   '@vitejs/plugin-react-swc@3.7.1(vite@5.4.9(@types/node@14.18.63)(less@4.2.0)(sass-embedded@1.79.5)(sass@1.79.5)(stylus@0.62.0))':
     dependencies:
@@ -15510,13 +15492,6 @@ snapshots:
   validate-npm-package-name@5.0.1: {}
 
   value-or-function@4.0.0: {}
-
-  vant@4.9.17(vue@3.5.13(typescript@5.6.3)):
-    dependencies:
-      '@vant/popperjs': 1.3.0
-      '@vant/use': 1.6.0(vue@3.5.13(typescript@5.6.3))
-      '@vue/shared': 3.5.13
-      vue: 3.5.13(typescript@5.6.3)
 
   varint@6.0.0: {}
 

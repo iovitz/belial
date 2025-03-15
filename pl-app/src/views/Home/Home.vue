@@ -19,6 +19,9 @@ function onSearch() {
       @search="onSearch"
     />
     <HomeBanner />
+    <h1 class="text-lg mt-4 font-bold ml-2">
+      视频推荐
+    </h1>
     <VideoCardFlow />
   </div>
 </template>

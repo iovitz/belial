@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Image, TextEllipsis } from 'vant'
 
-const props = defineProps({
-  id: String,
-  cover: String,
-  title: String,
-  author: String,
-  time: String,
-})
+const props = defineProps<{
+  id: string
+  cover: string
+  title: string
+  author: string
+  time?: string
+}>()
 </script>
 
 <template>
@@ -18,7 +18,7 @@ const props = defineProps({
     />
     <TextEllipsis class="text-xs " rows="2" font="12" :content="props.title" />
     <p class="text-xs mt-1">
-      <span class="text-gray-700">{{ props.author }}</span> <span class="text-gray-400">{{ props.time }}</span>
+      <span class="text-gray-700">{{ props.author }}</span> <span v-if="props.time" class="text-gray-400">{{ props.time }}</span>
     </p>
   </div>
 </template>

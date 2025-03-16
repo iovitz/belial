@@ -42,6 +42,21 @@ const router = createRouter({
       component: () => import('@/views/Play/Play.vue'),
     },
     {
+      path: '/like',
+      name: 'like',
+      component: () => import('@/views/Like/Like.vue'),
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: () => import('@/views/Publish/Publish.vue'),
+    },
+    {
+      path: '/my-video',
+      name: 'my-video',
+      component: () => import('@/views/MyVideo/MyVideo.vue'),
+    },
+    {
       path: '/search',
       name: 'search',
       component: () => import('@/views/Search/Search.vue'),

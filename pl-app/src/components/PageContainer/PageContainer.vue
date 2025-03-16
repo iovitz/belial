@@ -1,20 +1,32 @@
 <script setup lang="ts">
-import { onUnmounted, ref } from 'vue'
+import { NavBar } from 'vant'
+import { useRouter } from 'vue-router'
 
-const pageActive = ref(true)
+const props = defineProps<{
+  title: string
+  leftArrow?: boolean
+  safeAreaInsetTop?: boolean
+}>()
 
-onUnmounted(() => {
-  pageActive.value = false
-})
+const router = useRouter()
+function onClickLeft() {
+  router.back()
+}
 </script>
 
 <template>
   <div
-    class="page-container" :class="{
-      'page-active': pageActive,
-    }"
+    class="page-container"
   >
-    <slot />
+    <NavBar
+      :title="props.title"
+      left-arrow
+      safe-area-inset-top
+      @click-left="onClickLeft"
+    />
+    <div class="page-inner">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -25,16 +37,6 @@ onUnmounted(() => {
   width: 100vw;
   position: fixed;
   top: 0;
-}
-
-@keyframes PageFadeIn {
-  from {
-    left: 100px; /* 初始位置 */
-    opacity: 0;
-  }
-  to {
-    left: 0px; /* 结束位置 */
-    opacity: 1;
-  }
+  background-color: #f9f9f9;
 }
 </style>

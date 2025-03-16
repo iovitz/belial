@@ -11,7 +11,7 @@ const tabbarValue = ref('home')
 
 <template>
   <div class="app-container">
-    <div class="flex-1 overflow-y-scroll">
+    <div class="flex-1 overflow-y-scroll flex flex-col">
       <RouterView v-slot="{ Component }">
         <keep-alive>
           <component :is="Component" />

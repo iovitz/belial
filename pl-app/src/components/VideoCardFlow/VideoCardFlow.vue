@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Grid, GridItem, Image } from 'vant'
-import VideoVard from './VideoVard.vue'
+import VideoVard from './VideoCard.vue'
 
 const videoList = [
   {

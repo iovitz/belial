@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { Cell, CellGroup, Icon, Image, NavBar, TextEllipsis } from 'vant'
+import { Button, Cell, CellGroup, Icon, Image, NavBar, SwipeCell, TextEllipsis } from 'vant'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 </script>
 
 <template>
@@ -22,28 +25,43 @@ import { Cell, CellGroup, Icon, Image, NavBar, TextEllipsis } from 'vant'
         </div>
       </template>
     </Cell>
-    <Cell is-link>
+    <Cell is-link to="/my-video">
       <template #title>
-        <Icon name="tv-o" class="font-bold" />
-        我的作品
+        <div class="flex items-center">
+          <Icon size="18" name="tv-o" class="mr-1" />
+          我的作品
+        </div>
+      </template>
+    </Cell>
+    <Cell is-link to="/like">
+      <template #title>
+        <div class="flex items-center">
+          <Icon size="18" name="star-o" class="mr-1" />
+          收藏
+        </div>
       </template>
     </Cell>
     <Cell is-link>
       <template #title>
-        <Icon name="star-o" class="font-bold" />
-        收藏
+        <div class="flex items-center">
+          <Icon size="18" name="like-o" class="mr-1" />
+          关注
+        </div>
       </template>
     </Cell>
     <Cell is-link>
       <template #title>
-        <Icon name="like-o" class="font-bold" />
-        关注
+        <div class="flex items-center">
+          <Icon size="18" name="clock-o" class="mr-1" />
+          历史记录
+        </div>
       </template>
     </Cell>
-    <Cell is-link>
+    <Cell>
       <template #title>
-        <Icon name="clock-o" class="font-bold" />
-        历史记录
+        <Button type="primary" round block @click="router.push('/publish')">
+          立即投稿
+        </Button>
       </template>
     </Cell>
   </CellGroup>

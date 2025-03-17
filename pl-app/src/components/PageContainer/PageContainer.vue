@@ -24,7 +24,7 @@ function onClickLeft() {
       safe-area-inset-top
       @click-left="onClickLeft"
     />
-    <div class="page-inner">
+    <div class="flex-1 overflow-y-scroll min-w-0">
       <slot />
     </div>
   </div>
@@ -37,6 +37,8 @@ function onClickLeft() {
   width: 100vw;
   position: fixed;
   top: 0;
+  display: flex;
+  flex-direction: column;
   background-color: #f9f9f9;
 }
 </style>

@@ -12,9 +12,9 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex" style="line-height: 1;">
     <CoverImage :src="props.cover" width="150px" />
-    <div class="flex min-w-0 ml-2  flex-col justify-between w-full mr-2">
+    <div class="flex min-w-0 ml-2  flex-col justify-between w-full">
       <TextEllipsis class="w-full text-sm !leading-4" rows="2" :content="props.title" />
 
       <div>
@@ -22,8 +22,9 @@ const props = defineProps<{
           <span class="text-gray-400">{{ props.time }}</span>
         </p>
 
-        <p class="text-xs mt-1 flex items-center justify-between text-gray-400">
-          <span><Icon size="12" name="eye-o" class="mr-1" />{{ props.playCount }}</span>
+        <p class="text-xs mt-1 flex items-center justify-between text-gray-400 leading-4">
+          <Icon size="16" name="eye-o" class="mr-1 " />
+          <span class="mr-auto">{{ props.playCount }}</span>
           <!-- <Icon size="12" name="ellipsis" class="mr-1" /> -->
         </p>
       </div>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Image, TextEllipsis } from 'vant'
+import CoverImage from '../CoverImage/CoverImage.vue'
 
 const props = defineProps<{
   id: string
@@ -12,9 +13,9 @@ const props = defineProps<{
 
 <template>
   <div class="video-card">
-    <Image
+    <CoverImage
       :src="props.cover"
-      class="video-image"
+      width="100%"
     />
     <TextEllipsis class="text-xs " rows="2" font="12" :content="props.title" />
     <p class="text-xs mt-1">
@@ -27,10 +28,5 @@ const props = defineProps<{
 .video-card {
   border-radius: 5px;
   overflow: hidden;
-}
-.video-image {
-  border-radius: 5px;
-  overflow: hidden;
-  aspect-ratio: 16 / 9;
 }
 </style>

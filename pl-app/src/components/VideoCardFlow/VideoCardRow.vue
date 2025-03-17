@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Icon, TextEllipsis } from 'vant'
+import CoverImage from '../CoverImage/CoverImage.vue'
 
 const props = defineProps<{
   id: string
@@ -12,7 +13,7 @@ const props = defineProps<{
 
 <template>
   <div class="flex">
-    <img :src="props.cover" class="cover-img ml-2">
+    <CoverImage :src="props.cover" width="150px" />
     <div class="flex min-w-0 ml-2  flex-col justify-between w-full mr-2">
       <TextEllipsis class="w-full text-sm !leading-4" rows="2" :content="props.title" />
 
@@ -31,8 +32,4 @@ const props = defineProps<{
 </template>
 
 <style lang="scss" scoped>
-.cover-img {
-  width: 150px;
-  aspect-ratio: 16 / 9;
-}
 </style>

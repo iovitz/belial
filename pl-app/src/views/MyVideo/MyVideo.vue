@@ -7,28 +7,28 @@ import { ref } from 'vue'
 const myVideo = ref([
   {
     id: '1',
-    cover: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '标题1',
     time: '2021-09-01',
     playCount: 100,
   },
   {
     id: '2',
-    cover: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '标题1',
     time: '2021-09-01',
     playCount: 100,
   },
   {
     id: '3',
-    cover: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '标题1',
     time: '2021-09-01',
     playCount: 100,
   },
   {
     id: '4',
-    cover: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '标题1',
     time: '2021-09-01',
     playCount: 100,

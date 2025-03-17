@@ -5,28 +5,28 @@ import VideoVard from './VideoCard.vue'
 const videoList = [
   {
     id: '1',
-    cover: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '为什么动物几乎不锻炼肌肉还那么发达，人类却要不断健身才可以？',
     author: '老弟',
     time: '10-4',
   },
   {
     id: '2',
-    cover: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '为什么动物几乎不锻炼肌肉还那么发达，人类却要不断健身才可以？',
     author: '老弟',
     time: '10-4',
   },
   {
     id: '3',
-    cover: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '为什么动物几乎不锻炼肌肉还那么发达，人类却要不断健身才可以？',
     author: '老弟',
     time: '10-4',
   },
   {
     id: '4',
-    cover: 'https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg',
+    cover: 'https://fakeimg.pl/1920x1080/2775b6/',
     title: '为什么动物几乎不锻炼肌肉还那么发达，人类却要不断健身才可以？',
     author: '老弟',
     time: '10-4',

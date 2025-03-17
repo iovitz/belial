@@ -15,7 +15,7 @@ const router = useRouter()
     <Cell clickable>
       <template #title>
         <div class="flex">
-          <Image src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg" round height="80" width="80" />
+          <Image src="https://fakeimg.pl/100x100/2775b6/" round height="80" width="80" />
           <div class="flex-1 ml-3 flex flex-col justify-center">
             <h3 class="font-bold text-lg">
               飞翔的小鸟

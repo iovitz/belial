@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import PageContainer from '@/components/PageContainer/PageContainer.vue'
-import VideoListItem from '@/components/VideoList/VideoListItem.vue'
 import type { VideoInfo } from '@/stores/video/types'
 import { sleep } from '@/utils/sleep'
-import { Button, Cell, List, SwipeCell } from 'vant'
+import { Cell, List } from 'vant'
 import { onMounted, ref } from 'vue'
+import VideoListItem from './VideoListItem.vue'
 
 const page = ref(0)
 const loading = ref(false)
@@ -15,6 +14,7 @@ const videoList = ref<VideoInfo[]>([])
 async function handleLoad() {
   loading.value = true
   await sleep(1000)
+  console.error('拉取')
   for (let i = 0; i < 10; i++) {
     videoList.value.push({
       id: `${page.value * 10 + i + 1}`,
@@ -28,25 +28,18 @@ async function handleLoad() {
 }
 
 onMounted(async () => {
-  // handleLoad()
+  await handleLoad()
 })
 </script>
 
 <template>
-  <PageContainer title="我的收藏">
-    <List v-model:loading="loading" :finished="finished" :offset="100" @load="handleLoad">
-      <SwipeCell v-for="video in videoList" :key="video.id" class="bg-white">
-        <Cell>
-          <template #title>
-            <VideoListItem :id="video.id" :title="video.title" :cover="video.cover" :play-count="video.playCount" :time="video.time" />
-          </template>
-        </Cell>
-        <template #right>
-          <Button square type="danger" class="!h-full w-24" text="取消收藏" />
-        </template>
-      </SwipeCell>
-    </List>
-  </PageContainer>
+  <List v-model:loading="loading" :finished="finished" :offset="300" @load="handleLoad">
+    <Cell v-for="video in videoList" :key="video.id">
+      <template #title>
+        <VideoListItem :id="video.id" :title="video.title" :cover="video.cover" :play-count="video.playCount" :time="video.time" />
+      </template>
+    </Cell>
+  </List>
 </template>
 
 <style lang="scss" scoped>

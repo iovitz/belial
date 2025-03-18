@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PageContainer from '@/components/PageContainer/PageContainer.vue'
-import VideoCardRow from '@/components/VideoCardFlow/VideoCardRow.vue'
+import VideoListItem from '@/components/VideoList/VideoListItem.vue'
 import { sleep } from '@/utils/sleep'
 import { Button, Cell, Col, List, Row, SwipeCell } from 'vant'
 import { onMounted, ref } from 'vue'
@@ -19,7 +19,10 @@ const finished = ref(false)
 
 const myVideo = ref<LikeVideo[]>([])
 
-function handleLoad() {
+async function handleLoad() {
+  loading.value = true
+  await sleep(1000)
+  loading.value = true
   for (let i = 0; i < 10; i++) {
     myVideo.value.push({
       id: `${page.value * 10 + i + 1}`,
@@ -29,22 +32,20 @@ function handleLoad() {
       playCount: 100,
     })
   }
+  loading.value = false
 }
 
 onMounted(async () => {
-  loading.value = true
-  await sleep(1000)
   handleLoad()
-  loading.value = true
 })
 </script>
 
 <template>
   <PageContainer title="我的视频">
-    <List v-model:loading2="loading" :finished="finished" :offset="100" @load="handleLoad">
+    <List v-model:loading="loading" :finished="finished" :offset="100" @load="handleLoad">
       <Cell v-for="item in myVideo" :key="item.id">
         <template #title>
-          <VideoCardRow :id="item.id" :title="item.title" :cover="item.cover" :play-count="item.playCount" :time="item.time" />
+          <VideoListItem :id="item.id" :title="item.title" :cover="item.cover" :play-count="item.playCount" :time="item.time" />
           <Row class="text-center text-sm mb-2">
             <Col span="8" class=" my-2">
               修改

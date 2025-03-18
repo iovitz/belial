@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 const props = defineProps<{
   title: string
   leftArrow?: boolean
-  safeAreaInsetTop?: boolean
+  scrollerId?: string
 }>()
 
 const router = useRouter()
@@ -24,7 +24,7 @@ function onClickLeft() {
       safe-area-inset-top
       @click-left="onClickLeft"
     />
-    <div class="flex-1 overflow-y-scroll min-w-0">
+    <div :id="props.scrollerId" class="flex-1 overflow-y-scroll min-w-0">
       <slot />
     </div>
   </div>

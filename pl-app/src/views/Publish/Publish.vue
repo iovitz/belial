@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import PageContainer from '@/components/PageContainer/PageContainer.vue'
-import { Button, CellGroup, Field, Form, Icon, Picker, Popup, Progress, Uploader, type UploaderFileListItem } from 'vant'
+import { Button, CellGroup, Field, Form, Icon, Picker, Popup, Progress, showFailToast, Uploader, type UploaderFileListItem } from 'vant'
 import type { Numeric } from 'vant/lib/utils'
 import { ref } from 'vue'
 
@@ -43,8 +43,12 @@ const pickerValue = ref<Numeric[]>([])
     <Form>
       <Uploader
         v-model="fileList"
-        class="w-full" :after-read="afterRead" reupload
-        accept=".mp4" :max-size="100 * 1024"
+        class="w-full"
+        :preview-image="false"
+        :after-read="afterRead" reupload
+        accept=".zip"
+        :max-size="100 * 1024 * 1024"
+        @oversize="() => showFailToast('文件大小不能超过100M')"
       >
         <div style="width: 100vw;" class="mb-2 bg-white">
           <div class="w-full py-10 text-center text-gray-300">

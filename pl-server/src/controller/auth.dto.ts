@@ -1,7 +1,8 @@
 import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
+import { CheckCaptchaDTO } from './verify.dto'
 
-export class RegisterDTO {
+export class RegisterDTO extends CheckCaptchaDTO {
   @ApiProperty({
     example: 'Peter',
     description: '昵称',
@@ -21,17 +22,9 @@ export class RegisterDTO {
   })
   @Rule(RuleType.string().required().max(16).min(6))
   password: string
-
-  @ApiProperty({
-    example: 'abcd',
-    description: '四位验证码',
-    examples: ['1234', '4312'],
-  })
-  @Rule(RuleType.string().length(4))
-  code: string
 }
 
-export class LoginDTO {
+export class LoginDTO extends CheckCaptchaDTO {
   @ApiProperty({
     example: 'peter@gmail.com',
     description: '邮箱',
@@ -45,13 +38,6 @@ export class LoginDTO {
   })
   @Rule(RuleType.string().required().max(16).min(6))
   password: string
-
-  @ApiProperty({
-    example: 'abcd',
-    description: '四位验证码',
-  })
-  @Rule(RuleType.string().length(4))
-  code: string
 }
 
 export class LoginSuccessDTO {

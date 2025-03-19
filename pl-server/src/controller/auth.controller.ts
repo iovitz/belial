@@ -5,9 +5,8 @@ import { UserService } from '../service/user.service'
 import { VerifyService } from '../service/verify.service'
 import { LoginDTO, LoginSuccessDTO, RegisterDTO } from './auth.dto'
 import { Body, Controller, Inject, Post } from '@midwayjs/core'
-import { BadRequestError } from '@midwayjs/core/dist/error/http'
+import { BadRequestError, UnauthorizedError } from '@midwayjs/core/dist/error/http'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
-import { CookieKeys } from '../shared/constans/cookie.const'
 
 @ApiTags('Auth Module')
 @Controller('/api/auth')
@@ -39,22 +38,25 @@ export class APIController {
   async register(@Body() body: RegisterDTO) {
     // 校验验证码
     // 本地开发环境时，允许跳过验证码逻辑（有点入侵）
-    if (this.ctx.app.getEnv() !== 'local' && body.code !== 'PASS') {
-      const isVerifyCodeRight = await this.verify.checkVerifyCode(
-        this.ctx.get(CookieKeys.ClientId),
-        this.ctx.get(CookieKeys.UserAgent),
-        'register',
-        body.code,
-      )
-      this.ctx.logger.warn('skip register code check')
+    const isVerifyCodeRight = await this.verify.checkVerifyCode(
+      'register',
+      body.verifyCodeId,
+      body.verifyCode,
+    )
 
-      if (!isVerifyCodeRight) {
-        throw new BadRequestError('请求错误')
-      }
+    if (!isVerifyCodeRight) {
+      this.ctx.throw(new UnauthorizedError('验证码错误'))
+    }
+
+    // 邮箱是否已经存在
+    const existsEmailUser = await this.auth.findUserBy({ email: body.email.toLowerCase() }, { email: true })
+
+    if (existsEmailUser) {
+      this.ctx.throw(new UnauthorizedError('邮箱已存在'))
     }
 
     // 创建用户
-    const user = await this.auth.createUser(body.email, body.password)
+    const user = await this.auth.createUser(body.email.toLowerCase(), body.password)
 
     // 创建Session
     const session = await this.auth.createSession(
@@ -86,10 +88,9 @@ export class APIController {
     // 校验验证码
     // 本地开发环境时，允许跳过验证码逻辑（有点入侵）
     const isVerifyCodeRight = this.verify.checkVerifyCode(
-      this.ctx.get(CookieKeys.ClientId),
-      this.ctx.get(CookieKeys.UserAgent),
       'login',
-      body.code,
+      body.verifyCodeId,
+      body.verifyCode,
     )
 
     if (!isVerifyCodeRight) {

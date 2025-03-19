@@ -56,9 +56,6 @@ importers:
       crypto-js:
         specifier: 4.2.0
         version: 4.2.0
-      dayjs:
-        specifier: 1.11.13
-        version: 1.11.13
       dotenv:
         specifier: 16.4.5
         version: 16.4.5
@@ -68,6 +65,9 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
+      moment:
+        specifier: ^2.30.1
+        version: 2.30.1
       nanoid:
         specifier: 3.3.7
         version: 3.3.7
@@ -77,6 +77,9 @@ importers:
       pako:
         specifier: 2.1.0
         version: 2.1.0
+      rc:
+        specifier: ^1.2.8
+        version: 1.2.8
       safe-stable-stringify:
         specifier: 2.5.0
         version: 2.5.0
@@ -123,6 +126,9 @@ importers:
       '@types/pako':
         specifier: 2.0.3
         version: 2.0.3
+      '@types/rc':
+        specifier: ^1.2.4
+        version: 1.2.4
       '@types/statuses':
         specifier: 2.0.5
         version: 2.0.5
@@ -1033,6 +1039,9 @@ packages:
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
+  '@types/minimist@1.2.5':
+    resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
+
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
@@ -1050,6 +1059,9 @@ packages:
 
   '@types/range-parser@1.2.7':
     resolution: {integrity: sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==}
+
+  '@types/rc@1.2.4':
+    resolution: {integrity: sha512-xD6+epQoMH79A1uwmJIq25D+XZ57jUzCQ1DGSvs3tGKdx7QDYOOaMh6m5KBkEIW4+Cy5++bZ7NLDfdpNiYVKYA==}
 
   '@types/readable-stream@4.0.18':
     resolution: {integrity: sha512-21jK/1j+Wg+7jVw1xnSwy/2Q1VgVjWuFssbYGTREPUBeZ+rqVFl2udq0IkxzPC0ZhOzVceUbyIACFZKLqKEBlA==}
@@ -3372,6 +3384,9 @@ packages:
 
   mlly@1.7.4:
     resolution: {integrity: sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==}
+
+  moment@2.30.1:
+    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
 
   mqtt-packet@9.0.2:
     resolution: {integrity: sha512-MvIY0B8/qjq7bKxdN1eD+nrljoeaai+qjLJgfRn3TiMuz0pamsIWY2bFODPZMSNmabsLANXsLl4EMoWvlaTZWA==}
@@ -5832,6 +5847,8 @@ snapshots:
 
   '@types/mime@1.3.5': {}
 
+  '@types/minimist@1.2.5': {}
+
   '@types/ms@2.1.0': {}
 
   '@types/node@14.18.63': {}
@@ -5843,6 +5860,10 @@ snapshots:
   '@types/qs@6.9.18': {}
 
   '@types/range-parser@1.2.7': {}
+
+  '@types/rc@1.2.4':
+    dependencies:
+      '@types/minimist': 1.2.5
 
   '@types/readable-stream@4.0.18':
     dependencies:
@@ -8753,6 +8774,8 @@ snapshots:
       pathe: 2.0.3
       pkg-types: 1.3.1
       ufo: 1.5.4
+
+  moment@2.30.1: {}
 
   mqtt-packet@9.0.2:
     dependencies:

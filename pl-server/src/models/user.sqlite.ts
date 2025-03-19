@@ -8,10 +8,10 @@ import {
 
 @Entity('user')
 export class User {
-  @PrimaryColumn()
-  @Column({
+  @PrimaryColumn({
     type: 'varchar',
     length: 30,
+    comment: 'ulid',
   })
   id: string
 
@@ -41,21 +41,16 @@ export class User {
 
   @Column({
     type: 'varchar',
-    length: 20,
-    nullable: true,
-  })
-  phone?: string
-
-  @Column({
-    type: 'varchar',
     length: 100,
     nullable: true,
+    comment: '个性签名',
   })
   desc?: string
 
   @Column({
     type: 'int',
     default: 0,
+    comment: '性别 0: 未知 1: 男 2: 女',
   })
   sex: number
 

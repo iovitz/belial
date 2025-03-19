@@ -21,7 +21,6 @@ export class TracerMiddleware implements IMiddleware<Context, NextFunction> {
       // 生成tracerId并放到请求头中
       ctx.traceId = ctx.get(HeaderKeys.Tracer) || this.tracerIdGenerator()
       ctx.res.setHeader(HeaderKeys.Tracer, ctx.traceId)
-      console.log(ctx.req.headers)
 
       ctx.clientId
         = ctx.getCookie(CookieKeys.ClientId) ?? this.tracerIdGenerator()

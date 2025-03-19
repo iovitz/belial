@@ -2,26 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
 @Entity('verify-code')
 export class VerifyCode {
-  @PrimaryGeneratedColumn()
-  id!: number
-
-  @Column({
+  @PrimaryColumn({
     type: 'varchar',
-    length: 10,
+    length: 30,
+    comment: 'ulid',
   })
-  clientId: string
-
-  @Column({
-    type: 'varchar',
-    length: 100,
-  })
-  ua: string
+  id: string
 
   @Column({
     type: 'varchar',

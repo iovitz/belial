@@ -60,9 +60,9 @@ implements IMiddleware<Context, NextFunction> {
                 sessionId,
               },
             })
-            .then((v) => {
+            .then((_v) => {
               // 挂载到ctx上
-              ctx.userId = v.user.userId
+              // ctx.userId = v.user.userId
             }),
         )
       }

@@ -66,7 +66,7 @@ export class AuthService {
     const sessionId = uuid.v4()
     const session = this.sessionModel.create({
       sessionId,
-      user,
+      // user,
       useragent,
     })
     this.sessionModel.save(session)

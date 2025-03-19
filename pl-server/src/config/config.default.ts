@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import * as process from 'node:process'
 import { gray, red, yellow } from 'ansis'
 import { isProd } from '../shared/env'
+import { appConfig } from './config.app'
 
 const env = process.env
 
@@ -31,7 +32,7 @@ export default {
          */
         type: 'better-sqlite3', // 使用 better-sqlite3 驱动
         // 数据放在 ~/sqlite 目录下
-        database: join(homedir(), 'sqlite', 'pilipili.sqlite'),
+        database: join(homedir(), 'sqlite', `${appConfig.appName}.sqlite`),
 
         synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true，注意会丢数据
         logging: false,
@@ -69,8 +70,8 @@ export default {
     },
   },
   session: {
-    maxAge: 24 * 3600 * 1000 * 30,
-    key: '_ss',
+    maxAge: 24 * 3600 * 1000 * appConfig.sessionMaxAgeDays,
+    key: appConfig.sessionKeyName,
     httpOnly: true,
     signed: false,
     sameSite: 'strict',
@@ -87,7 +88,7 @@ export default {
   },
   midwayLogger: {
     default: {
-      level: 'info',
+      level: appConfig.logLevel,
       transports: {
         console: {
           autoColors: false,
@@ -102,11 +103,11 @@ export default {
     },
     clients: {
       appLogger: {
-        level: 'info',
+        level: appConfig.logLevel,
         format: logFormater,
       },
       coreLogger: {
-        level: 'info',
+        level: appConfig.logLevel,
         format: logFormater,
       },
     },

@@ -2,21 +2,23 @@ import type { Context } from 'node:vm'
 import type { Repository } from 'typeorm'
 import { Inject, Provide } from '@midwayjs/core'
 import { InjectEntityModel } from '@midwayjs/typeorm'
-import * as dayjs from 'dayjs'
+import * as moment from 'moment'
 import * as svgCaptcha from 'svg-captcha'
 import { VerifyCode } from '../models/verify-code.sqlite'
+import { EncryptService } from './encrypt.service'
 
 @Provide()
 export class VerifyService {
   @Inject()
   private ctx: Context
 
+  @Inject()
+  private encrypt: EncryptService
+
   @InjectEntityModel(VerifyCode)
   private verifyCode: Repository<VerifyCode>
 
   async getVerifyCode(
-    clientId: string,
-    ua: string,
     type: string,
     width: number,
     height: number,
@@ -32,44 +34,55 @@ export class VerifyService {
       background: '#ffffff',
     })
     const verifyCode = new VerifyCode()
+    verifyCode.id = this.encrypt.genRandomId('code')
     verifyCode.code = code.text
-    verifyCode.ua = ua
     verifyCode.type = type
-    verifyCode.clientId = clientId
+    this.ctx.logger.info('generate verify code:', verifyCode.code)
 
     await this.verifyCode.save(verifyCode)
-    return code
+    return {
+      id: verifyCode.id,
+      svg: code.data,
+    }
   }
 
   async checkVerifyCode(
-    clientId: string,
-    ua: string,
     type: string,
-    text: string,
+    id: string,
+    code: string,
   ) {
     // 从DB中获取验证码
     const codeModel = await this.verifyCode.findOne({
       where: {
-        clientId,
-        ua,
+        id,
         type,
+        status: false,
       },
     })
 
+    if (!codeModel || code.toLowerCase() !== codeModel.code.toLowerCase()) {
+      this.ctx.logger.warn('验证码校验失败', {
+        input: code.toLowerCase(),
+        right: codeModel?.code.toLowerCase(),
+      })
+      return false
+    }
+
     // 判断验证码是不是30Min内下发的
-    if (dayjs(codeModel.createdAt).add(30, 'M') < dayjs(Date.now())) {
+    if (moment(codeModel.createdAt).add(30, 'M') < moment(Date.now())) {
       this.ctx.logger.warn('验证码过期', codeModel.createdAt)
       return false
     }
 
-    if (text.toLowerCase() !== codeModel.code.toLowerCase()) {
+    if (code.toLowerCase() !== codeModel.code.toLowerCase()) {
       this.ctx.logger.warn('验证码校验失败', {
-        input: text.toLowerCase(),
+        input: code.toLowerCase(),
         right: codeModel.code.toLowerCase(),
       })
       return false
     }
 
+    codeModel.status = true
     await this.verifyCode.save(codeModel)
     return true
   }

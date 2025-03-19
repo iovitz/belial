@@ -2,9 +2,6 @@
 import { Icon, Tabbar, TabbarItem } from 'vant'
 import { ref } from 'vue'
 import { RouterView } from 'vue-router'
-import Home from '@/views/Home/Home.vue'
-import Recommend from '@/views/Recommend/Recommend.vue'
-import Mine from '@/views/Mine/Mine.vue'
 
 const tabbarValue = ref('home')
 </script>

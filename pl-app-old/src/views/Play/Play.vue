@@ -7,6 +7,7 @@ import { useRoute } from 'vue-router'
 import VideoInfo from './VideoInfo.vue'
 import UserInfo from '@/components/UserInfo/UserInfo.vue'
 import VideoList from '@/components/VideoList/VideoList.vue'
+import CommentList from '@/components/CommentList/CommentList.vue'
 
 const text = ref('')
 const route = useRoute()
@@ -51,45 +52,18 @@ onMounted(() => {
 
     <Tabs v-model:active="active">
       <Tab title="简介">
-        <div class="p-2">
-          <UserInfo avatar="https://fakeimg.pl/100x100/2775b6/" description="发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发" />
+        <div class="bg-white pb-4">
+          <div class="py-4 px-2">
+            <UserInfo avatar="https://fakeimg.pl/100x100/2775b6/" description="发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发哇额发发我额发我额发我额发我额发" />
+          </div>
+          <VideoInfo title="搞什么飞机!!!" :watch="3000" :time="Date.now()" :comment="30" />
         </div>
-        <VideoInfo title="搞什么飞机!!!" :watch="3000" :time="Date.now()" :comment="30" />
         <VideoList scroller-id="play-page" />
       </Tab>
       <Tab title="评论(200)">
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
-        <p>评论</p>
+        <div class="px-2 pt-4 bg-white">
+          <CommentList />
+        </div>
       </Tab>
     </Tabs>
   </PageContainer>

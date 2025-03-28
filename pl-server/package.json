@@ -28,6 +28,7 @@
     "update:dependence": "pnpx npm-check-updates"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.3",
     "@midwayjs/bootstrap": "3.20.3",
     "@midwayjs/core": "3.20.3",
     "@midwayjs/info": "3.20.3",
@@ -44,7 +45,6 @@
     "ansis": "3.3.2",
     "better-sqlite3": "9.6.0",
     "crypto-js": "4.2.0",
-    "dotenv": "16.4.5",
     "jsonwebtoken": "^9.0.2",
     "lodash": "4.17.21",
     "moment": "^2.30.1",

@@ -1,17 +1,14 @@
 import type { MidwayConfig } from '@midwayjs/core'
 import { homedir } from 'node:os'
 import { join } from 'node:path'
-import * as process from 'node:process'
 import { gray, red, yellow } from 'ansis'
 import { isProd } from '../shared/env'
-import { appConfig } from './config.app'
-
-const env = process.env
+import { appConfig } from './rc-config'
 
 export default {
   // use for cookie sign key, should change to your own and keep security
   koa: {
-    port: Number(env.APP_PORT),
+    port: appConfig.PORT,
     contextLoggerFormat: (info) => {
       const ctx = info.ctx
       return `${gray(info.timestamp)} ${yellow(info.LEVEL)} ${gray(
@@ -21,7 +18,7 @@ export default {
   },
 
   // use for cookie sign key, should change to your own and keep security
-  keys: env.APP_COOKIE_KEY,
+  keys: appConfig.COOKIE_SECRETS,
 
   // database
   typeorm: {
@@ -32,7 +29,7 @@ export default {
          */
         type: 'better-sqlite3', // 使用 better-sqlite3 驱动
         // 数据放在 ~/sqlite 目录下
-        database: join(homedir(), 'sqlite', `${appConfig.appName}.sqlite`),
+        database: join(homedir(), 'sqlite', `${appConfig.APP_NAME}.sqlite`),
 
         synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true，注意会丢数据
         logging: false,
@@ -50,8 +47,8 @@ export default {
   },
 
   secrets: {
-    multiAvatar: env.SECRET_MULTIAVATAR,
-    fwalert: env.SECRET_FW_ALERT,
+    multiAvatar: appConfig.MULTI_AVATAR_KEY,
+    fwalert: appConfig.FWALERT_KEY,
   },
 
   socketIO: {
@@ -70,8 +67,8 @@ export default {
     },
   },
   session: {
-    maxAge: 24 * 3600 * 1000 * appConfig.sessionMaxAgeDays,
-    key: appConfig.sessionKeyName,
+    maxAge: 24 * 3600 * 1000 * appConfig.SESSION_EFFECT_DAY,
+    key: appConfig.SESSION_KEY_NAME,
     httpOnly: true,
     signed: false,
     sameSite: 'strict',
@@ -88,7 +85,7 @@ export default {
   },
   midwayLogger: {
     default: {
-      level: appConfig.logLevel,
+      level: appConfig.LOG_LEVEL,
       transports: {
         console: {
           autoColors: false,
@@ -103,11 +100,11 @@ export default {
     },
     clients: {
       appLogger: {
-        level: appConfig.logLevel,
+        level: appConfig.LOG_LEVEL,
         format: logFormater,
       },
       coreLogger: {
-        level: appConfig.logLevel,
+        level: appConfig.LOG_LEVEL,
         format: logFormater,
       },
     },

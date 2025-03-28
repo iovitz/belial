@@ -1,0 +1,13 @@
+{
+  "APP_NAME": "pili",
+  // APP端口
+  "PORT": 19981,
+  "COOKIE_SECRETS": "6hD-Els9jDgegVw4EoUS3",
+  "SESSION_EFFECT_DAY": 30,
+  "SESSION_KEY_NAME": "_ss",
+  "LOG_LEVEL": "debug",
+  "MULTI_AVATAR_KEY": "---",
+  // MYSQL连接配置
+  "MYSQL_CONNECTION_URL": "",
+  "FWALERT_KEY": ""
+}

@@ -1,6 +1,11 @@
 import type { PromiseManager } from './middleware/promise-manager.middleware'
 import type { CookieKeys } from './shared/constans/cookie.const'
+import type * as second from '../.pilirc.json'
 import '@midwayjs/koa'
+
+declare global {
+  type AppConfig = typeof second
+}
 
 declare module '@midwayjs/koa' {
   interface Context {

@@ -18,7 +18,6 @@ import * as swagger from '@midwayjs/swagger'
 import * as typeorm from '@midwayjs/typeorm'
 import * as validate from '@midwayjs/validate'
 import * as view from '@midwayjs/view-ejs'
-import * as dotenv from 'dotenv'
 import { BadRequestFilter } from './filter/badrequest.filter'
 import { DefaultErrorFilter } from './filter/default.filter'
 import { NotFoundFilter } from './filter/notfound.filter'
@@ -30,11 +29,6 @@ import { TagsMiddleware } from './middleware/tags.middleware'
 import { TracerMiddleware } from './middleware/tracer.middleware'
 import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
-import { isProd } from './shared/env'
-
-if (!isProd()) {
-  dotenv.config()
-}
 
 @Configuration({
   imports: [
@@ -113,8 +107,6 @@ export class MainConfiguration implements ILifeCycle {
       )
     }
 
-    // 通知PM2开始营业
-    // 只有通过pm2启动才能调用send方法，所以这里需要用可选链避免出错
     process.send?.('ready')
   }
 

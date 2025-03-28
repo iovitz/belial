@@ -13,3 +13,4 @@ run/
 .tsbuildinfo
 .tsbuildinfo.*
 .audit/
+.pilirc

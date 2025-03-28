@@ -11,6 +11,6 @@ export class NotFoundFilter extends BaseErrorFilter<NotFoundError> {
 
   override log(message: string, err: NotFoundError, ctx: Context) {
     // 请求处理完成
-    ctx.logger.error(message, err)
+    ctx.logger.debug(message, err)
   }
 }

@@ -1,15 +1,16 @@
-import type {
-  ILifeCycle,
-  ILogger,
-  IMidwayContainer,
-} from '@midwayjs/core'
-import { join } from 'node:path'
-import * as process from 'node:process'
 import {
   App,
   Configuration,
+  ILifeCycle,
+  ILogger,
+  IMidwayContainer,
+  Inject,
+  JoinPoint,
   Logger,
+  MidwayDecoratorService,
 } from '@midwayjs/core'
+import { join } from 'node:path'
+import * as process from 'node:process'
 import * as info from '@midwayjs/info'
 import * as koa from '@midwayjs/koa'
 import * as socketio from '@midwayjs/socketio'
@@ -29,6 +30,8 @@ import { TagsMiddleware } from './middleware/tags.middleware'
 import { TracerMiddleware } from './middleware/tracer.middleware'
 import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
+import { LOGIN_REQUIRED } from './decorator/login-required'
+import { VIDEO_PERMISSION } from './decorator/video-permission'
 
 @Configuration({
   imports: [
@@ -56,6 +59,9 @@ export class MainConfiguration implements ILifeCycle {
   @Logger()
   logger: ILogger
 
+  @Inject()
+  decoratorService: MidwayDecoratorService
+
   private noticer: NoticeService
 
   async onReady() {
@@ -82,6 +88,29 @@ export class MainConfiguration implements ILifeCycle {
     // #endregion
 
     // #region decorators
+    this.decoratorService.registerMethodHandler(LOGIN_REQUIRED, () => {
+      return {
+        around: async (joinPoint: JoinPoint) => {
+          // 执行原方法
+          const result = await joinPoint.proceed(...joinPoint.args)
+
+          // 返回执行结果
+          return result
+        },
+      }
+    })
+
+    this.decoratorService.registerMethodHandler(VIDEO_PERMISSION, (options) => {
+      return {
+        around: async (joinPoint: JoinPoint) => {
+          console.error(options.metadata)
+          // 执行原方法
+          const result = await joinPoint.proceed(...joinPoint.args)
+          // 返回执行结果
+          return result
+        },
+      }
+    })
     // #endregion
   }
 

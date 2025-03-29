@@ -59,7 +59,7 @@ export class MainConfiguration implements ILifeCycle {
   private noticer: NoticeService
 
   async onReady() {
-    // add middleware
+    // #region middlewares
     this.app.useMiddleware([
       // 工具类的优先注入
       UtilsMiddlware,
@@ -69,7 +69,9 @@ export class MainConfiguration implements ILifeCycle {
       FormatMiddleware,
       // 统计Controller的耗时的，需要放在最后
     ])
-    // add filter
+    // #endregion
+
+    // #region filters
     this.app.useFilter([
       BadRequestFilter,
       GatewayTimeoutFilter,
@@ -77,6 +79,10 @@ export class MainConfiguration implements ILifeCycle {
       NotFoundFilter,
       DefaultErrorFilter,
     ])
+    // #endregion
+
+    // #region decorators
+    // #endregion
   }
 
   async onServerReady(

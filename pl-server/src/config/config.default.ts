@@ -1,6 +1,4 @@
 import type { MidwayConfig } from '@midwayjs/core'
-import { homedir } from 'node:os'
-import { join } from 'node:path'
 import { gray, red, yellow } from 'ansis'
 import { isProd } from '../shared/env'
 import { appConfig } from './rc-config'
@@ -27,20 +25,15 @@ export default {
         /**
          * 单数据库实例
          */
-        type: 'better-sqlite3', // 使用 better-sqlite3 驱动
+        type: 'mysql',
         // 数据放在 ~/sqlite 目录下
-        database: join(homedir(), 'sqlite', `${appConfig.APP_NAME}.sqlite`),
+        url: appConfig.MYSQL_CONNECTION_URL,
 
         synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true，注意会丢数据
         logging: false,
 
-        // 配置实体模型
-        // entities: [User],
-
-        // 支持如下的扫描形式，为了兼容我们可以同时进行.js和.ts匹配
         entities: [
-          // 'sqlite', // 特定目录
-          'models/*.sqlite.{j,t}s', // 通配加后缀匹配
+          'models/*.entity.{j,t}s',
         ],
       },
     },

@@ -4,7 +4,7 @@ import { Inject, Provide } from '@midwayjs/core'
 import { InjectEntityModel } from '@midwayjs/typeorm'
 import * as moment from 'moment'
 import * as svgCaptcha from 'svg-captcha'
-import { VerifyCode } from '../models/verify-code.sqlite'
+import { VerifyCode } from '../models/verify-code.entity'
 import { EncryptService } from './encrypt.service'
 
 @Provide()

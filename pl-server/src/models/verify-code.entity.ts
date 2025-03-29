@@ -9,37 +9,42 @@ import {
 @Entity('verify-code')
 export class VerifyCode {
   @PrimaryColumn({
+    name: 'id',
     type: 'varchar',
     length: 30,
-    comment: 'ulid',
   })
   id: string
 
   @Column({
+    name: 'code',
     type: 'varchar',
     length: 6,
   })
   code: string
 
   @Column({
+    name: 'type',
     type: 'varchar',
     length: 10,
   })
   type: string
 
   @Column({
+    name: 'status',
     type: 'boolean',
     default: false,
   })
   status: boolean
 
   @CreateDateColumn({
-    type: 'date',
+    name: 'created_at',
+    type: 'timestamp',
   })
   createdAt: Date
 
   @UpdateDateColumn({
-    type: 'date',
+    name: 'updated_at',
+    type: 'timestamp',
   })
   updatedAt: Date
 }

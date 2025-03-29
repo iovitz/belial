@@ -2,37 +2,40 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from './user.sqlite'
+import { Video } from './video.sqlite'
 
-@Entity('session')
-export class Session {
+@Entity('comment')
+export class Comment {
   @PrimaryGeneratedColumn({
     name: 'id',
+    comment: '自增主键',
   })
   id: number
 
   @Column({
-    name: 'session_id',
+    name: 'content',
     type: 'varchar',
-    length: 36,
+    length: 500,
   })
-  sessionId: string
+  content: string
 
-  @Column({
-    name: 'useragent',
-    type: 'varchar',
-    length: 200,
-  })
-  useragent?: string
+  @ManyToOne(() => Video, video => video.comments)
+  @JoinColumn({ name: 'video_id' })
+  video: Video
 
-  @ManyToOne(() => User, user => user.sessions)
-  @JoinTable({ name: 'user_id' })
+  @ManyToOne(() => User, user => user.videos)
+  @JoinColumn({ name: 'user_id' })
   user: User
+
+  @ManyToOne(() => Comment)
+  @JoinColumn({ name: 'reply_id' })
+  reply: Comment
 
   @CreateDateColumn({
     name: 'created_at',

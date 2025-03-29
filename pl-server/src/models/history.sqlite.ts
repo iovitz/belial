@@ -3,36 +3,36 @@ import {
   CreateDateColumn,
   Entity,
   JoinTable,
-  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './user.sqlite'
+import { Video } from './video.sqlite'
 
-@Entity('session')
-export class Session {
+@Entity('history')
+export class History {
   @PrimaryGeneratedColumn({
     name: 'id',
   })
   id: number
 
-  @Column({
-    name: 'session_id',
-    type: 'varchar',
-    length: 36,
-  })
-  sessionId: string
+  @OneToOne(() => Video)
+  @JoinTable({ name: 'video_id' })
+  video: Video
 
   @Column({
-    name: 'useragent',
-    type: 'varchar',
-    length: 200,
+    name: 'weight',
+    type: 'int',
+    length: 500,
   })
-  useragent?: string
+  weight: number
 
-  @ManyToOne(() => User, user => user.sessions)
-  @JoinTable({ name: 'user_id' })
-  user: User
+  @Column({
+    name: 'paust_',
+    type: 'int',
+    length: 500,
+  })
+  played_seconds: number
 
   @CreateDateColumn({
     name: 'created_at',

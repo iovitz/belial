@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './user.sqlite'
-import { Video } from './video.sqlite'
+import { User } from './user.entity'
+import { Video } from './video.entity'
 
 @Entity('comment')
 export class Comment {

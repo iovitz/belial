@@ -8,6 +8,6 @@
   "LOG_LEVEL": "debug",
   "MULTI_AVATAR_KEY": "---",
   // MYSQL连接配置
-  "MYSQL_CONNECTION_URL": "",
+  "MYSQL_CONNECTION_URL": "mysql://plpl_data:QN9mTEVctE9xa49p@mysql2.sqlpub.com:3307/plpl_data",
   "FWALERT_KEY": ""
 }

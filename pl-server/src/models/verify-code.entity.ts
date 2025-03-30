@@ -38,13 +38,13 @@ export class VerifyCode {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'date',
+    type: 'timestamp',
   })
   createdAt: Date
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'date',
+    type: 'timestamp',
   })
   updatedAt: Date
 }

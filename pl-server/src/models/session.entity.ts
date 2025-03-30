@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './user.sqlite'
+import { User } from './user.entity'
 
 @Entity('session')
 export class Session {
@@ -36,13 +36,13 @@ export class Session {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'date',
+    type: 'timestamp',
   })
   createdAt: Date
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'date',
+    type: 'timestamp',
   })
   updatedAt: Date
 }

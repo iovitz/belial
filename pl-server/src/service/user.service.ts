@@ -8,7 +8,7 @@ import type { IUserOptions } from '../interface'
 import { Provide } from '@midwayjs/core'
 import { InjectEntityModel } from '@midwayjs/typeorm'
 import { pick } from 'lodash'
-import { User } from '../models/user.sqlite'
+import { User } from '../models/user.entity'
 
 @Provide()
 export class UserService {

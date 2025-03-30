@@ -10,8 +10,8 @@ import { App, Inject, Provide } from '@midwayjs/core'
 import { InjectDataSource, InjectEntityModel } from '@midwayjs/typeorm'
 import { customAlphabet } from 'nanoid'
 import * as uuid from 'uuid'
-import { Session } from '../models/session.sqlite'
-import { User } from '../models/user.sqlite'
+import { Session } from '../models/session.entity'
+import { User } from '../models/user.entity'
 
 @Provide()
 export class AuthService {

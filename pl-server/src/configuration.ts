@@ -1,15 +1,16 @@
-import type {
-  ILifeCycle,
-  ILogger,
-  IMidwayContainer,
-} from '@midwayjs/core'
-import { join } from 'node:path'
-import * as process from 'node:process'
 import {
   App,
   Configuration,
+  ILifeCycle,
+  ILogger,
+  IMidwayContainer,
+  Inject,
+  JoinPoint,
   Logger,
+  MidwayDecoratorService,
 } from '@midwayjs/core'
+import { join } from 'node:path'
+import * as process from 'node:process'
 import * as info from '@midwayjs/info'
 import * as koa from '@midwayjs/koa'
 import * as socketio from '@midwayjs/socketio'
@@ -29,6 +30,10 @@ import { TagsMiddleware } from './middleware/tags.middleware'
 import { TracerMiddleware } from './middleware/tracer.middleware'
 import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
+import { LOGIN_REQUIRED } from './decorator/login-required'
+import { VIDEO_PERMISSION } from './decorator/video-permission'
+import { VideoService } from './service/video.service'
+import { ForbiddenError } from '@midwayjs/core/dist/error/http'
 
 @Configuration({
   imports: [
@@ -56,10 +61,13 @@ export class MainConfiguration implements ILifeCycle {
   @Logger()
   logger: ILogger
 
+  @Inject()
+  decoratorService: MidwayDecoratorService
+
   private noticer: NoticeService
 
   async onReady() {
-    // add middleware
+    // #region middlewares
     this.app.useMiddleware([
       // 工具类的优先注入
       UtilsMiddlware,
@@ -69,7 +77,9 @@ export class MainConfiguration implements ILifeCycle {
       FormatMiddleware,
       // 统计Controller的耗时的，需要放在最后
     ])
-    // add filter
+    // #endregion
+
+    // #region filters
     this.app.useFilter([
       BadRequestFilter,
       GatewayTimeoutFilter,
@@ -77,6 +87,41 @@ export class MainConfiguration implements ILifeCycle {
       NotFoundFilter,
       DefaultErrorFilter,
     ])
+    // #endregion
+
+    // #region decorators
+    this.decoratorService.registerMethodHandler(LOGIN_REQUIRED, () => {
+      return {
+        around: async (joinPoint: JoinPoint) => {
+          // 执行原方法
+          const result = await joinPoint.proceed(...joinPoint.args)
+
+          // 返回执行结果
+          return result
+        },
+      }
+    })
+
+    this.decoratorService.registerMethodHandler(VIDEO_PERMISSION, (options) => {
+      return {
+        around: async (joinPoint: JoinPoint) => {
+          // 拿到Video
+          const { permissions } = options.metadata as { permissions: string[] }
+
+          const [ctx] = joinPoint.args as [koa.Context]
+          const videoService = await ctx.requestContext.getAsync(VideoService)
+          const abilities = videoService.buildAbilitiesForUser()
+          const can = permissions.some(permission => abilities.can(permission, 'Video'))
+          if (!can) {
+            ctx.throw(new ForbiddenError())
+          }
+          const result = await joinPoint.proceed(...joinPoint.args)
+          // 返回执行结果
+          return result
+        },
+      }
+    })
+    // #endregion
   }
 
   async onServerReady(

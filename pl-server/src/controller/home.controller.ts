@@ -2,6 +2,8 @@ import type { Context } from '@midwayjs/koa'
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
 import { GetStatusResponseDTO } from './home.dto'
+import { LoginRequired } from '../decorator/login-required'
+import { VideoPermission } from '../decorator/video-permission'
 
 @ApiTags('Home 根路径请求')
 @Controller()
@@ -18,6 +20,8 @@ export class HomeController {
     type: GetStatusResponseDTO,
   })
   @Get('/api/status')
+  @LoginRequired()
+  @VideoPermission('read')
   async home() {
     return {
       message: 'Hey Bro.',

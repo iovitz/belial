@@ -6,8 +6,8 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Video } from './video.sqlite'
-import { Session } from './session.sqlite'
+import { Video } from './video.entity'
+import { Session } from './session.entity'
 
 @Entity('user')
 export class User {
@@ -70,13 +70,13 @@ export class User {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'date',
+    type: 'timestamp',
   })
   createdAt: Date
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'date',
+    type: 'timestamp',
   })
   updatedAt: Date
 }

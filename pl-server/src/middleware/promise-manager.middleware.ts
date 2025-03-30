@@ -3,7 +3,7 @@ import type { Application, Context, NextFunction } from '@midwayjs/koa'
 import type { Repository } from 'typeorm'
 import { App, Middleware } from '@midwayjs/core'
 import { InjectEntityModel } from '@midwayjs/typeorm'
-import { Session } from '../models/session.sqlite'
+import { Session } from '../models/session.entity'
 
 type PromiseKey = 'GET_USER_BY_SESSION'
 

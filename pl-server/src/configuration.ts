@@ -5,7 +5,6 @@ import {
   ILogger,
   IMidwayContainer,
   Inject,
-  JoinPoint,
   Logger,
   MidwayDecoratorService,
 } from '@midwayjs/core'
@@ -30,10 +29,8 @@ import { TagsMiddleware } from './middleware/tags.middleware'
 import { TracerMiddleware } from './middleware/tracer.middleware'
 import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
-import { LOGIN_REQUIRED } from './decorator/login-required'
-import { VIDEO_PERMISSION } from './decorator/video-permission'
-import { VideoService } from './service/video.service'
-import { ForbiddenError } from '@midwayjs/core/dist/error/http'
+import { useLoginRequiredDecorator } from './decorator/login-required'
+import { useVideoPermissionDecorator } from './decorator/video-permission'
 
 @Configuration({
   imports: [
@@ -90,37 +87,8 @@ export class MainConfiguration implements ILifeCycle {
     // #endregion
 
     // #region decorators
-    this.decoratorService.registerMethodHandler(LOGIN_REQUIRED, () => {
-      return {
-        around: async (joinPoint: JoinPoint) => {
-          // 执行原方法
-          const result = await joinPoint.proceed(...joinPoint.args)
-
-          // 返回执行结果
-          return result
-        },
-      }
-    })
-
-    this.decoratorService.registerMethodHandler(VIDEO_PERMISSION, (options) => {
-      return {
-        around: async (joinPoint: JoinPoint) => {
-          // 拿到Video
-          const { permissions } = options.metadata as { permissions: string[] }
-
-          const [ctx] = joinPoint.args as [koa.Context]
-          const videoService = await ctx.requestContext.getAsync(VideoService)
-          const abilities = videoService.buildAbilitiesForUser()
-          const can = permissions.some(permission => abilities.can(permission, 'Video'))
-          if (!can) {
-            ctx.throw(new ForbiddenError())
-          }
-          const result = await joinPoint.proceed(...joinPoint.args)
-          // 返回执行结果
-          return result
-        },
-      }
-    })
+    useLoginRequiredDecorator(this.decoratorService)
+    useVideoPermissionDecorator(this.decoratorService)
     // #endregion
   }
 

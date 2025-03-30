@@ -17,7 +17,12 @@ interface Ability {
 export class CaslService {
   buildAbilitiesFor(subject: string, _abilities: Array<Ability | null | undefined>) {
     const { can, cannot, build } = new AbilityBuilder(createMongoAbility)
-    _abilities.forEach(({ action, cannot: cannotDoThis, fields, conditions }) => {
+    _abilities.forEach((ability) => {
+      if (!ability) {
+        return
+      }
+
+      const { action, cannot: cannotDoThis, fields, conditions } = ability
       return (cannotDoThis ? cannot : can)(action, subject, fields, conditions)
     })
 

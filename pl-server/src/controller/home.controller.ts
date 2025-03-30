@@ -2,7 +2,6 @@ import type { Context } from '@midwayjs/koa'
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
 import { GetStatusResponseDTO } from './home.dto'
-import { LoginRequired } from '../decorator/login-required'
 import { VideoPermission } from '../decorator/video-permission'
 
 @ApiTags('Home 根路径请求')
@@ -19,9 +18,8 @@ export class HomeController {
     description: '服务器的运行状态',
     type: GetStatusResponseDTO,
   })
-  @Get('/api/status')
-  @LoginRequired()
-  @VideoPermission('read')
+  @Get('/api/health')
+  @VideoPermission(['read'])
   async home() {
     return {
       message: 'Hey Bro.',

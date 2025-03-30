@@ -47,6 +47,9 @@ importers:
       '@midwayjs/view-ejs':
         specifier: 3.20.3
         version: 3.20.3
+      '@ucast/mongo2js':
+        specifier: ^1.4.0
+        version: 1.4.0
       ansis:
         specifier: 3.3.2
         version: 3.3.2

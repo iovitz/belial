@@ -32,6 +32,8 @@ import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
 import { LOGIN_REQUIRED } from './decorator/login-required'
 import { VIDEO_PERMISSION } from './decorator/video-permission'
+import { VideoService } from './service/video.service'
+import { ForbiddenError } from '@midwayjs/core/dist/error/http'
 
 @Configuration({
   imports: [
@@ -103,8 +105,16 @@ export class MainConfiguration implements ILifeCycle {
     this.decoratorService.registerMethodHandler(VIDEO_PERMISSION, (options) => {
       return {
         around: async (joinPoint: JoinPoint) => {
-          console.error(options.metadata)
-          // 执行原方法
+          // 拿到Video
+          const { permissions } = options.metadata as { permissions: string[] }
+
+          const [ctx] = joinPoint.args as [koa.Context]
+          const videoService = await ctx.requestContext.getAsync(VideoService)
+          const abilities = videoService.buildAbilitiesForUser()
+          const can = permissions.some(permission => abilities.can(permission, 'Video'))
+          if (!can) {
+            ctx.throw(new ForbiddenError())
+          }
           const result = await joinPoint.proceed(...joinPoint.args)
           // 返回执行结果
           return result

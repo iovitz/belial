@@ -9,6 +9,9 @@ declare global {
 
 declare module '@midwayjs/koa' {
   interface Context {
+    user?: {
+      id: string
+    }
     tracerId: string
     stime: bigint
     clientId: string

@@ -10,7 +10,7 @@ export default {
     contextLoggerFormat: (info) => {
       const ctx = info.ctx
       return `${gray(info.timestamp)} ${yellow(info.LEVEL)} ${gray(
-        info.pid,
+        `${info.pid}`,
       )} ${red(ctx.traceId ?? '')} ${info.message}`
     },
   },

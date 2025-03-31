@@ -9,7 +9,9 @@ import {
 } from 'typeorm'
 import { User } from './user.entity'
 
-@Entity('session')
+@Entity('session', {
+  comment: '登录态Session',
+})
 export class Session {
   @PrimaryGeneratedColumn({
     name: 'id',

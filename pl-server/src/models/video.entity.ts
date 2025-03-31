@@ -10,9 +10,11 @@ import {
 } from 'typeorm'
 
 import { User } from './user.entity'
-import { Comment } from './comment.entity'
+import { VideoComment } from './videl-comment.entity'
 
-@Entity('video')
+@Entity('video', {
+  comment: '视频表',
+})
 export class Video {
   @PrimaryGeneratedColumn({
     name: 'id',
@@ -52,8 +54,8 @@ export class Video {
   })
   barrageCount: number
 
-  @OneToMany(() => Comment, comment => comment.video)
-  comments: Comment
+  @OneToMany(() => VideoComment, comment => comment.video)
+  comments: VideoComment
 
   @ManyToOne(() => User, user => user.videos)
   @JoinColumn({ name: 'author_id' })

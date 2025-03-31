@@ -1,42 +1,21 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('verify-code', {
-  comment: '验证码',
+@Entity('attachment', {
+  comment: '附件表',
 })
-export class VerifyCode {
+export class Attachment {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
     length: 30,
+    comment: 'ulid',
   })
   id: string
-
-  @Column({
-    name: 'code',
-    type: 'varchar',
-    length: 6,
-  })
-  code: string
-
-  @Column({
-    name: 'type',
-    type: 'varchar',
-    length: 10,
-  })
-  type: string
-
-  @Column({
-    name: 'status',
-    type: 'boolean',
-    default: false,
-  })
-  status: boolean
 
   @CreateDateColumn({
     name: 'created_at',

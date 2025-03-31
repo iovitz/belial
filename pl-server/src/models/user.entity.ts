@@ -9,7 +9,9 @@ import {
 import { Video } from './video.entity'
 import { Session } from './session.entity'
 
-@Entity('user')
+@Entity('user', {
+  comment: '验证码',
+})
 export class User {
   @PrimaryColumn({
     name: 'id',

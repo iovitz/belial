@@ -7,7 +7,6 @@
 ### getVerifyCode
 GET {{prefixUrl}}/api/verify/code?width=200&height=50&type=login&svg=false
 
-
 ### register
 @username = {{$random.alphabetic()}}
 POST {{prefixUrl}}/api/auth/register

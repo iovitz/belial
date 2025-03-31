@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
+  JoinTable,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -10,32 +10,28 @@ import {
 import { User } from './user.entity'
 import { Video } from './video.entity'
 
-@Entity('comment')
-export class Comment {
+@Entity('watch-history', {
+  comment: '视频观看历史',
+})
+export class WatchHistory {
   @PrimaryGeneratedColumn({
     name: 'id',
-    comment: '自增主键',
   })
   id: number
 
-  @Column({
-    name: 'content',
-    type: 'varchar',
-    length: 500,
-  })
-  content: string
-
-  @ManyToOne(() => Video, video => video.comments)
-  @JoinColumn({ name: 'video_id' })
+  @ManyToOne(() => Video)
+  @JoinTable({ name: 'video_id' })
   video: Video
 
-  @ManyToOne(() => User, user => user.videos)
-  @JoinColumn({ name: 'user_id' })
+  @ManyToOne(() => User)
+  @JoinTable({ name: 'user_id' })
   user: User
 
-  @ManyToOne(() => Comment)
-  @JoinColumn({ name: 'reply_id' })
-  reply: Comment
+  @Column({
+    name: 'played_seconds',
+    type: 'int',
+  })
+  played_seconds: number
 
   @CreateDateColumn({
     name: 'created_at',

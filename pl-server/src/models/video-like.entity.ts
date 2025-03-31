@@ -1,30 +1,19 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { Video } from './video.entity'
 
-@Entity('history')
-export class History {
+@Entity('video-like', {
+  comment: '视频点赞',
+})
+export class VideoLike {
   @PrimaryGeneratedColumn({
     name: 'id',
+    comment: '自增主键',
   })
   id: number
-
-  @OneToOne(() => Video)
-  @JoinTable({ name: 'video_id' })
-  video: Video
-
-  @Column({
-    name: 'played_seconds',
-    type: 'int',
-  })
-  played_seconds: number
 
   @CreateDateColumn({
     name: 'created_at',

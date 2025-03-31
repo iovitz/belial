@@ -22,7 +22,6 @@ import { BadRequestFilter } from './filter/badrequest.filter'
 import { DefaultErrorFilter } from './filter/default.filter'
 import { NotFoundFilter } from './filter/notfound.filter'
 import { GatewayTimeoutFilter } from './filter/timeout.filter'
-import { ValidationErrorFilter } from './filter/validation.filter'
 import { FormatMiddleware } from './middleware/format.middleware'
 import { PromiseManagerMiddleware } from './middleware/promise-manager.middleware'
 import { TagsMiddleware } from './middleware/tags.middleware'
@@ -31,6 +30,8 @@ import { UtilsMiddlware } from './middleware/utils.middleware'
 import { NoticeService } from './service/noticer.service'
 import { useLoginRequiredDecorator } from './decorator/login-required'
 import { useVideoPermissionDecorator } from './decorator/video-permission'
+import { ValidationErrorFilter } from './filter/validation.filter'
+import { ForbiddenFilter } from './filter/forbidden.filter'
 
 @Configuration({
   imports: [
@@ -81,6 +82,7 @@ export class MainConfiguration implements ILifeCycle {
       BadRequestFilter,
       GatewayTimeoutFilter,
       ValidationErrorFilter,
+      ForbiddenFilter,
       NotFoundFilter,
       DefaultErrorFilter,
     ])

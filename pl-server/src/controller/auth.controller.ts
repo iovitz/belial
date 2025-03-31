@@ -5,7 +5,7 @@ import { UserService } from '../service/user.service'
 import { VerifyService } from '../service/verify.service'
 import { LoginDTO, LoginSuccessDTO, RegisterDTO } from './auth.dto'
 import { Body, Controller, Inject, Post } from '@midwayjs/core'
-import { BadRequestError, UnauthorizedError } from '@midwayjs/core/dist/error/http'
+import { BadRequestError, ForbiddenError } from '@midwayjs/core/dist/error/http'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
 
 @ApiTags('Auth Module')
@@ -37,7 +37,6 @@ export class APIController {
   })
   async register(@Body() body: RegisterDTO) {
     // 校验验证码
-    // 本地开发环境时，允许跳过验证码逻辑（有点入侵）
     const isVerifyCodeRight = await this.verify.checkVerifyCode(
       'register',
       body.verifyCodeId,
@@ -45,14 +44,14 @@ export class APIController {
     )
 
     if (!isVerifyCodeRight) {
-      this.ctx.throw(new UnauthorizedError('验证码错误'))
+      return this.ctx.throw(new ForbiddenError('验证码错误'))
     }
 
     // 邮箱是否已经存在
     const existsEmailUser = await this.auth.findUserBy({ email: body.email.toLowerCase() }, { email: true })
 
     if (existsEmailUser) {
-      this.ctx.throw(new UnauthorizedError('邮箱已存在'))
+      return this.ctx.throw(new ForbiddenError('邮箱已存在'))
     }
 
     // 创建用户

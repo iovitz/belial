@@ -3,6 +3,7 @@ import { Provide } from '@midwayjs/core'
 import * as cryptoJS from 'crypto-js'
 import { ulid } from 'ulid'
 import * as pako from 'pako'
+import * as bcrypt from 'bcrypt'
 
 @Provide()
 export class EncryptService {
@@ -24,12 +25,12 @@ export class EncryptService {
     return Buffer.from(pako.gzip(str, { level: 9 })).toString('base64')
   }
 
-  comparePassword(p: string, hash: string) {
-    return p === hash
+  bcryptCompare(data: string, encrypted: string) {
+    return bcrypt.compare(data, encrypted)
   }
 
-  async encryptPassword(password) {
-    return password
+  async bcryptEncode(data: string) {
+    return bcrypt.hash(data, 5)
   }
 
   md5(str: string) {

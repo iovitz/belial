@@ -6,21 +6,21 @@ export class GetCaptchaDTO {
     example: 200,
     description: '验证码宽度',
   })
-  @Rule(RuleType.number().required().max(500).min(0))
+  @Rule(RuleType.number().max(500).min(0).required())
   width: number
 
   @ApiProperty({
     example: 50,
     description: '验证码高度',
   })
-  @Rule(RuleType.number().required().max(500).min(0))
+  @Rule(RuleType.number().max(500).min(0).required())
   height: number
 
   @ApiProperty({
     example: 'login',
     description: '验证码类型',
   })
-  @Rule(RuleType.string().required().max(20).min(1))
+  @Rule(RuleType.string().max(20).min(1).required())
   type: string
 
   @ApiProperty({
@@ -39,7 +39,7 @@ export class CheckCaptchaDTO {
     maxLength: 4,
     minLength: 4,
   })
-  @Rule(RuleType.string().length(4))
+  @Rule(RuleType.string().length(4).required())
   verifyCode: string
 
   @ApiProperty({
@@ -48,6 +48,6 @@ export class CheckCaptchaDTO {
     maxLength: 30,
     minLength: 30,
   })
-  @Rule(RuleType.string().length(30))
+  @Rule(RuleType.string().length(30).required())
   verifyCodeId: string
 }

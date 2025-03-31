@@ -13,7 +13,7 @@ export class RegisterDTO extends CheckCaptchaDTO {
   @ApiProperty({
     example: 'peter@gmail.com',
   })
-  @Rule(RuleType.string().email().required().max(30).min(6))
+  @Rule(RuleType.string().required().email().max(30).min(6))
   email: string
 
   @ApiProperty({

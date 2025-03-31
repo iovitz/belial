@@ -55,7 +55,7 @@ export class AuthService {
 
     user.nickname = `用户${id.substring(0, 5)}`
     user.email = email
-    user.password = await this.encrypt.encryptPassword(password)
+    user.password = await this.encrypt.bcryptEncode(password)
     user.avatar = `https://api.multiavatar.com/Starcrasher.png?apikey=${key}`
 
     await this.User.save(user)

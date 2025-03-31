@@ -13,7 +13,7 @@ export class SecurityController {
   @Inject()
   verify: VerifyService
 
-  @Get('/verify-code')
+  @Get('/code')
   async getSvgContent(@Query() query: GetCaptchaDTO) {
     const { id, svg } = await this.verify.getVerifyCode(
       query.type,

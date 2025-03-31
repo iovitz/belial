@@ -54,6 +54,14 @@ export class Video {
   })
   barrageCount: number
 
+  @Column({
+    name: 'status',
+    type: 'tinyint',
+    default: 0,
+    comment: '正常：0，被删除：1，被封禁：2',
+  })
+  status: number
+
   @OneToMany(() => VideoComment, comment => comment.video)
   comments: VideoComment
 

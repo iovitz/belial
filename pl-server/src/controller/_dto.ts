@@ -1,7 +1,7 @@
 import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
 
-// #region verify module
+// #region common dto
 export class IDQueryDTO {
   @ApiProperty({
     example: '查询',
@@ -9,6 +9,30 @@ export class IDQueryDTO {
   })
   @Rule(RuleType.string().max(30).min(0).required())
   id: number
+}
+
+// #region Video controller
+export class CreateVideoDTO {
+  @ApiProperty({
+    example: 'video name',
+    description: 'video name',
+  })
+  @Rule(RuleType.string().max(100).min(0).required())
+  name: string
+
+  @ApiProperty({
+    example: 'video description',
+    description: 'video description',
+  })
+  @Rule(RuleType.string().max(1000).min(0).required())
+  desc: string
+
+  @ApiProperty({
+    example: 'video url',
+    description: 'video url',
+  })
+  @Rule(RuleType.string().max(100).min(0).required())
+  url: string
 }
 
 // #region verify module

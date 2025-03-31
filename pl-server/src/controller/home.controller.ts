@@ -1,7 +1,6 @@
 import type { Context } from '@midwayjs/koa'
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
-import { GetStatusResponseDTO } from './home.dto'
 import { VideoPermission } from '../decorator/video-permission'
 
 @ApiTags('Home 根路径请求')
@@ -16,7 +15,6 @@ export class HomeController {
   @ApiResponse({
     status: 200,
     description: '服务器的运行状态',
-    type: GetStatusResponseDTO,
   })
   @Get('/api/health')
   @VideoPermission(['read'])

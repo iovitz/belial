@@ -1,7 +1,7 @@
 import type { Context } from '@midwayjs/koa'
 import { Catch, HttpStatus } from '@midwayjs/core'
 import { MidwayValidationError } from '@midwayjs/validate'
-import { BaseErrorFilter } from './base.filter'
+import { BaseErrorFilter } from './base'
 
 @Catch(MidwayValidationError)
 export class ValidationErrorFilter extends BaseErrorFilter<MidwayValidationError> {

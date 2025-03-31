@@ -1,7 +1,7 @@
 import type { Context } from '@midwayjs/koa'
 import { Catch, HttpStatus } from '@midwayjs/core'
 import { BadRequestError, ForbiddenError } from '@midwayjs/core/dist/error/http'
-import { BaseErrorFilter } from './base.filter'
+import { BaseErrorFilter } from './base'
 
 @Catch(ForbiddenError)
 export class ForbiddenFilter extends BaseErrorFilter<BadRequestError> {

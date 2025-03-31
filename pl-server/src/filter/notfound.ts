@@ -1,7 +1,7 @@
 import type { Context } from '@midwayjs/koa'
 import { Catch, HttpStatus } from '@midwayjs/core'
 import { NotFoundError } from '@midwayjs/core/dist/error/http'
-import { BaseErrorFilter } from './base.filter'
+import { BaseErrorFilter } from './base'
 
 @Catch(NotFoundError)
 export class NotFoundFilter extends BaseErrorFilter<NotFoundError> {

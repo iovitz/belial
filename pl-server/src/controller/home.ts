@@ -2,7 +2,7 @@ import type { Context } from '@midwayjs/koa'
 import { Controller, Get, Inject, UseGuard } from '@midwayjs/core'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
 import { VideoPermission } from '../decorator/video-permission'
-import { AuthGuard } from '../guards/auth.guard'
+import { AuthGuard } from '../guards/auth'
 import { LoginRequired } from '../decorator/login-required'
 import { VideoPermissionGuard } from '../guards/video-permission'
 

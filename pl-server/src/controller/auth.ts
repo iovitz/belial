@@ -1,4 +1,3 @@
-import { Context } from '@midwayjs/koa'
 import { AuthService } from '../service/auth'
 import { EncryptService } from '../service/encrypt'
 import { UserService } from '../service/user'
@@ -7,6 +6,8 @@ import { LoginDTO, LoginSuccessDTO, RegisterDTO } from './_dto'
 import { Body, Controller, Inject, Post } from '@midwayjs/core'
 import { ForbiddenError, UnprocessableEntityError } from '@midwayjs/core/dist/error/http'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
+import { CookieKeys } from '../shared/constans/cookie.const'
+import { Context } from '@midwayjs/koa'
 
 @ApiTags('Auth Module')
 @Controller('/api/auth')
@@ -63,7 +64,9 @@ export class APIController {
       this.ctx.request.header['user-agent'],
     )
     // 写入Cookie
-    this.ctx.set('session-id', session)
+    this.ctx.cookies.set(CookieKeys.Session, session, {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // cookie有效时长
+    })
 
     return {
       userId: user.id,
@@ -132,8 +135,9 @@ export class APIController {
     ])
 
     // 写入Cookie
-    this.ctx.set('session-id', session)
-
+    this.ctx.cookies.set(CookieKeys.Session, session, {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // cookie有效时长
+    })
     return {
       userId: userProfile.id,
       avatar: userProfile.avatar,

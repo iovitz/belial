@@ -1,12 +1,19 @@
 import type { PromiseManager } from './middleware/promise-manager'
 import type { CookieKeys } from './shared/constans/cookie.const'
-import '@midwayjs/koa'
+import '@midwayjs/core'
+
+/**
+ * @description User-Service parameters
+ */
+export interface IUserOptions {
+  uid: number
+}
 
 declare global {
   type AppConfig = Record<string, any>
 }
 
-declare module '@midwayjs/koa' {
+declare module '@midwayjs/core' {
   interface Context {
     user?: {
       id: string

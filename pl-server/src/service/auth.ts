@@ -6,7 +6,7 @@ import {
   Repository,
 } from 'typeorm'
 import { EncryptService } from './encrypt'
-import { App, Inject, Provide } from '@midwayjs/core'
+import { App, Inject, Provide, Scope, ScopeEnum } from '@midwayjs/core'
 import { InjectDataSource, InjectEntityModel } from '@midwayjs/typeorm'
 import { customAlphabet } from 'nanoid'
 import * as uuid from 'uuid'
@@ -14,6 +14,7 @@ import { Session } from '../models/session.entity'
 import { User } from '../models/user.entity'
 
 @Provide()
+@Scope(ScopeEnum.Request, { allowDowngrade: true })
 export class AuthService {
   @App()
   app: Application
@@ -71,5 +72,12 @@ export class AuthService {
     })
     this.sessionModel.save(session)
     return sessionId
+  }
+
+  async getSessionInfo(sessionId: string) {
+    const session = this.sessionModel.findOneBy({
+      sessionId,
+    })
+    return session
   }
 }

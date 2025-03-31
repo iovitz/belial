@@ -1,9 +1,12 @@
 import { Context } from '@midwayjs/koa'
-import { Body, Controller, Del, Get, Inject, Patch, Post, Query } from '@midwayjs/core'
+import { Body, Controller, Del, Get, Inject, Patch, Post, Query, UseGuard } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 import { VideoService } from '../service/video'
 import { CreateVideoDTO, IDQueryDTO } from './_dto'
 import { ForbiddenError, NotFoundError } from '@midwayjs/core/dist/error/http'
+import { AuthGuard } from '../guards/auth'
+import { VideoPermissionGuard } from '../guards/video-permission'
+import { VideoPermission } from '../decorator/video-permission'
 
 @ApiTags('Video Module')
 @Controller('/api/video')
@@ -31,19 +34,26 @@ export class VideoController {
     }
   }
 
-  @Post(':id')
+  @Post()
+  @VideoPermission('create')
+  @UseGuard([AuthGuard, VideoPermissionGuard])
   async create(@Body() body: CreateVideoDTO) {
     const _video = await this.videoService.create({
       title: body.name,
     })
+    return _video
   }
 
   @Patch(':id')
+  @VideoPermission('update')
+  @UseGuard([AuthGuard, VideoPermissionGuard])
   update() {
 
   }
 
   @Del(':id')
+  @VideoPermission('delete')
+  @UseGuard([AuthGuard, VideoPermissionGuard])
   delete() {
 
   }

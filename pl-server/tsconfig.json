@@ -1,33 +1,31 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "ESNext",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "rootDir": "src",
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "inlineSourceMap": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "stripInternal": true,
+    "skipLibCheck": true,
+    "pretty": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
     "typeRoots": [
       "./typings",
       "./node_modules/@types"
     ],
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "declaration": true,
-    "inlineSourceMap": true,
     "outDir": "dist",
-    "stripInternal": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true,
-    "pretty": true
+    "rootDir": "src"
   },
   "exclude": [
     "*.js",
     "*.ts",
     "dist",
     "node_modules",
-    "test",
-    "./.pilirc.json"
+    "test"
   ]
 }

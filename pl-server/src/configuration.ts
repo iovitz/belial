@@ -27,7 +27,7 @@ import { PromiseManagerMiddleware } from './middleware/promise-manager.middlewar
 import { TagsMiddleware } from './middleware/tags.middleware'
 import { TracerMiddleware } from './middleware/tracer.middleware'
 import { UtilsMiddlware } from './middleware/utils.middleware'
-import { NoticeService } from './service/noticer.service'
+import { NoticeService } from './service/noticer'
 import { useLoginRequiredDecorator } from './decorator/login-required'
 import { useVideoPermissionDecorator } from './decorator/video-permission'
 import { ValidationErrorFilter } from './filter/validation.filter'

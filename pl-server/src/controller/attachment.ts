@@ -1,5 +1,5 @@
 import { Context } from '@midwayjs/koa'
-import { VerifyService } from '../service/verify.service'
+import { VerifyService } from '../service/verify'
 import { Controller, Inject } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 

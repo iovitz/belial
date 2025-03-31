@@ -1,7 +1,7 @@
 import { createCustomMethodDecorator, JoinPoint, MidwayDecoratorService } from '@midwayjs/core'
 import { ForbiddenError } from '@midwayjs/core/dist/error/http'
 import { Context } from '@midwayjs/koa'
-import { VideoService } from '../service/video.service'
+import { VideoService } from '../service/video'
 
 // 装饰器内部的唯一 id
 export const VIDEO_PERMISSION = 'decorator:VIDEO_PERMISSION'

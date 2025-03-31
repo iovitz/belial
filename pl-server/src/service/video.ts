@@ -1,5 +1,5 @@
 import { Inject, Provide } from '@midwayjs/core'
-import { CaslService } from './casl.service'
+import { CaslService } from './casl'
 import { Context } from '@midwayjs/koa'
 
 @Provide()

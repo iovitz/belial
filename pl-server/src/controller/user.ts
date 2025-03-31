@@ -1,5 +1,5 @@
 import type { Context } from '@midwayjs/koa'
-import type { UserService } from '../service/user.service'
+import type { UserService } from '../service/user'
 import { Controller, Inject } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 

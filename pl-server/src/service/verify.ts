@@ -5,7 +5,7 @@ import { InjectEntityModel } from '@midwayjs/typeorm'
 import * as moment from 'moment'
 import * as svgCaptcha from 'svg-captcha'
 import { VerifyCode } from '../models/verify-code.entity'
-import { EncryptService } from './encrypt.service'
+import { EncryptService } from './encrypt'
 
 @Provide()
 export class VerifyService {

@@ -5,7 +5,7 @@ import {
   FindOptionsWhere,
   Repository,
 } from 'typeorm'
-import { EncryptService } from './encrypt.service'
+import { EncryptService } from './encrypt'
 import { App, Inject, Provide } from '@midwayjs/core'
 import { InjectDataSource, InjectEntityModel } from '@midwayjs/typeorm'
 import { customAlphabet } from 'nanoid'

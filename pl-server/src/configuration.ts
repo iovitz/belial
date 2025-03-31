@@ -22,11 +22,11 @@ import { BadRequestFilter } from './filter/badrequest.filter'
 import { DefaultErrorFilter } from './filter/default.filter'
 import { NotFoundFilter } from './filter/notfound.filter'
 import { GatewayTimeoutFilter } from './filter/timeout.filter'
-import { FormatMiddleware } from './middleware/format.middleware'
-import { PromiseManagerMiddleware } from './middleware/promise-manager.middleware'
-import { TagsMiddleware } from './middleware/tags.middleware'
-import { TracerMiddleware } from './middleware/tracer.middleware'
-import { UtilsMiddlware } from './middleware/utils.middleware'
+import { FormatMiddleware } from './middleware/format'
+import { PromiseManagerMiddleware } from './middleware/promise-manager'
+import { TagsMiddleware } from './middleware/tags'
+import { TracerMiddleware } from './middleware/tracer'
+import { UtilsMiddlware } from './middleware/utils'
 import { NoticeService } from './service/noticer'
 import { useLoginRequiredDecorator } from './decorator/login-required'
 import { useVideoPermissionDecorator } from './decorator/video-permission'
@@ -34,6 +34,7 @@ import { ValidationErrorFilter } from './filter/validation.filter'
 import { ForbiddenFilter } from './filter/forbidden.filter'
 import { UnauthorizedFilter } from './filter/unauthorized.filter'
 import { UnprocessableFilter } from './filter/unprocessable.filter'
+import { MaskingMiddleware } from './middleware/masking'
 
 @Configuration({
   imports: [
@@ -75,6 +76,7 @@ export class MainConfiguration implements ILifeCycle {
       TagsMiddleware,
       PromiseManagerMiddleware,
       FormatMiddleware,
+      MaskingMiddleware,
       // 统计Controller的耗时的，需要放在最后
     ])
     // #endregion

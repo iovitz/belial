@@ -10,6 +10,6 @@ export class ForbiddenFilter extends BaseErrorFilter<BadRequestError> {
   }
 
   override log(message: string, err: Error, ctx: Context) {
-    ctx.logger.debug(`BAD Request: ${message}`, err)
+    ctx.logger.debug(`Forbidden: ${message}`, err)
   }
 }

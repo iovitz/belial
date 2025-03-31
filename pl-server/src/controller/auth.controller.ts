@@ -5,7 +5,7 @@ import { UserService } from '../service/user.service'
 import { VerifyService } from '../service/verify.service'
 import { LoginDTO, LoginSuccessDTO, RegisterDTO } from './auth.dto'
 import { Body, Controller, Inject, Post } from '@midwayjs/core'
-import { BadRequestError, ForbiddenError } from '@midwayjs/core/dist/error/http'
+import { ForbiddenError, UnprocessableEntityError } from '@midwayjs/core/dist/error/http'
 import { ApiOperation, ApiResponse, ApiTags } from '@midwayjs/swagger'
 
 @ApiTags('Auth Module')
@@ -44,14 +44,14 @@ export class APIController {
     )
 
     if (!isVerifyCodeRight) {
-      return this.ctx.throw(new ForbiddenError('验证码错误'))
+      return this.ctx.throw(new ForbiddenError('Incorrect verify code!'))
     }
 
     // 邮箱是否已经存在
     const existsEmailUser = await this.auth.findUserBy({ email: body.email.toLowerCase() }, { email: true })
 
     if (existsEmailUser) {
-      return this.ctx.throw(new ForbiddenError('邮箱已存在'))
+      return this.ctx.throw(new UnprocessableEntityError('Email is already exists!'))
     }
 
     // 创建用户
@@ -76,24 +76,24 @@ export class APIController {
 
   @Post('/login')
   @ApiOperation({
-    description: '登录接口',
+    description: 'Login',
   })
   @ApiResponse({
     status: 200,
-    description: '登录成功的用户信息',
+    description: 'User info',
     type: LoginSuccessDTO,
   })
   async login(@Body() body: LoginDTO) {
     // 校验验证码
     // 本地开发环境时，允许跳过验证码逻辑（有点入侵）
-    const isVerifyCodeRight = this.verify.checkVerifyCode(
+    const isVerifyCodeRight = await this.verify.checkVerifyCode(
       'login',
       body.verifyCodeId,
       body.verifyCode,
     )
 
     if (!isVerifyCodeRight) {
-      throw new BadRequestError('请求错误')
+      throw new ForbiddenError('Incorrect verify code!')
     }
 
     const existsUser = await this.auth.findUserBy(
@@ -107,9 +107,9 @@ export class APIController {
     // 登录
     if (
       !existsUser
-      || !this.encrypt.md5Match(body.password, existsUser.password)
+      || !this.encrypt.bcryptCompare(body.password, existsUser.password)
     ) {
-      throw new BadRequestError('密码错误')
+      throw new ForbiddenError('Incorrect email or password!')
     }
 
     const [userProfile, session] = await Promise.all([

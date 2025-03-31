@@ -32,6 +32,8 @@ import { useLoginRequiredDecorator } from './decorator/login-required'
 import { useVideoPermissionDecorator } from './decorator/video-permission'
 import { ValidationErrorFilter } from './filter/validation.filter'
 import { ForbiddenFilter } from './filter/forbidden.filter'
+import { UnauthorizedFilter } from './filter/unauthorized.filter'
+import { UnprocessableFilter } from './filter/unprocessable.filter'
 
 @Configuration({
   imports: [
@@ -85,6 +87,8 @@ export class MainConfiguration implements ILifeCycle {
       ForbiddenFilter,
       NotFoundFilter,
       DefaultErrorFilter,
+      UnauthorizedFilter,
+      UnprocessableFilter,
     ])
     // #endregion
 

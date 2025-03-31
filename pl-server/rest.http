@@ -5,7 +5,7 @@
   };
 }}
 ### getVerifyCode
-GET {{prefixUrl}}/api/verify/code?width=200&height=50&type=register&svg=false
+GET {{prefixUrl}}/api/verify/code?width=200&height=50&type=login&svg=false
 
 
 ### register
@@ -19,24 +19,16 @@ content-type: application/json
   "verifyCode": "bnA7",
   "verifyCodeId": "code01JQNF0FPB8Q7NCNFXTSSD7BVE"
 }
-###
-@username = {{$random.alphabetic()}}
-POST {{prefixUrl}}/api/auth/register
-content-type: application/json
-{
-  "nickname": "{{username}}",
-  "email": "{{username}}@gmail.com",
-  "password": "123123",
-  "code": "PASS"
-}
-###
+
+### login
 POST {{prefixUrl}}/api/auth/login
 content-type: application/json
 
 {
-  "email": "dJElsySoej@gmail.com",
+  "email": "moUGBnvDLv@gmail.com",
   "password": "123123",
-  "code": "PASS"
+  "verifyCode": "8drx",
+  "verifyCodeId": "code01JQNG5H2X5PRWW8BKE425H65E"
 }
 ###
 GET {{prefixUrl}}/api/security/verify-code?width=200&height=300&type=login

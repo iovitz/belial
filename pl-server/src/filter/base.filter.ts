@@ -1,5 +1,6 @@
 import type { HttpStatus } from '@midwayjs/core'
 import type { Context } from '@midwayjs/koa'
+import { get } from 'lodash'
 import stringify from 'safe-stable-stringify'
 import * as statuses from 'statuses'
 
@@ -39,10 +40,10 @@ export abstract class BaseErrorFilter<E extends Error> {
 
   // 获取 body.code
   protected getCode(_err: E) {
-    return this.status * 100
+    return get(_err, 'code', this.status * 100)
   }
 
   protected getMessageerr(_err: E) {
-    return statuses(this.status)
+    return get(_err, 'message', statuses(this.status))
   }
 }

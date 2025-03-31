@@ -1,9 +1,16 @@
 import { Inject, Provide } from '@midwayjs/core'
 import { CaslService } from './casl'
 import { Context } from '@midwayjs/koa'
+import { CrudService } from './crud'
+import { Video } from '../models/video.entity'
+import { InjectEntityModel } from '@midwayjs/typeorm'
+import { Repository } from 'typeorm'
 
 @Provide()
-export class VideoService {
+export class VideoService extends CrudService<Video> {
+  @InjectEntityModel(Video)
+  entity: Repository<Video>
+
   @Inject()
   caslService: CaslService
 

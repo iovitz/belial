@@ -2,7 +2,16 @@ import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
 
 // #region verify module
+export class IDQueryDTO {
+  @ApiProperty({
+    example: '查询',
+    description: '验证码宽度',
+  })
+  @Rule(RuleType.string().max(30).min(0).required())
+  id: number
+}
 
+// #region verify module
 export class GetCaptchaDTO {
   @ApiProperty({
     example: 200,

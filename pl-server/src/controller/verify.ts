@@ -1,6 +1,6 @@
 import { Context } from '@midwayjs/koa'
 import { VerifyService } from '../service/verify.service'
-import { GetCaptchaDTO } from './dto'
+import { GetCaptchaDTO } from './_dto'
 import { Controller, Get, Inject, Query } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 

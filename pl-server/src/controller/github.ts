@@ -1,5 +1,5 @@
 import type { GithubService } from '../service/github.service'
-import type { GetCommitListDTO } from './dto'
+import type { GetCommitListDTO } from './_dto'
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 

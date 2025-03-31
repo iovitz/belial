@@ -29,7 +29,6 @@ import { TracerMiddleware } from './middleware/tracer'
 import { UtilsMiddlware } from './middleware/utils'
 import { NoticeService } from './service/noticer'
 import { useLoginRequiredDecorator } from './decorator/login-required'
-import { useVideoPermissionDecorator } from './decorator/video-permission'
 import { ValidationErrorFilter } from './filter/validation'
 import { ForbiddenFilter } from './filter/forbidden'
 import { UnauthorizedFilter } from './filter/unauthorized'
@@ -96,7 +95,6 @@ export class MainConfiguration implements ILifeCycle {
 
     // #region decorators
     useLoginRequiredDecorator(this.decoratorService)
-    useVideoPermissionDecorator(this.decoratorService)
     // #endregion
   }
 

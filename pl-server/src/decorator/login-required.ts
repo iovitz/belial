@@ -13,7 +13,7 @@ export function useLoginRequiredDecorator(decoratorService: MidwayDecoratorServi
   decoratorService.registerMethodHandler(LOGIN_REQUIRED, () => {
     return {
       around: async (joinPoint: JoinPoint) => {
-      // 拿到Video
+        // 拿到Video
 
         const [ctx] = joinPoint.args as [Context]
         if (!ctx.user) {

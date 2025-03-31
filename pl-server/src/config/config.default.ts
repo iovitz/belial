@@ -30,7 +30,7 @@ export default {
         url: appConfig.MYSQL_CONNECTION_URL,
 
         synchronize: false, // 如果第一次使用，不存在表，有同步的需求可以写 true，注意会丢数据
-        logging: true,
+        logging: false,
 
         entities: [
           'models/*.entity.{j,t}s',

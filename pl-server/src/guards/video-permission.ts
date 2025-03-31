@@ -1,7 +1,7 @@
 import { getPropertyMetadata, Guard, IGuard } from '@midwayjs/core'
 import { Context } from '@midwayjs/koa'
 import { VIDEO_ACCESS } from '../decorator/video-permission'
-import { VideoService } from '../service/video.service'
+import { VideoService } from '../service/video'
 
 @Guard()
 export class VideoPermissionGuard implements IGuard<Context> {

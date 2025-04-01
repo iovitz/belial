@@ -14,6 +14,7 @@ export class VerifyCode {
     name: 'id',
     type: 'varchar',
     length: 30,
+    comment: 'ulid',
   })
   id: string
 

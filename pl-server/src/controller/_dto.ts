@@ -8,7 +8,7 @@ export class IDQueryDTO {
     description: '验证码宽度',
   })
   @Rule(RuleType.string().max(30).min(0).required())
-  id: number
+  id: string
 }
 
 // #region Video controller

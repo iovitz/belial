@@ -2,9 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from './user.entity'
@@ -13,10 +13,13 @@ import { User } from './user.entity'
   comment: '登录态Session',
 })
 export class Session {
-  @PrimaryGeneratedColumn({
+  @PrimaryColumn({
     name: 'id',
+    type: 'varchar',
+    length: 30,
+    comment: 'ulid',
   })
-  id: number
+  id: string
 
   @Column({
     name: 'session_id',
@@ -32,9 +35,16 @@ export class Session {
   })
   useragent?: string
 
-  @ManyToOne(() => User, user => user.sessions)
-  @JoinTable({ name: 'user_id' })
+  @ManyToOne(() => User, ({ sessions }) => sessions)
+  @JoinColumn({ name: 'user_id' })
   user: User
+
+  @Column({
+    name: 'user_id',
+    type: 'varchar',
+    length: 30,
+  })
+  userId: string
 
   @CreateDateColumn({
     name: 'created_at',

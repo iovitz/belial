@@ -5,7 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
@@ -16,11 +16,13 @@ import { VideoComment } from './videl-comment.entity'
   comment: '视频表',
 })
 export class Video {
-  @PrimaryGeneratedColumn({
+  @PrimaryColumn({
     name: 'id',
-    comment: '自增主键',
+    type: 'varchar',
+    length: 30,
+    comment: 'ulid',
   })
-  id: number
+  id: string
 
   @Column({
     name: 'title',
@@ -68,6 +70,13 @@ export class Video {
   @ManyToOne(() => User, user => user.videos)
   @JoinColumn({ name: 'author_id' })
   user: User
+
+  @Column({
+    name: 'author_id',
+    type: 'varchar',
+    length: 30,
+  })
+  authorId: string
 
   @CreateDateColumn({
     name: 'created_at',

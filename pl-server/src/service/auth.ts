@@ -43,12 +43,8 @@ export class AuthService {
     })
   }
 
-  genUserId() {
-    return this.encrypt.genRandomId('usr')
-  }
-
   async createUser(email: string, password: string) {
-    const id = this.genUserId()
+    const id = this.encrypt.genRandomId('user')
     const key = this.app.getConfig('secrets.multiAvatar')
     const user = new User()
 
@@ -66,8 +62,9 @@ export class AuthService {
   async createSession(user: User, useragent?: string) {
     const sessionId = uuid.v4()
     const session = this.sessionModel.create({
+      id: this.encrypt.genRandomId('__ss'),
       sessionId,
-      // user,
+      userId: user.id,
       useragent,
     })
     this.sessionModel.save(session)

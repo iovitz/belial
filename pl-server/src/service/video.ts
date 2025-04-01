@@ -1,4 +1,4 @@
-import { Inject, Provide } from '@midwayjs/core'
+import { Inject, Provide, Scope, ScopeEnum } from '@midwayjs/core'
 import { CaslService } from './casl'
 import { Context } from '@midwayjs/koa'
 import { CrudService } from './crud'
@@ -7,6 +7,7 @@ import { InjectEntityModel } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
 
 @Provide()
+@Scope(ScopeEnum.Request, { allowDowngrade: true })
 export class VideoService extends CrudService<Video> {
   @InjectEntityModel(Video)
   entity: Repository<Video>
@@ -34,7 +35,7 @@ export class VideoService extends CrudService<Video> {
       {
         action: ['update', 'delete'],
         conditions: {
-          author: user?.id,
+          authorId: user?.id,
         },
       },
     ])

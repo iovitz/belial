@@ -4,7 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from './user.entity'
@@ -14,11 +14,13 @@ import { Video } from './video.entity'
   comment: '视频评论',
 })
 export class VideoComment {
-  @PrimaryGeneratedColumn({
+  @PrimaryColumn({
     name: 'id',
-    comment: '自增主键',
+    type: 'varchar',
+    length: 30,
+    comment: 'ulid',
   })
-  id: number
+  id: string
 
   @Column({
     name: 'content',
@@ -31,13 +33,34 @@ export class VideoComment {
   @JoinColumn({ name: 'video_id' })
   video: Video
 
-  @ManyToOne(() => User, user => user.videos)
+  @Column({
+    name: 'video_id',
+    type: 'varchar',
+    length: 30,
+  })
+  videoId: string
+
+  @ManyToOne(() => User, user => user.comments)
   @JoinColumn({ name: 'user_id' })
   user: User
+
+  @Column({
+    name: 'user_id',
+    type: 'varchar',
+    length: 30,
+  })
+  userId: string
 
   @ManyToOne(() => VideoComment)
   @JoinColumn({ name: 'reply_id' })
   reply: VideoComment
+
+  @Column({
+    name: 'reply_id',
+    type: 'varchar',
+    length: 30,
+  })
+  replyId: string
 
   @CreateDateColumn({
     name: 'created_at',

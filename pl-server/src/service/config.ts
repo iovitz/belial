@@ -1,7 +1,8 @@
-import { Provide } from '@midwayjs/core'
+import { Provide, Scope, ScopeEnum } from '@midwayjs/core'
 import { appConfig } from '../config/rc-config'
 
 @Provide()
+@Scope(ScopeEnum.Request, { allowDowngrade: true })
 export class ConfigService {
   private config = appConfig
 

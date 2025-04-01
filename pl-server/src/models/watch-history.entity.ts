@@ -2,9 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
+  JoinColumn,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from './user.entity'
@@ -14,18 +14,35 @@ import { Video } from './video.entity'
   comment: '视频观看历史',
 })
 export class WatchHistory {
-  @PrimaryGeneratedColumn({
+  @PrimaryColumn({
     name: 'id',
+    type: 'varchar',
+    length: 30,
+    comment: 'ulid',
   })
-  id: number
+  id: string
 
   @ManyToOne(() => Video)
-  @JoinTable({ name: 'video_id' })
+  @JoinColumn({ name: 'video_id' })
   video: Video
 
+  @Column({
+    name: 'video_id',
+    type: 'varchar',
+    length: 30,
+  })
+  videoId: string
+
   @ManyToOne(() => User)
-  @JoinTable({ name: 'user_id' })
+  @JoinColumn({ name: 'user_id' })
   user: User
+
+  @Column({
+    name: 'user_id',
+    type: 'varchar',
+    length: 30,
+  })
+  userId: string
 
   @Column({
     name: 'played_seconds',

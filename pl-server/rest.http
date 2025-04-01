@@ -4,8 +4,9 @@
     'x-test-req': 1
   };
 }}
+
 ### getVerifyCode
-GET {{prefixUrl}}/api/verify/code?width=200&height=50&type=login&svg=false
+GET {{prefixUrl}}/api/verify/code?width=200&height=50&type=register&svg=false
 
 ### register
 @username = {{$random.alphabetic()}}
@@ -15,8 +16,8 @@ content-type: application/json
   "nickname": "{{username}}",
   "email": "{{username}}@gmail.com",
   "password": "123123",
-  "verifyCode": "bnA7",
-  "verifyCodeId": "code01JQNF0FPB8Q7NCNFXTSSD7BVE"
+  "verifyCode": "3NUs",
+  "verifyCodeId": "code01JQQRD79WCFKDXV5BJHVHR0RE"
 }
 
 ### login
@@ -24,10 +25,10 @@ POST {{prefixUrl}}/api/auth/login
 content-type: application/json
 
 {
-  "email": "moUGBnvDLv@gmail.com",
+  "email": "tBdrUiEULb@gmail.com",
   "password": "123123",
-  "verifyCode": "8drx",
-  "verifyCodeId": "code01JQNG5H2X5PRWW8BKE425H65E"
+  "verifyCode": "ngxB",
+  "verifyCodeId": "code01JQQN9QBYH8A47V5SG6D05D7X"
 }
 
 ### video:create

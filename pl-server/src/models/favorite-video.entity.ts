@@ -1,7 +1,7 @@
 import {
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 
@@ -9,11 +9,13 @@ import {
   comment: '视频收藏表',
 })
 export class FavoriteVideo {
-  @PrimaryGeneratedColumn({
+  @PrimaryColumn({
     name: 'id',
-    comment: '自增主键',
+    type: 'varchar',
+    length: 30,
+    comment: 'ulid',
   })
-  id: number
+  id: string
 
   @CreateDateColumn({
     name: 'created_at',

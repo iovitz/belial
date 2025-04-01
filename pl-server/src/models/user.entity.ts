@@ -8,6 +8,7 @@ import {
 } from 'typeorm'
 import { Video } from './video.entity'
 import { Session } from './session.entity'
+import { VideoComment } from './videl-comment.entity'
 
 @Entity('user', {
   comment: '验证码',
@@ -64,11 +65,14 @@ export class User {
   })
   sex: number
 
-  @OneToMany(() => Video, video => video.user)
+  @OneToMany(() => Video, ({ user }) => user)
   videos: Video
 
-  @OneToMany(() => Session, video => video.user)
+  @OneToMany(() => Session, ({ user }) => user)
   sessions: Session
+
+  @OneToMany(() => VideoComment, ({ user }) => user)
+  comments: VideoComment
 
   @CreateDateColumn({
     name: 'created_at',

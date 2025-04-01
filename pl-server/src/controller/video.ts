@@ -7,6 +7,7 @@ import { ForbiddenError, NotFoundError } from '@midwayjs/core/dist/error/http'
 import { AuthGuard } from '../guards/auth'
 import { VideoPermissionGuard } from '../guards/video-permission'
 import { VideoPermission } from '../decorator/video-permission'
+import { EncryptService } from '../service/encrypt'
 
 @ApiTags('Video Module')
 @Controller('/api/video')
@@ -15,12 +16,15 @@ export class VideoController {
   ctx: Context
 
   @Inject()
+  encryptService: EncryptService
+
+  @Inject()
   videoService: VideoService
 
   @Get(':id')
   async get(@Query() { id }: IDQueryDTO) {
     const video = await this.videoService.findOneBy({
-      id,
+      id: this.encryptService.genRandomId('vide'),
     })
     switch (video.status) {
       case 0:

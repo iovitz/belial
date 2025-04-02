@@ -1,8 +1,8 @@
 import { Context } from '@midwayjs/koa'
-import { Body, Controller, Del, Get, Inject, Patch, Post, Query, UseGuard } from '@midwayjs/core'
+import { Body, Controller, Del, Get, Inject, Param, Patch, Post, UseGuard } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 import { VideoService } from '../service/video'
-import { CreateVideoDTO, IDQueryDTO } from './_dto'
+import { CreateVideoDTO, IDParamDTO } from './_dto'
 import { ForbiddenError, NotFoundError } from '@midwayjs/core/dist/error/http'
 import { AuthGuard } from '../guards/auth'
 import { VideoPermissionGuard } from '../guards/video-permission'
@@ -21,11 +21,14 @@ export class VideoController {
   @Inject()
   videoService: VideoService
 
-  @Get(':id')
-  async get(@Query() { id }: IDQueryDTO) {
-    const video = await this.videoService.findOneBy({
-      id: this.encryptService.genRandomId('vide'),
-    })
+  @Get('/:id')
+  @VideoPermission('read')
+  @UseGuard([AuthGuard, VideoPermissionGuard])
+  async get(@Param() { id }: IDParamDTO) {
+    const { video } = this.ctx
+    if (!video) {
+      this.ctx.throw(new NotFoundError('Video not exists'))
+    }
     switch (video.status) {
       case 0:
         return video

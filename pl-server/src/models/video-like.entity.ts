@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('video-like', {
+@Entity('video_like', {
   comment: '视频点赞',
 })
 export class VideoLike {

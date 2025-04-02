@@ -11,6 +11,7 @@ import {
 
 import { User } from './user.entity'
 import { VideoComment } from './videl-comment.entity'
+import { VideoTag } from './video-tag.entity'
 
 @Entity('video', {
   comment: '视频表',
@@ -60,12 +61,15 @@ export class Video {
     name: 'status',
     type: 'tinyint',
     default: 0,
-    comment: '正常：0，被删除：1，被封禁：2',
+    comment: '正常：0，被删除：1，私有化：2，被封禁：3',
   })
   status: number
 
   @OneToMany(() => VideoComment, comment => comment.video)
   comments: VideoComment
+
+  @OneToMany(() => VideoTag, ({ video }) => video)
+  tags: VideoTag
 
   @ManyToOne(() => User, user => user.videos)
   @JoinColumn({ name: 'author_id' })

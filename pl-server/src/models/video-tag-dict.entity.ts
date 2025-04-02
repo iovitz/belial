@@ -2,14 +2,16 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { VideoTag } from './video-tag.entity'
 
-@Entity('verify_code', {
-  comment: '验证码',
+@Entity('video_tag_dict', {
+  comment: '视频标签表',
 })
-export class VerifyCode {
+export class VideoTagDict {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
@@ -19,25 +21,22 @@ export class VerifyCode {
   id: string
 
   @Column({
-    name: 'code',
+    name: 'title',
     type: 'varchar',
-    length: 6,
+    length: 50,
   })
-  code: string
+  name: string
 
-  @Column({
-    name: 'type',
-    type: 'varchar',
-    length: 10,
-  })
-  type: string
+  @OneToMany(() => VideoTag, ({ tag }) => tag)
+  videos: VideoTag
 
   @Column({
     name: 'status',
-    type: 'boolean',
-    default: false,
+    type: 'tinyint',
+    default: 0,
+    comment: '正常：0，被删除：1，私有：2，被封禁：3',
   })
-  status: boolean
+  status: number
 
   @CreateDateColumn({
     name: 'created_at',

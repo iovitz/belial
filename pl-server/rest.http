@@ -31,6 +31,10 @@ content-type: application/json
   "verifyCodeId": "code01JQQN9QBYH8A47V5SG6D05D7X"
 }
 
+### video:get
+GET {{prefixUrl}}/api/video/vide123123123
+content-type: application/json
+
 ### video:create
 POST {{prefixUrl}}/api/video
 content-type: application/json

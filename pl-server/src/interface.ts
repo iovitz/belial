@@ -1,6 +1,7 @@
 import type { PromiseManager } from './middleware/promise-manager'
 import type { CookieKeys } from './shared/constans/cookie.const'
 import '@midwayjs/core'
+import type { Video } from './models/video.entity'
 
 /**
  * @description User-Service parameters
@@ -18,6 +19,7 @@ declare module '@midwayjs/core' {
     user?: {
       id: string
     }
+    video?: Video
     tracerId: string
     stime: bigint
     clientId: string

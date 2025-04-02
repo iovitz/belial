@@ -5,7 +5,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('favorite-video', {
+@Entity('favorite_video', {
   comment: '视频收藏表',
 })
 export class FavoriteVideo {

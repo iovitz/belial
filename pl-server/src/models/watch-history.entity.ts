@@ -10,7 +10,7 @@ import {
 import { User } from './user.entity'
 import { Video } from './video.entity'
 
-@Entity('watch-history', {
+@Entity('watch_history', {
   comment: '视频观看历史',
 })
 export class WatchHistory {

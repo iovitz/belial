@@ -2,7 +2,7 @@ import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
 
 // #region common dto
-export class IDQueryDTO {
+export class IDParamDTO {
   @ApiProperty({
     example: '查询',
     description: '验证码宽度',

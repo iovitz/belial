@@ -7,13 +7,13 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { User } from './user.entity'
+import { VideoTagDict } from './video-tag-dict.entity'
 import { Video } from './video.entity'
 
-@Entity('video_comment', {
-  comment: '视频评论',
+@Entity('video_tag', {
+  comment: '视频标签表',
 })
-export class VideoComment {
+export class VideoTag {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
@@ -22,14 +22,7 @@ export class VideoComment {
   })
   id: string
 
-  @Column({
-    name: 'content',
-    type: 'varchar',
-    length: 500,
-  })
-  content: string
-
-  @ManyToOne(() => Video, ({ comments }) => comments)
+  @ManyToOne(() => Video, ({ tags }) => tags)
   @JoinColumn({ name: 'video_id' })
   video: Video
 
@@ -38,29 +31,18 @@ export class VideoComment {
     type: 'varchar',
     length: 30,
   })
-  videoId: string
+  authorId: string
 
-  @ManyToOne(() => User, ({ comments }) => comments)
-  @JoinColumn({ name: 'user_id' })
-  user: User
+  @ManyToOne(() => VideoTagDict, ({ videos }) => videos)
+  @JoinColumn({ name: 'tag_id' })
+  tag: VideoTagDict
 
   @Column({
-    name: 'user_id',
+    name: 'tag_id',
     type: 'varchar',
     length: 30,
   })
-  userId: string
-
-  @ManyToOne(() => VideoComment)
-  @JoinColumn({ name: 'reply_id' })
-  reply: VideoComment
-
-  @Column({
-    name: 'reply_id',
-    type: 'varchar',
-    length: 30,
-  })
-  replyId: string
+  tagId: string
 
   @CreateDateColumn({
     name: 'created_at',

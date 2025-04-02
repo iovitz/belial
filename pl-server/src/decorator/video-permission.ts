@@ -4,7 +4,7 @@ import { createCustomMethodDecorator, savePropertyMetadata } from '@midwayjs/cor
 export const VIDEO_ACCESS = 'decorator:VIDEO_ACCESS'
 
 export function VideoPermission(permission: string | string[]): MethodDecorator {
-  const midwayDecorator = createCustomMethodDecorator(VIDEO_ACCESS, {})
+  const midwayDecorator = createCustomMethodDecorator(VIDEO_ACCESS, {}, false)
   return (target, property, descriptor) => {
     const metadata = typeof permission === 'string' ? [permission] : permission
     savePropertyMetadata(VIDEO_ACCESS, metadata, target, property)

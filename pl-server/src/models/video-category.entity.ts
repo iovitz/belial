@@ -6,12 +6,12 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { VideoTagMapping } from './video-tag-mapping.entity'
+import { Video } from './video.entity'
 
-@Entity('video_tag', {
-  comment: '视频标签表',
+@Entity('video_category', {
+  comment: '视频分区表',
 })
-export class VideoTag {
+export class VideoCategory {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
@@ -27,8 +27,8 @@ export class VideoTag {
   })
   name: string
 
-  @OneToMany(() => VideoTagMapping, ({ tag }) => tag)
-  videos: VideoTagMapping
+  @OneToMany(() => Video, ({ category }) => category)
+  videos: Video
 
   @Column({
     name: 'status',

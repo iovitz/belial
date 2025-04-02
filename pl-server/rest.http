@@ -16,8 +16,8 @@ content-type: application/json
   "nickname": "{{username}}",
   "email": "{{username}}@gmail.com",
   "password": "123123",
-  "verifyCode": "utOY",
-  "verifyCodeId": "code01JQRP8CYA7TVW0HEPV9DFDSHK"
+  "verifyCode": "yWXe",
+  "verifyCodeId": "code01JQV5JK1FP4FDE5SQB1V36MBA"
 }
 
 ### login
@@ -41,3 +41,11 @@ content-type: application/json
 {
 }
 
+
+
+### videoTag:create
+POST {{prefixUrl}}/api/video-tag
+content-type: application/json
+{
+  "name": "鬼畜d"
+}

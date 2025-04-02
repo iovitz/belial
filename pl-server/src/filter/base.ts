@@ -10,7 +10,7 @@ export abstract class BaseErrorFilter<E extends Error> {
   async catch(err: E, ctx: Context) {
     const { status } = this
 
-    ctx.status = status
+    ctx.status = get(err, 'status') ?? status
 
     const message = statuses(status)
 
@@ -21,16 +21,15 @@ export abstract class BaseErrorFilter<E extends Error> {
       `- ERR ${ctx.method} ${ctx.url} ${ctx.userId ?? '??'}`,
       stringify({
         status,
-        code: this.getCode(err),
-        cost: ctx.getCostNs(),
+        code: this.getCode(err, ctx.status),
         cid: ctx.clientId,
       }),
     )
 
     return {
-      code: this.getCode(err),
+      code: this.getCode(err, ctx.status),
       success: false,
-      message: this.getMessageerr(err),
+      message: this.getMessenger(err, ctx.status),
     }
   }
 
@@ -39,11 +38,11 @@ export abstract class BaseErrorFilter<E extends Error> {
   }
 
   // 获取 body.code
-  protected getCode(_err: E) {
-    return get(_err, 'code', this.status * 100)
+  protected getCode(_err: E, status: number) {
+    return get(_err, 'code', status * 100)
   }
 
-  protected getMessageerr(_err: E) {
-    return get(_err, 'message', statuses(this.status))
+  protected getMessenger(_err: E, status: number) {
+    return get(_err, 'message', statuses(status))
   }
 }

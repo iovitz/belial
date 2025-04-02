@@ -13,7 +13,7 @@ export class ValidationErrorFilter extends BaseErrorFilter<MidwayValidationError
     ctx.logger.info(`validation error: ${message}`, err.message)
   }
 
-  protected override getMessageerr(err: MidwayValidationError): string {
+  protected override getMessenger(err: MidwayValidationError): string {
     return err.message
   }
 }

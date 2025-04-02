@@ -41,7 +41,6 @@ export class TracerMiddleware implements IMiddleware<Context, NextFunction> {
         `- SUC ${ctx.method} ${ctx.url} ${ctx.userId ?? '??'}`,
         stringify({
           cid: ctx.clientId,
-          cost: ctx.getCostNs(),
           code: result.code,
           status: ctx.status,
         }),

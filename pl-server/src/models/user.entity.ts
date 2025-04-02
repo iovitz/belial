@@ -65,7 +65,7 @@ export class User {
   })
   sex: number
 
-  @OneToMany(() => Video, ({ user }) => user)
+  @OneToMany(() => Video, ({ author }) => author)
   videos: Video
 
   @OneToMany(() => Session, ({ user }) => user)

@@ -2,16 +2,18 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { VideoTag } from './video-tag.entity'
+import { Video } from './video.entity'
 
-@Entity('video_tag_dict', {
-  comment: '视频标签表',
+@Entity('video_tag_mapping', {
+  comment: '视频和标签的映射表',
 })
-export class VideoTagDict {
+export class VideoTagMapping {
   @PrimaryColumn({
     name: 'id',
     type: 'varchar',
@@ -20,23 +22,26 @@ export class VideoTagDict {
   })
   id: string
 
+  @ManyToOne(() => Video, ({ tags }) => tags)
+  @JoinColumn({ name: 'video_id' })
+  video: Video
+
   @Column({
-    name: 'title',
+    name: 'video_id',
     type: 'varchar',
-    length: 50,
+    length: 30,
   })
-  name: string
+  videoId: string
 
-  @OneToMany(() => VideoTag, ({ tag }) => tag)
-  videos: VideoTag
+  @ManyToOne(() => VideoTag, ({ videos }) => videos)
+  tag: VideoTag
 
   @Column({
-    name: 'status',
-    type: 'tinyint',
-    default: 0,
-    comment: '正常：0，被删除：1，私有：2，被封禁：3',
+    name: 'tag_id',
+    type: 'varchar',
+    length: 30,
   })
-  status: number
+  tagId: string
 
   @CreateDateColumn({
     name: 'created_at',

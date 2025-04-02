@@ -28,7 +28,6 @@ declare module '@midwayjs/core' {
     promiseManager: PromiseManager
     getCookie: (key: CookieKeys) => string | undefined
     setCookie: (key: CookieKeys, value: string) => void
-    getCostNs: () => string
   }
 }
 /**

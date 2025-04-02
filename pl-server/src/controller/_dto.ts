@@ -11,14 +11,33 @@ export class IDParamDTO {
   id: string
 }
 
+// #region Video Tag
+export class CreateTagDTO {
+  @ApiProperty({
+    example: '鬼畜',
+    description: 'tag name',
+  })
+  @Rule(RuleType.string().max(20).min(0).required())
+  name: string
+}
+
 // #region Video controller
 export class CreateVideoDTO {
   @ApiProperty({
     example: 'video name',
     description: 'video name',
   })
-  @Rule(RuleType.string().max(100).min(0).required())
+  @Rule(RuleType.string().max(1000).min(0).required())
   name: string
+
+  @ApiProperty({
+    example: 'abcd',
+    description: '验证码ID',
+    maxLength: 30,
+    minLength: 30,
+  })
+  @Rule(RuleType.string().length(30).required())
+  categoryId: string
 
   @ApiProperty({
     example: 'video description',
@@ -39,21 +58,21 @@ export class CreateVideoDTO {
 export class GetCaptchaDTO {
   @ApiProperty({
     example: 200,
-    description: '验证码宽度',
+    description: 'image width',
   })
   @Rule(RuleType.number().max(500).min(0).required())
   width: number
 
   @ApiProperty({
     example: 50,
-    description: '验证码高度',
+    description: 'image height',
   })
   @Rule(RuleType.number().max(500).min(0).required())
   height: number
 
   @ApiProperty({
     example: 'login',
-    description: '验证码类型',
+    description: 'verify code type(login / register)',
   })
   @Rule(RuleType.string().max(20).min(1).required())
   type: string

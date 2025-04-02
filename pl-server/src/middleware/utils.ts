@@ -1,7 +1,6 @@
 import type { IMiddleware } from '@midwayjs/core'
 import type { Application, Context, NextFunction } from '@midwayjs/koa'
 import type { CookieKeys } from '../shared/constans/cookie.const'
-import * as process from 'node:process'
 import { App, Middleware } from '@midwayjs/core'
 
 @Middleware()
@@ -16,13 +15,6 @@ export class UtilsMiddlware implements IMiddleware<Context, NextFunction> {
       const overwrite = this.app.getConfig('session.overwrite')
       const sameSite = this.app.getConfig('session.sameSite')
       const maxAge = this.app.getConfig('session.maxAge')
-
-      const startNs = process.hrtime.bigint()
-
-      // 获取请求耗时（ms）
-      ctx.getCostNs = function () {
-        return Number(process.hrtime.bigint() - startNs).toLocaleString()
-      }
 
       ctx.getCookie = function (key: CookieKeys) {
         return ctx.cookies.get(key, {

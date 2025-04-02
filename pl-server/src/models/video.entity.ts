@@ -11,7 +11,8 @@ import {
 
 import { User } from './user.entity'
 import { VideoComment } from './videl-comment.entity'
-import { VideoTag } from './video-tag.entity'
+import { VideoCategory } from './video-category.entity'
+import { VideoTagMapping } from './video-tag-mapping.entity'
 
 @Entity('video', {
   comment: '视频表',
@@ -68,12 +69,12 @@ export class Video {
   @OneToMany(() => VideoComment, comment => comment.video)
   comments: VideoComment
 
-  @OneToMany(() => VideoTag, ({ video }) => video)
-  tags: VideoTag
+  @OneToMany(() => VideoTagMapping, ({ video }) => video)
+  tags: VideoTagMapping
 
-  @ManyToOne(() => User, user => user.videos)
+  @ManyToOne(() => User, ({ videos }) => videos)
   @JoinColumn({ name: 'author_id' })
-  user: User
+  author: User
 
   @Column({
     name: 'author_id',
@@ -81,6 +82,17 @@ export class Video {
     length: 30,
   })
   authorId: string
+
+  @ManyToOne(() => VideoCategory, ({ videos }) => videos)
+  @JoinColumn({ name: 'category_id' })
+  category: VideoCategory
+
+  @Column({
+    name: 'category_id',
+    type: 'varchar',
+    length: 30,
+  })
+  categoryId: string
 
   @CreateDateColumn({
     name: 'created_at',

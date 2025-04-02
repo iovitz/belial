@@ -21,17 +21,17 @@ export class VideoService extends CrudService<Video> {
   buildAbilitiesForUser() {
     const { user } = this.ctx
     return this.caslService.buildAbilitiesFor('Video', [
-      user
-        ? {
-            action: 'create',
-          }
-        : null,
       {
         action: 'read',
         conditions: {
           isPrivate: false,
         },
       },
+      user
+        ? {
+            action: 'create',
+          }
+        : null,
       {
         action: ['update', 'delete'],
         conditions: {

@@ -26,6 +26,6 @@ export class CaslService {
       return (cannotDoThis ? cannot : can)(action, subject, fields, conditions)
     })
 
-    return build({ conditionsMatcher })
+    return build({ conditionsMatcher, detectSubjectType: () => subject })
   }
 }

@@ -16,8 +16,8 @@ content-type: application/json
   "nickname": "{{username}}",
   "email": "{{username}}@gmail.com",
   "password": "123123",
-  "verifyCode": "3NUs",
-  "verifyCodeId": "code01JQQRD79WCFKDXV5BJHVHR0RE"
+  "verifyCode": "utOY",
+  "verifyCodeId": "code01JQRP8CYA7TVW0HEPV9DFDSHK"
 }
 
 ### login

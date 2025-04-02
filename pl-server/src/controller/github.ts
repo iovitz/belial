@@ -1,7 +1,7 @@
 import type { GithubService } from '../service/github'
-import type { GetCommitListDTO } from './_dto'
 import { Controller, Get, Inject } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
+import { GetCommitListDTO } from '../dto/github'
 
 @ApiTags('Github更新')
 @Controller('/api/github')

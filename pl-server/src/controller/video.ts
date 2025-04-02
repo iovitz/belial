@@ -2,12 +2,13 @@ import { Context } from '@midwayjs/koa'
 import { Body, Controller, Del, Get, Inject, Param, Patch, Post, UseGuard } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
 import { VideoService } from '../service/video'
-import { CreateVideoDTO, IDParamDTO } from './_dto'
 import { ForbiddenError, NotFoundError } from '@midwayjs/core/dist/error/http'
 import { AuthGuard } from '../guards/auth'
 import { VideoPermissionGuard } from '../guards/video-permission'
 import { VideoPermission } from '../decorator/video-permission'
 import { EncryptService } from '../service/encrypt'
+import { IDParamDTO } from '../dto/common'
+import { CreateVideoDTO } from '../dto/video'
 
 @ApiTags('Video Module')
 @Controller('/api/video')

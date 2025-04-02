@@ -1,8 +1,8 @@
 import { Context } from '@midwayjs/koa'
 import { VerifyService } from '../service/verify'
-import { GetCaptchaDTO } from './_dto'
 import { Controller, Get, Inject, Query } from '@midwayjs/core'
 import { ApiTags } from '@midwayjs/swagger'
+import { GetCaptchaDTO } from '../dto/verify'
 
 @ApiTags('Verify模块：验证相关')
 @Controller('/api/verify')

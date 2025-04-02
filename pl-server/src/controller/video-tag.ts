@@ -2,10 +2,10 @@ import { Body, Controller, Inject, Post, UseGuard } from '@midwayjs/core'
 import { Context } from '@midwayjs/socketio'
 import { ApiTags } from '@midwayjs/swagger'
 import { VideoPermission } from '../decorator/video-permission'
+import { CreateTagDTO } from '../dto/video-tag'
 import { AuthGuard } from '../guards/auth'
 import { EncryptService } from '../service/encrypt'
 import { VideoTagService } from '../service/video-tag'
-import { CreateTagDTO } from './_dto'
 
 @ApiTags('Video Tag')
 @Controller('/api/video-tag')

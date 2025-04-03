@@ -8,6 +8,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { snowflakeIdGenerator } from '../shared/id'
 
 import { User } from './user.entity'
 import { VideoComment } from './videl-comment.entity'
@@ -20,9 +21,9 @@ import { VideoTagMapping } from './video-tag-mapping.entity'
 export class Video {
   @PrimaryColumn({
     name: 'id',
-    type: 'varchar',
-    length: 30,
-    comment: 'ulid',
+    type: 'bigint',
+    comment: '雪花ID',
+    default: () => snowflakeIdGenerator.generator(),
   })
   id: string
 
@@ -78,8 +79,7 @@ export class Video {
 
   @Column({
     name: 'author_id',
-    type: 'varchar',
-    length: 30,
+    type: 'bigint',
   })
   authorId: string
 
@@ -89,8 +89,7 @@ export class Video {
 
   @Column({
     name: 'category_id',
-    type: 'varchar',
-    length: 30,
+    type: 'bigint',
   })
   categoryId: string
 

@@ -40,7 +40,7 @@ export default {
   },
 
   secrets: {
-    multiAvatar: appConfig.MULTI_AVATAR_KEY,
+    multiAvatar: appConfig.MULTI_AVATAR_SECRET,
     fwalert: appConfig.FWALERT_KEY,
   },
 

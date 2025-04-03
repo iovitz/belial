@@ -9,6 +9,7 @@ import {
 import { Video } from './video.entity'
 import { Session } from './session.entity'
 import { VideoComment } from './videl-comment.entity'
+import { snowflakeIdGenerator } from '../shared/id'
 
 @Entity('user', {
   comment: '验证码',
@@ -16,16 +17,16 @@ import { VideoComment } from './videl-comment.entity'
 export class User {
   @PrimaryColumn({
     name: 'id',
-    type: 'varchar',
-    length: 30,
-    comment: 'ulid',
+    type: 'bigint',
+    comment: '雪花ID',
+    default: () => snowflakeIdGenerator.generator(),
   })
   id: string
 
   @Column({
     name: 'email',
     type: 'varchar',
-    length: 30,
+
   })
   email: string
 

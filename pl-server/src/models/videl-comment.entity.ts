@@ -7,6 +7,7 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { snowflakeIdGenerator } from '../shared/id'
 import { User } from './user.entity'
 import { Video } from './video.entity'
 
@@ -16,9 +17,9 @@ import { Video } from './video.entity'
 export class VideoComment {
   @PrimaryColumn({
     name: 'id',
-    type: 'varchar',
-    length: 30,
-    comment: 'ulid',
+    type: 'bigint',
+    comment: '雪花ID',
+    default: () => snowflakeIdGenerator.generator(),
   })
   id: string
 
@@ -35,8 +36,7 @@ export class VideoComment {
 
   @Column({
     name: 'video_id',
-    type: 'varchar',
-    length: 30,
+    type: 'bigint',
   })
   videoId: string
 
@@ -46,8 +46,7 @@ export class VideoComment {
 
   @Column({
     name: 'user_id',
-    type: 'varchar',
-    length: 30,
+    type: 'bigint',
   })
   userId: string
 
@@ -57,8 +56,7 @@ export class VideoComment {
 
   @Column({
     name: 'reply_id',
-    type: 'varchar',
-    length: 30,
+    type: 'bigint',
   })
   replyId: string
 

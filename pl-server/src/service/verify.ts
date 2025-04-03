@@ -5,15 +5,11 @@ import { InjectEntityModel } from '@midwayjs/typeorm'
 import * as moment from 'moment'
 import * as svgCaptcha from 'svg-captcha'
 import { VerifyCode } from '../models/verify-code.entity'
-import { EncryptService } from './encrypt'
 
 @Provide()
 export class VerifyService {
   @Inject()
   private ctx: Context
-
-  @Inject()
-  private encrypt: EncryptService
 
   @InjectEntityModel(VerifyCode)
   private verifyCode: Repository<VerifyCode>
@@ -34,7 +30,6 @@ export class VerifyService {
       background: '#ffffff',
     })
     const verifyCode = new VerifyCode()
-    verifyCode.id = this.encrypt.genRandomId('code')
     verifyCode.code = code.text
     verifyCode.type = type
     this.ctx.logger.info('generate verify code:', verifyCode.code)

@@ -1,5 +1,4 @@
 import {
-  Column,
   CreateDateColumn,
   Entity,
   PrimaryColumn,
@@ -7,10 +6,10 @@ import {
 } from 'typeorm'
 import { snowflakeIdGenerator } from '../shared/id'
 
-@Entity('verify_code', {
-  comment: '验证码',
+@Entity('auth', {
+  comment: '用户认证表',
 })
-export class VerifyCode {
+export class Auth {
   @PrimaryColumn({
     name: 'id',
     type: 'bigint',
@@ -18,27 +17,6 @@ export class VerifyCode {
     default: () => snowflakeIdGenerator.generator(),
   })
   id: string
-
-  @Column({
-    name: 'code',
-    type: 'varchar',
-    length: 6,
-  })
-  code: string
-
-  @Column({
-    name: 'type',
-    type: 'varchar',
-    length: 10,
-  })
-  type: string
-
-  @Column({
-    name: 'status',
-    type: 'boolean',
-    default: false,
-  })
-  status: boolean
 
   @CreateDateColumn({
     name: 'created_at',

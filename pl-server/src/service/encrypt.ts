@@ -1,16 +1,11 @@
 import { Buffer } from 'node:buffer'
 import { Provide } from '@midwayjs/core'
 import * as cryptoJS from 'crypto-js'
-import { ulid } from 'ulid'
 import * as pako from 'pako'
 import * as bcrypt from 'bcrypt'
 
 @Provide()
 export class EncryptService {
-  genRandomId(prefix: string) {
-    return prefix + ulid()
-  }
-
   ungzip(gzipBase64Str: string) {
     return JSON.parse(
       pako.ungzip(Buffer.from(gzipBase64Str, 'base64') as unknown as pako.Data, { to: 'string' }),

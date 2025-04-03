@@ -30,7 +30,6 @@ export class VideoController {
       return true
     }
     const videoTag = this.videoTagService.create({
-      id: this.encryptService.genRandomId('vtag'),
       name,
     })
     await this.videoTagService.save(videoTag)

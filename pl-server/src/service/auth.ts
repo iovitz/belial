@@ -44,13 +44,10 @@ export class AuthService {
   }
 
   async createUser(email: string, password: string) {
-    const id = this.encrypt.genRandomId('user')
     const key = this.app.getConfig('secrets.multiAvatar')
     const user = new User()
 
-    user.id = id
-
-    user.nickname = `用户${id.substring(0, 5)}`
+    user.nickname = `用户${Math.random()}`
     user.email = email
     user.password = await this.encrypt.bcryptEncode(password)
     user.avatar = `https://api.multiavatar.com/Starcrasher.png?apikey=${key}`
@@ -62,7 +59,6 @@ export class AuthService {
   async createSession(user: User, useragent?: string) {
     const sessionId = uuid.v4()
     const session = this.sessionModel.create({
-      id: this.encrypt.genRandomId('__ss'),
       sessionId,
       userId: user.id,
       useragent,

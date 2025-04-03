@@ -25,7 +25,7 @@ export class VideoController {
   @Get('/:id')
   @VideoPermission('read')
   @UseGuard([AuthGuard, VideoPermissionGuard])
-  async get(@Param() { id }: IDParamDTO) {
+  async get(@Param() { id: _id }: IDParamDTO) {
     const { video } = this.ctx
     if (!video) {
       this.ctx.throw(new NotFoundError('Video not exists'))

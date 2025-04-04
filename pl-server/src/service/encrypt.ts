@@ -1,11 +1,33 @@
 import { Buffer } from 'node:buffer'
-import { Provide } from '@midwayjs/core'
-import * as cryptoJS from 'crypto-js'
-import * as pako from 'pako'
+import { Inject, Provide } from '@midwayjs/core'
 import * as bcrypt from 'bcrypt'
+import * as pako from 'pako'
+import * as crypto from 'node:crypto'
+import * as cryptoJS from 'crypto-js'
+import { ConfigService } from './config'
 
 @Provide()
 export class EncryptService {
+  @Inject()
+  configService: ConfigService
+
+  aesPrivateEncrypt(message: string) {
+    crypto.publicEncrypt(
+      {
+        key: this.configService.get('AES_PRIVATE_KEY'), // PEM 格式字符串
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, // 推荐 OAEP 填充
+      },
+      Buffer.from(message),
+    )
+  }
+
+  aesPrivateDecrypt(encoded: string) {
+    return crypto.publicDecrypt(
+      { key: this.configService.get('AES_PUBLIC_KEY'), padding: crypto.constants.RSA_PKCS1_PADDING },
+      Buffer.from(encoded, 'base64'),
+    )
+  }
+
   ungzip(gzipBase64Str: string) {
     return JSON.parse(
       pako.ungzip(Buffer.from(gzipBase64Str, 'base64') as unknown as pako.Data, { to: 'string' }),
@@ -29,18 +51,14 @@ export class EncryptService {
   }
 
   md5(str: string) {
-    return cryptoJS.MD5(str).toString()
-  }
-
-  md5Match(str: string, md5Str: string) {
-    return cryptoJS.MD5(str).toString() === md5Str
+    return crypto.createHash('md5').update(str).digest('hex')
   }
 
   aesEncrypt(message: string) {
-    return cryptoJS.AES.encrypt(message, '').toString()
+    return cryptoJS.AES.encrypt(message, this.configService.get('AES_PRIVATE_KEY')).toString()
   }
 
-  aesDecrypt(encrypted) {
-    return cryptoJS.AES.decrypt(encrypted, '').toString(cryptoJS.enc.Utf8)
+  aesDecrypt(encrypted: string) {
+    return cryptoJS.AES.decrypt(encrypted, this.configService.get('AES_PRIVATE_KEY')).toString(cryptoJS.enc.Utf8)
   }
 }

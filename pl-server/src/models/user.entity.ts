@@ -10,6 +10,7 @@ import { Video } from './video.entity'
 import { Session } from './session.entity'
 import { VideoComment } from './videl-comment.entity'
 import { snowflakeIdGenerator } from '../shared/id'
+import { Auth } from './auth.entity'
 
 @Entity('user', {
   comment: '验证码',
@@ -22,13 +23,6 @@ export class User {
     default: () => snowflakeIdGenerator.generator(),
   })
   id: string
-
-  @Column({
-    name: 'email',
-    type: 'varchar',
-
-  })
-  email: string
 
   @Column({
     name: 'nickname',
@@ -45,13 +39,6 @@ export class User {
   avatar: string
 
   @Column({
-    name: 'password',
-    type: 'varchar',
-    length: 100,
-  })
-  password: string
-
-  @Column({
     name: 'desc',
     type: 'varchar',
     length: 100,
@@ -66,14 +53,17 @@ export class User {
   })
   sex: number
 
+  @OneToMany(() => Auth, ({ user }) => user)
+  auths: Auth[]
+
   @OneToMany(() => Video, ({ author }) => author)
-  videos: Video
+  videos: Video[]
 
   @OneToMany(() => Session, ({ user }) => user)
-  sessions: Session
+  sessions: Session[]
 
   @OneToMany(() => VideoComment, ({ user }) => user)
-  comments: VideoComment
+  comments: VideoComment[]
 
   @CreateDateColumn({
     name: 'created_at',

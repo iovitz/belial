@@ -29,7 +29,7 @@ export class VideoCategory {
   name: string
 
   @OneToMany(() => Video, ({ category }) => category)
-  videos: Video
+  videos: Video[]
 
   @Column({
     name: 'status',

@@ -1,3 +1,5 @@
+import { Inject } from '@midwayjs/core'
+import { TypeORMDataSourceManager } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
 
 interface EntityWithID {
@@ -5,6 +7,9 @@ interface EntityWithID {
 }
 
 export abstract class CrudService<T extends EntityWithID> {
+  @Inject()
+  dataSourceManager: TypeORMDataSourceManager
+
   abstract entity: Repository<T>
 
   create(...args: Parameters< Repository<T>['create']>) {

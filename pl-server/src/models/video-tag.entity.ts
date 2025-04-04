@@ -29,7 +29,7 @@ export class VideoTag {
   name: string
 
   @OneToMany(() => VideoTagMapping, ({ tag }) => tag)
-  videos: VideoTagMapping
+  videos: VideoTagMapping[]
 
   @Column({
     name: 'status',

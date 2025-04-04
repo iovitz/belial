@@ -1,76 +1,29 @@
-import { Application } from '@midwayjs/koa'
-import {
-  DataSource,
-  FindOptionsSelect,
-  FindOptionsWhere,
-  Repository,
-} from 'typeorm'
-import { EncryptService } from './encrypt'
-import { App, Inject, Provide, Scope, ScopeEnum } from '@midwayjs/core'
-import { InjectDataSource, InjectEntityModel } from '@midwayjs/typeorm'
-import { customAlphabet } from 'nanoid'
-import * as uuid from 'uuid'
-import { Session } from '../models/session.entity'
+import { Provide } from '@midwayjs/core'
+import { CrudService } from './crud'
+import { Auth } from '../models/auth.entity'
+import { InjectEntityModel } from '@midwayjs/typeorm'
+import { Repository } from 'typeorm'
+import { snowflakeIdGenerator } from '../shared/id'
 import { User } from '../models/user.entity'
 
 @Provide()
-@Scope(ScopeEnum.Request, { allowDowngrade: true })
-export class AuthService {
-  @App()
-  app: Application
+export class AuthService extends CrudService<Auth> {
+  @InjectEntityModel(Auth)
+  entity: Repository<Auth>
 
-  @InjectDataSource()
-  defaultDataSource: DataSource
+  createUser(identifier: string, credential: string, identityType: string, nickname: string) {
+    return this.dataSourceManager.getDataSource('default').transaction(async (manager) => {
+      const newUserId = snowflakeIdGenerator.generate()
+      const auth = new Auth()
+      auth.userId = newUserId
+      auth.identifier = identifier
+      auth.credential = credential
+      auth.identityType = identityType
+      const user = new User()
+      user.id = newUserId
+      user.nickname = nickname
 
-  @InjectEntityModel(Session)
-  private sessionModel: Repository<Session>
-
-  @InjectEntityModel(User)
-  private User: Repository<User>
-
-  @Inject()
-  private encrypt: EncryptService
-
-  avatarGenerator = customAlphabet(
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
-    10,
-  )
-
-  findUserBy(where: FindOptionsWhere<User>, select: FindOptionsSelect<User>) {
-    return this.User.findOne({
-      where,
-      select,
+      return Promise.all([manager.save(user), manager.save(auth)])
     })
-  }
-
-  async createUser(email: string, password: string) {
-    const key = this.app.getConfig('secrets.multiAvatar')
-    const user = new User()
-
-    user.nickname = `用户${Math.random()}`
-    user.email = email
-    user.password = await this.encrypt.bcryptEncode(password)
-    user.avatar = `https://api.multiavatar.com/Starcrasher.png?apikey=${key}`
-
-    await this.User.save(user)
-    return user
-  }
-
-  async createSession(user: User, useragent?: string) {
-    const sessionId = uuid.v4()
-    const session = this.sessionModel.create({
-      sessionId,
-      userId: user.id,
-      useragent,
-    })
-    this.sessionModel.save(session)
-    return sessionId
-  }
-
-  async getSessionInfo(sessionId: string) {
-    const session = this.sessionModel.findOneBy({
-      sessionId,
-    })
-    return session
   }
 }

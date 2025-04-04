@@ -68,10 +68,10 @@ export class Video {
   status: number
 
   @OneToMany(() => VideoComment, comment => comment.video)
-  comments: VideoComment
+  comments: VideoComment[]
 
   @OneToMany(() => VideoTagMapping, ({ video }) => video)
-  tags: VideoTagMapping
+  tags: VideoTagMapping[]
 
   @ManyToOne(() => User, ({ videos }) => videos)
   @JoinColumn({ name: 'author_id' })

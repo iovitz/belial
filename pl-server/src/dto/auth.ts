@@ -4,40 +4,55 @@ import { CheckCaptchaDTO } from './common'
 
 export class RegisterDTO extends CheckCaptchaDTO {
   @ApiProperty({
-    example: 'Peter',
-    description: '昵称',
+    example: 'phone',
+    description: '认证类型：github/wechat/phone/email',
   })
-  @Rule(RuleType.string().required().max(10).min(1))
-  nickname: string
+  @Rule(RuleType.string().required().max(30).min(1))
+  identityType: string
 
   @ApiProperty({
-    example: 'peter@gmail.com',
+    examples: ['peter@gmail.com', '13812345678'],
+    description: '邮箱、手机号、openid',
   })
-  @Rule(RuleType.string().required().email().max(30).min(6))
-  email: string
+  @Rule(RuleType.string().required().max(30).min(6))
+  identifier: string
 
   @ApiProperty({
-    example: '123123',
-    description: '账户密码',
+    example: 'xxxx',
+    description: '密码凭证/令牌',
   })
   @Rule(RuleType.string().required().max(16).min(6))
-  password: string
+  credential: string
+
+  @ApiProperty({
+    example: 'peter',
+    description: '用户昵称',
+  })
+  @Rule(RuleType.string().required().max(10).min(2))
+  nickname: string
 }
 
 export class LoginDTO extends CheckCaptchaDTO {
   @ApiProperty({
-    example: 'peter@gmail.com',
-    description: '邮箱',
+    example: 'phone',
+    description: '认证类型：github/wechat/phone/email',
   })
-  @Rule(RuleType.string().email().required().max(30).min(6))
-  email: string
+  @Rule(RuleType.string().required().max(30).min(1))
+  identityType: string
 
   @ApiProperty({
-    example: '123123',
-    description: '账户密码',
+    examples: ['peter@gmail.com', '13812345678'],
+    description: '邮箱、手机号、openid',
+  })
+  @Rule(RuleType.string().required().max(30).min(6))
+  identifier: string
+
+  @ApiProperty({
+    example: 'xxxx',
+    description: '密码凭证/令牌',
   })
   @Rule(RuleType.string().required().max(16).min(6))
-  password: string
+  credential: string
 }
 
 export class LoginSuccessDTO {

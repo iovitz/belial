@@ -20,6 +20,10 @@ export abstract class CrudService<T extends EntityWithID> {
     return this.entity.save(...args)
   }
 
+  update(...args: Parameters< Repository<T>['update']>) {
+    return this.entity.update(...args)
+  }
+
   delete(...args: Parameters< Repository<T>['delete']>) {
     return this.entity.delete(...args)
   }

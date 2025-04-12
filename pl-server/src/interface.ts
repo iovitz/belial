@@ -16,9 +16,6 @@ declare global {
 
 declare module '@midwayjs/core' {
   interface Context {
-    user?: {
-      id: string
-    }
     video?: Video
     tracerId: string
     stime: bigint

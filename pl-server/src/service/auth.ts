@@ -41,4 +41,10 @@ export class AuthService extends CrudService<Auth> {
     await this.session.save(newSessionItem)
     return newSessionItem.id
   }
+
+  async getUserBySessionId(sessionId: string) {
+    return this.session.findOneBy({
+      id: sessionId,
+    })
+  }
 }

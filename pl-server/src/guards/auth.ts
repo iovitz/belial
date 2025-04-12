@@ -17,10 +17,11 @@ export class AuthGuard implements IGuard<Context> {
     if (!sessionId) {
       return false
     }
-    // const userInfo = await this.authService.getSessionInfo(sessionId)
-    ctx.user = {
-      id: 'userInfo.userId',
+    const userInfo = await this.authService.getUserBySessionId(sessionId)
+    if (!userInfo) {
+      return false
     }
+    ctx.userId = userInfo.id
     return true
   }
 }

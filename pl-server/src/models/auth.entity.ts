@@ -18,7 +18,7 @@ export class Auth {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generator(),
+    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

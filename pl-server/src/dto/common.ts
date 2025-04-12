@@ -6,7 +6,7 @@ export class IDParamDTO {
     example: '查询',
     description: '验证码宽度',
   })
-  @Rule(RuleType.string().max(30).min(0).required())
+  @Rule(RuleType.string().max(18).min(18).required())
   id: string
 }
 
@@ -21,11 +21,11 @@ export class CheckCaptchaDTO {
   verifyCode: string
 
   @ApiProperty({
-    example: 'abcd',
+    example: '835446700675080192',
     description: '验证码ID',
-    maxLength: 30,
-    minLength: 30,
+    maxLength: 18,
+    minLength: 18,
   })
-  @Rule(RuleType.string().length(30).required())
+  @Rule(RuleType.string().length(18).required())
   verifyCodeId: string
 }

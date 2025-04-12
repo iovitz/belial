@@ -13,10 +13,10 @@ export class CreateVideoDTO {
   @ApiProperty({
     example: 'abcd',
     description: '验证码ID',
-    maxLength: 30,
-    minLength: 30,
+    maxLength: 18,
+    minLength: 18,
   })
-  @Rule(RuleType.string().length(30).required())
+  @Rule(RuleType.string().length(18).required())
   categoryId: string
 
   @ApiProperty({
@@ -29,10 +29,10 @@ export class CreateVideoDTO {
   @ApiProperty({
     example: 'abcd',
     description: '验证码ID',
-    maxLength: 30,
-    minLength: 30,
+    maxLength: 18,
+    minLength: 18,
   })
-  @Rule(RuleType.array().max(10).min(0).items(RuleType.string().length(30).required()))
+  @Rule(RuleType.array().max(10).min(0).items(RuleType.string().length(18).required()))
   tags: string[]
 
   @ApiProperty({

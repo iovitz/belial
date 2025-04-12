@@ -5,6 +5,7 @@ import { InjectEntityModel } from '@midwayjs/typeorm'
 import * as moment from 'moment'
 import * as svgCaptcha from 'svg-captcha'
 import { VerifyCode } from '../models/verify-code.entity'
+import { snowflakeIdGenerator } from '../shared/id'
 
 @Provide()
 export class VerifyService {
@@ -30,6 +31,7 @@ export class VerifyService {
       background: '#ffffff',
     })
     const verifyCode = new VerifyCode()
+    verifyCode.id = snowflakeIdGenerator.generate()
     verifyCode.code = code.text
     verifyCode.type = type
     this.ctx.logger.info('generate verify code:', verifyCode.code)

@@ -18,12 +18,12 @@ export class EncryptService {
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, // 推荐 OAEP 填充
       },
       Buffer.from(message),
-    )
+    ).toString('base64')
   }
 
   aesPrivateDecrypt(encoded: string) {
     return crypto.publicDecrypt(
-      { key: this.configService.get('AES_PRIVATE_KEY'), padding: crypto.constants.RSA_PKCS1_PADDING },
+      { key: this.configService.get('AES_PRIVATE_KEY'), padding: crypto.constants.RSA_PKCS1_OAEP_PADDING },
       Buffer.from(encoded, 'base64'),
     )
   }

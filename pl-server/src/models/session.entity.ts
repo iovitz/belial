@@ -18,23 +18,16 @@ export class Session {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generator(),
+    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
-
-  @Column({
-    name: 'session_id',
-    type: 'varchar',
-    length: 36,
-  })
-  sessionId: string
 
   @Column({
     name: 'useragent',
     type: 'varchar',
     length: 200,
   })
-  useragent?: string
+  useragent: string
 
   @ManyToOne(() => User, ({ sessions }) => sessions, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })

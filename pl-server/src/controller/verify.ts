@@ -19,11 +19,11 @@ export class SecurityController {
   @Inject()
   config: ConfigService
 
-  @Get('/aes-private-key')
+  @Get('/aes-public-key')
   async getAesPrivateKey() {
     const publicKey = this.config.get('AES_PUBLIC_KEY')
     const privateKey = this.config.get('AES_PRIVATE_KEY')
-    const data = 'Secret message'
+    const data = 'a123123.'
     const encrypted = crypto.publicEncrypt(
       {
         key: publicKey, // PEM 格式字符串
@@ -31,13 +31,12 @@ export class SecurityController {
       },
       Buffer.from(data),
     )
-    console.error(encrypted)
+    console.error(encrypted.toString('utf-8'))
 
     // 公钥解密
     const decrypted = crypto.privateDecrypt(
       {
         key: `${privateKey}`, // PEM 格式字符串
-        // passphrase: 'your-password', // 如果私钥加密了需提供密码
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
       },
       encrypted, // 假设密文是 Base64

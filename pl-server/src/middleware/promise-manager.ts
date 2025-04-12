@@ -57,7 +57,7 @@ implements IMiddleware<Context, NextFunction> {
           this.sessionModel
             .findOne({
               where: {
-                sessionId,
+                id: sessionId,
               },
             })
             .then((_v) => {
@@ -66,8 +66,6 @@ implements IMiddleware<Context, NextFunction> {
             }),
         )
       }
-
-      // ...
 
       return next()
     }

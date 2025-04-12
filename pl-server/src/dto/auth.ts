@@ -7,27 +7,33 @@ import { Buffer } from 'node:buffer'
 
 export class LoginDTO extends CheckCaptchaDTO {
   @ApiProperty({
-    example: 'phone',
+    example: 'email',
     description: '认证类型：github/wechat/phone/email',
   })
   @Rule(RuleType.string().required().max(30).min(1))
   identityType: string
 
   @ApiProperty({
-    examples: ['peter@gmail.com', '13812345678'],
+    example: 'pl@qq.com',
     description: '邮箱、手机号、openid',
   })
   @Rule(RuleType.string().required().max(30).min(6))
   identifier: string
 
   @ApiProperty({
-    example: 'xxxx',
+    example: 'CJmxGgz85vVW1OWGUliAUWtJQQ7hHiQf0m5PuZY6N5uiI3Oa2LmIwbfVxFRFQQqfVXQQDy/6AUQPuwXrZ5iRwhTekL/XG+xVrq+OvSNUiC/QtTjwsMj5LSlB0qM9nRwi8ehZo2+VTeBdvZsO24cIgwYfM7dpTxrEw0KSP369yxn5rMO3Qd3J+2PT5WP0IlFsSOCB8Pnb1x2xC+5J9BiAFehGv1370XKZW9+LcEAQY1pjPD7ZQkVNwA6JcB+jdOrJGPTZLATmEfRmz+Fv+ct+WYzr9htsVdfO94BdCeEM3ZoMTRWmj6tqsrq2RDV9dsiE8THxJPiZlpiQdYDvU7FT8w==',
     description: '密码凭证/令牌',
   })
-  @Rule(RuleType.string().custom((v: string) => crypto.publicDecrypt(
-    { key: appConfig.AES_PUBLIC_KEY, padding: crypto.constants.RSA_PKCS1_PADDING },
-    Buffer.from(v, 'base64'),
-  )).required().max(16).min(6))
+  @Rule(RuleType.string().custom((v: string) => {
+    const res = crypto.privateDecrypt(
+      {
+        key: appConfig.AES_PRIVATE_KEY, // PEM 格式字符串
+        padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+      },
+      Buffer.from(v, 'base64'), // 假设密文是 Base64
+    ).toString()
+    return res
+  }).required().max(16).min(6))
   credential: string
 }
 

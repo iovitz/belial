@@ -5,16 +5,21 @@ import { InjectEntityModel } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
 import { snowflakeIdGenerator } from '../shared/id'
 import { User } from '../models/user.entity'
+import { Session } from '../models/session.entity'
 
 @Provide()
 export class AuthService extends CrudService<Auth> {
   @InjectEntityModel(Auth)
   entity: Repository<Auth>
 
+  @InjectEntityModel(Session)
+  session: Repository<Session>
+
   createUser(identifier: string, credential: string, identityType: string, nickname: string) {
     return this.dataSourceManager.getDataSource('default').transaction(async (manager) => {
       const newUserId = snowflakeIdGenerator.generate()
       const auth = new Auth()
+      auth.id = snowflakeIdGenerator.generate()
       auth.userId = newUserId
       auth.identifier = identifier
       auth.credential = credential
@@ -22,8 +27,18 @@ export class AuthService extends CrudService<Auth> {
       const user = new User()
       user.id = newUserId
       user.nickname = nickname
-
-      return Promise.all([manager.save(user), manager.save(auth)])
+      await manager.save(user)
+      await manager.save(auth)
     })
+  }
+
+  async createSession(userId: string, ua: string) {
+    const newSessionItem = this.session.create({
+      id: snowflakeIdGenerator.generate(),
+      userId,
+      useragent: ua,
+    })
+    await this.session.save(newSessionItem)
+    return newSessionItem.id
   }
 }

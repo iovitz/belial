@@ -20,7 +20,7 @@ export class User {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generator(),
+    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 
@@ -34,9 +34,10 @@ export class User {
   @Column({
     name: 'avatar',
     type: 'varchar',
+    nullable: true,
     length: 100,
   })
-  avatar: string
+  avatar: string | null
 
   @Column({
     name: 'desc',

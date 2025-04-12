@@ -30,7 +30,7 @@ export class VideoComment {
   })
   content: string
 
-  @ManyToOne(() => Video, ({ comments }) => comments)
+  @ManyToOne(() => Video, ({ comments }) => comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'video_id' })
   video: Video
 
@@ -40,7 +40,7 @@ export class VideoComment {
   })
   videoId: string
 
-  @ManyToOne(() => User, ({ comments }) => comments)
+  @ManyToOne(() => User, ({ comments }) => comments, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User
 
@@ -50,7 +50,7 @@ export class VideoComment {
   })
   userId: string
 
-  @ManyToOne(() => VideoComment)
+  @ManyToOne(() => VideoComment, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'reply_id' })
   reply: VideoComment
 

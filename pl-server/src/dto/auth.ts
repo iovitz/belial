@@ -1,36 +1,9 @@
 import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
 import { CheckCaptchaDTO } from './common'
-
-export class RegisterDTO extends CheckCaptchaDTO {
-  @ApiProperty({
-    example: 'phone',
-    description: '认证类型：github/wechat/phone/email',
-  })
-  @Rule(RuleType.string().required().max(30).min(1))
-  identityType: string
-
-  @ApiProperty({
-    examples: ['peter@gmail.com', '13812345678'],
-    description: '邮箱、手机号、openid',
-  })
-  @Rule(RuleType.string().required().max(30).min(6))
-  identifier: string
-
-  @ApiProperty({
-    example: 'xxxx',
-    description: '密码凭证/令牌',
-  })
-  @Rule(RuleType.string().required().max(16).min(6))
-  credential: string
-
-  @ApiProperty({
-    example: 'peter',
-    description: '用户昵称',
-  })
-  @Rule(RuleType.string().required().max(10).min(2))
-  nickname: string
-}
+import * as crypto from 'node:crypto'
+import { appConfig } from '../config/rc-config'
+import { Buffer } from 'node:buffer'
 
 export class LoginDTO extends CheckCaptchaDTO {
   @ApiProperty({
@@ -51,8 +24,20 @@ export class LoginDTO extends CheckCaptchaDTO {
     example: 'xxxx',
     description: '密码凭证/令牌',
   })
-  @Rule(RuleType.string().required().max(16).min(6))
+  @Rule(RuleType.string().custom((v: string) => crypto.publicDecrypt(
+    { key: appConfig.AES_PUBLIC_KEY, padding: crypto.constants.RSA_PKCS1_PADDING },
+    Buffer.from(v, 'base64'),
+  )).required().max(16).min(6))
   credential: string
+}
+
+export class RegisterDTO extends LoginDTO {
+  @ApiProperty({
+    example: 'peter',
+    description: '用户昵称',
+  })
+  @Rule(RuleType.string().required().max(10).min(2))
+  nickname: string
 }
 
 export class LoginSuccessDTO {

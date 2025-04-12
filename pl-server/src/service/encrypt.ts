@@ -11,10 +11,10 @@ export class EncryptService {
   @Inject()
   configService: ConfigService
 
-  aesPrivateEncrypt(message: string) {
-    crypto.publicEncrypt(
+  aesPublicEncrypt(message: string) {
+    return crypto.publicEncrypt(
       {
-        key: this.configService.get('AES_PRIVATE_KEY'), // PEM 格式字符串
+        key: this.configService.get('AES_PUBLIC_KEY'), // PEM 格式字符串
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, // 推荐 OAEP 填充
       },
       Buffer.from(message),
@@ -23,7 +23,7 @@ export class EncryptService {
 
   aesPrivateDecrypt(encoded: string) {
     return crypto.publicDecrypt(
-      { key: this.configService.get('AES_PUBLIC_KEY'), padding: crypto.constants.RSA_PKCS1_PADDING },
+      { key: this.configService.get('AES_PRIVATE_KEY'), padding: crypto.constants.RSA_PKCS1_PADDING },
       Buffer.from(encoded, 'base64'),
     )
   }

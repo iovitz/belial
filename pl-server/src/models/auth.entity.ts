@@ -22,7 +22,7 @@ export class Auth {
   })
   id: string
 
-  @ManyToOne(() => User, ({ id }) => id)
+  @ManyToOne(() => User, ({ id }) => id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User
 

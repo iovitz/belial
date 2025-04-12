@@ -36,7 +36,7 @@ export class Session {
   })
   useragent?: string
 
-  @ManyToOne(() => User, ({ sessions }) => sessions)
+  @ManyToOne(() => User, ({ sessions }) => sessions, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id' })
   user: User
 

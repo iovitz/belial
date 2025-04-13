@@ -10,6 +10,22 @@ export class IDParamDTO {
   id: string
 }
 
+export class PagingQueryDTO {
+  @ApiProperty({
+    example: '查询',
+    description: '验证码宽度',
+  })
+  @Rule(RuleType.number().min(0).required())
+  skip: number
+
+  @ApiProperty({
+    example: '查询',
+    description: '验证码宽度',
+  })
+  @Rule(RuleType.number().max(2000).min(1).required())
+  take: number
+}
+
 export class CheckCaptchaDTO {
   @ApiProperty({
     example: 'abcd',

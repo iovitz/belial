@@ -4,7 +4,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { snowflakeIdGenerator } from '../shared/id'
 
 @Entity('favorite_video', {
   comment: '视频收藏表',
@@ -14,7 +13,6 @@ export class FavoriteVideo {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

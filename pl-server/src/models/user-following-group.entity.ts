@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryColumn,
@@ -9,7 +10,6 @@ import {
 } from 'typeorm'
 import { User } from './user.entity'
 import { UserFollowing } from './user-following.entity'
-import { snowflakeIdGenerator } from '../shared/id'
 
 @Entity('user_following_group', {
   comment: '用户关注分组表',
@@ -19,15 +19,16 @@ export class UserFollowingGroup {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'user_id' })
+  user: User
+
   @Column({
     name: 'user_id',
     type: 'bigint',
-    comment: '所属用户ID',
   })
   userId: string
 

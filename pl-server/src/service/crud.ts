@@ -16,6 +16,10 @@ export abstract class CrudService<T extends EntityWithID> {
     return this.entity.create(...args)
   }
 
+  insert(...args: Parameters< Repository<T>['insert']>) {
+    return this.entity.insert(...args)
+  }
+
   save(...args: Parameters< Repository<T>['save']>) {
     return this.entity.save(...args)
   }

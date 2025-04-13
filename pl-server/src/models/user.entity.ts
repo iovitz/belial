@@ -9,7 +9,6 @@ import {
 import { Video } from './video.entity'
 import { Session } from './session.entity'
 import { VideoComment } from './videl-comment.entity'
-import { snowflakeIdGenerator } from '../shared/id'
 import { Auth } from './auth.entity'
 
 @Entity('user', {
@@ -20,7 +19,6 @@ export class User {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

@@ -6,7 +6,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { snowflakeIdGenerator } from '../shared/id'
 import { Video } from './video.entity'
 
 @Entity('video_category', {
@@ -17,7 +16,6 @@ export class VideoCategory {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

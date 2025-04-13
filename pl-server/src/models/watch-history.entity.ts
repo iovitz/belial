@@ -7,7 +7,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { snowflakeIdGenerator } from '../shared/id'
 import { User } from './user.entity'
 import { Video } from './video.entity'
 
@@ -19,7 +18,6 @@ export class WatchHistory {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

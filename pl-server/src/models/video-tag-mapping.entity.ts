@@ -7,7 +7,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { snowflakeIdGenerator } from '../shared/id'
 import { VideoTag } from './video-tag.entity'
 import { Video } from './video.entity'
 
@@ -19,7 +18,6 @@ export class VideoTagMapping {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

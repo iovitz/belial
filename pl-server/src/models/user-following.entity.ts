@@ -8,7 +8,6 @@ import {
 } from 'typeorm'
 import { User } from './user.entity'
 import { UserFollowingGroup } from './user-following-group.entity'
-import { snowflakeIdGenerator } from '../shared/id'
 
 @Entity('user_following', {
   comment: '用户关注关系表',
@@ -18,7 +17,6 @@ export class UserFollowing {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

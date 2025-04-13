@@ -8,7 +8,6 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm'
-import { snowflakeIdGenerator } from '../shared/id'
 
 import { User } from './user.entity'
 import { VideoComment } from './videl-comment.entity'
@@ -23,7 +22,6 @@ export class Video {
     name: 'id',
     type: 'bigint',
     comment: '雪花ID',
-    default: () => snowflakeIdGenerator.generate(),
   })
   id: string
 

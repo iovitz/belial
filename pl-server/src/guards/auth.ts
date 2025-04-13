@@ -13,7 +13,7 @@ export class AuthGuard implements IGuard<Context> {
   configService: ConfigService
 
   async canActivate(ctx: Context, _supplierClz, _methodName: string): Promise<boolean> {
-    const sessionId = ctx.cookies.get(CookieKeys.Session)
+    const sessionId = ctx.getCookie(CookieKeys.Session)
     if (!sessionId) {
       return false
     }
@@ -21,7 +21,7 @@ export class AuthGuard implements IGuard<Context> {
     if (!userInfo) {
       return false
     }
-    ctx.userId = userInfo.id
+    ctx.userId = userInfo.userId
     return true
   }
 }

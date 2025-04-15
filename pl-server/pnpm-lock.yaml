@@ -17,6 +17,9 @@ importers:
       '@midwayjs/core':
         specifier: ^3.12.0
         version: 3.20.3
+      '@midwayjs/i18n':
+        specifier: ^3.20.4
+        version: 3.20.4
       '@midwayjs/info':
         specifier: ^3.12.0
         version: 3.20.3
@@ -706,8 +709,8 @@ packages:
   '@midwayjs/glob@1.1.1':
     resolution: {integrity: sha512-xoNU+JdCxE214KQrB0qgs88+Da7KYVICeuTL9VeKwaxZXj6a/PbpmEaH4+5BHLvZRRe78tHGR19+nKZrmMHBJg==}
 
-  '@midwayjs/i18n@3.20.3':
-    resolution: {integrity: sha512-HstbHamorYotd045EgSwDrKsvGkkVl+eoUyPuJEzRuF1Bwpm1R7H2l6VVJHt3dzEnIQQyQ7jircJzidyO2S0Ow==}
+  '@midwayjs/i18n@3.20.4':
+    resolution: {integrity: sha512-7t0TGdwjz7jkZmFDSod0WdYvc3q1amkllbMWOIQntnpSEbJlj0rlm/SUP9OyFULsbpWzRHN7rsOtD2LAEIk7dw==}
     engines: {node: '>=12'}
 
   '@midwayjs/info@3.20.3':
@@ -6092,7 +6095,7 @@ snapshots:
     dependencies:
       picomatch: 2.3.1
 
-  '@midwayjs/i18n@3.20.3':
+  '@midwayjs/i18n@3.20.4':
     dependencies:
       picomatch: 2.3.1
 
@@ -6158,7 +6161,7 @@ snapshots:
 
   '@midwayjs/validate@3.20.3':
     dependencies:
-      '@midwayjs/i18n': 3.20.3
+      '@midwayjs/i18n': 3.20.4
       joi: 17.13.3
 
   '@midwayjs/view-ejs@3.20.3':

@@ -6,7 +6,7 @@ interface EntityWithID {
   id: string | number
 }
 
-export abstract class CrudService<T extends EntityWithID> {
+export abstract class DAOService<T extends EntityWithID> {
   @Inject()
   dataSourceManager: TypeORMDataSourceManager
 

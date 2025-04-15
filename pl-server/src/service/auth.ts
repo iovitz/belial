@@ -1,5 +1,5 @@
 import { Provide, Scope, ScopeEnum } from '@midwayjs/core'
-import { CrudService } from './crud'
+import { DAOService } from './crud'
 import { Auth } from '../models/auth.entity'
 import { InjectEntityModel } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
@@ -9,7 +9,7 @@ import { Session } from '../models/session.entity'
 
 @Provide()
 @Scope(ScopeEnum.Request, { allowDowngrade: true })
-export class AuthService extends CrudService<Auth> {
+export class AuthService extends DAOService<Auth> {
   @InjectEntityModel(Auth)
   entity: Repository<Auth>
 

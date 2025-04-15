@@ -1,6 +1,7 @@
-import SnowflakeId from 'snowflake-id'
+import { TwitterSnowflake } from '@sapphire/snowflake'
 
-export const snowflakeIdGenerator = new SnowflakeId({
-  mid: 42,
-  offset: (2019 - 1970) * 31536000 * 1000,
-})
+export const snowflakeIdGenerator = {
+  generate() {
+    return TwitterSnowflake.generate().toString()
+  },
+}

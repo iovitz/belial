@@ -1,14 +1,14 @@
 import { Inject, Provide, Scope, ScopeEnum } from '@midwayjs/core'
 import { CaslService } from './casl'
 import { Context } from '@midwayjs/koa'
-import { CrudService } from './crud'
+import { DAOService } from './crud'
 import { Video } from '../models/video.entity'
 import { InjectEntityModel } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
 
 @Provide()
 @Scope(ScopeEnum.Request, { allowDowngrade: true })
-export class VideoService extends CrudService<Video> {
+export class VideoService extends DAOService<Video> {
   @InjectEntityModel(Video)
   entity: Repository<Video>
 

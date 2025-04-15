@@ -7,7 +7,7 @@ import { AuthGuard } from '../guards/auth'
 import { VideoPermissionGuard } from '../guards/video-permission'
 import { VideoPermission } from '../decorator/video-permission'
 import { EncryptService } from '../service/encrypt'
-import { IDParamDTO } from '../dto/common'
+import { IdDTO } from '../dto/common'
 import { CreateVideoDTO } from '../dto/video'
 
 @ApiTags('Video Module')
@@ -25,7 +25,7 @@ export class VideoController {
   @Get('/:id')
   @VideoPermission('read')
   @UseGuard([AuthGuard, VideoPermissionGuard])
-  async get(@Param() { id: _id }: IDParamDTO) {
+  async get(@Param() { id: _id }: IdDTO) {
     const { video } = this.ctx
     if (!video) {
       this.ctx.throw(new NotFoundError('Video not exists'))

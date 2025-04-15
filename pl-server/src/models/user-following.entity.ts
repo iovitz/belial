@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   UpdateDateColumn,
@@ -20,7 +21,10 @@ export class UserFollowing {
   })
   id: string
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, ({ id }) => id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'follower_id' })
+  follower: User
+
   @Column({
     name: 'follower_id',
     type: 'bigint',
@@ -28,7 +32,10 @@ export class UserFollowing {
   })
   followerId: string
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
+  @ManyToOne(() => User, ({ id }) => id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'followed_id' })
+  followed: User
+
   @Column({
     name: 'followed_id',
     type: 'bigint',
@@ -36,10 +43,17 @@ export class UserFollowing {
   })
   followedId: string
 
-  @ManyToOne(() => UserFollowingGroup, group => group.followings, {
-    onDelete: 'CASCADE',
+  @ManyToOne(() => UserFollowingGroup, ({ id }) => id, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'group_id' })
+  group?: UserFollowingGroup | null
+
+  @Column({
+    name: 'group_id',
+    type: 'bigint',
+    comment: '被关注者用户ID',
+    nullable: true,
   })
-  group: UserFollowingGroup | null
+  groupId: string | null
 
   @Column({
     name: 'is_mutual',

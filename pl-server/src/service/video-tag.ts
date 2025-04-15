@@ -1,11 +1,11 @@
 import { Provide } from '@midwayjs/core'
-import { CrudService } from './crud'
+import { DAOService } from './crud'
 import { VideoTag } from '../models/video-tag.entity'
 import { InjectEntityModel } from '@midwayjs/typeorm'
 import { Repository } from 'typeorm'
 
 @Provide()
-export class VideoTagService extends CrudService<VideoTag> {
+export class VideoTagService extends DAOService<VideoTag> {
   @InjectEntityModel(VideoTag)
   entity: Repository<VideoTag>
 }

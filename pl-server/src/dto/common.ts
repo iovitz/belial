@@ -1,10 +1,10 @@
 import { ApiProperty } from '@midwayjs/swagger'
 import { Rule, RuleType } from '@midwayjs/validate'
 
-export class IDParamDTO {
+export class IdDTO {
   @ApiProperty({
-    example: '查询',
-    description: '验证码宽度',
+    example: '资源主键ID',
+    description: '数据库中的资源主键ID',
   })
   @Rule(RuleType.string().max(18).min(18).required())
   id: string

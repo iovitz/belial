@@ -66,9 +66,9 @@ module.exports.models = {
   ***************************************************************************/
 
   attributes: {
+    id: { columnType: 'bigint', type: 'string', required: true },
     createdAt: { type: 'number', autoCreatedAt: true },
     updatedAt: { type: 'number', autoUpdatedAt: true },
-    id: { type: 'number', autoIncrement: true },
     // --------------------------------------------------------------------------
     //  /\   Using MongoDB?
     //  ||   Replace `id` above with this instead:

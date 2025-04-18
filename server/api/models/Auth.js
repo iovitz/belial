@@ -1,78 +1,33 @@
-// import { Body, Controller, Inject, Post } from '@midwayjs/core'
-// import { ApiTags } from '@midwayjs/swagger'
-// import { Context } from '@midwayjs/koa'
-// import { AuthService } from '../service/auth'
-// import { LoginDTO, RegisterDTO } from '../dto/auth'
-// import { ConflictError, UnauthorizedError, UnprocessableEntityError } from '@midwayjs/core/dist/error/http'
-// import { EncryptService } from '../service/encrypt'
-// import { CookieKeys } from '../shared/constans/cookie.const'
+/**
+ * Auth Model
+ *
+ * @description :: auth model
+ * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
+ */
 
-// @ApiTags('Auth Module')
-// @Controller('/api/auth')
-// export class APIController {
-//   @Inject()
-//   private ctx: Context
+const { TwitterSnowflake } = require('@sapphire/snowflake')
 
-//   @Inject()
-//   private auth: AuthService
+const logger = rootLogger.child({
+  scope: 'Model-Auth',
+})
 
-//   @Inject()
-//   private encrypt: EncryptService
+module.exports = {
+  primaryKey: 'id',
+  attributes: {
+    userId: { type: 'string', required: true },
+    identityType: { type: 'string', required: true },
+    identifier: { type: 'string', required: true },
+    credential: { type: 'string', required: true },
+    verified: { type: 'boolean', required: true },
 
-//   @Post('/register')
-//   async register(@Body() { identifier, credential: _credential, identityType, nickname }: RegisterDTO) {
-//     // 验证码校验
+    user: {
+      model: 'user',
+    },
+  },
+  beforeCreate(values, proceed) {
+    values.id = TwitterSnowflake.generate().toString()
 
-//     // 查询是否已经注册
-//     const identifierItem = await this.auth.findOneBy({
-//       identifier,
-//       identityType,
-//     })
-//     if (identifierItem) {
-//       this.ctx.throw(new ConflictError('identifier is already exist'))
-//     }
-
-//     let credential: string
-//     switch (identityType) {
-//       case 'email':
-//         this.ctx.logger.info('使用邮箱注册')
-//         credential = await this.encrypt.bcryptEncode(_credential)
-//         break
-//       default:
-//         this.ctx.throw(new UnprocessableEntityError(''))
-//     }
-
-//     await this.auth.createUser(
-//       identifier,
-//       credential,
-//       identityType,
-//       nickname,
-//     )
-//     return true
-//   }
-
-//   @Post('/user-token')
-//   async getUserToken(@Body() { identifier, credential, identityType }: LoginDTO) {
-//     const identifierItem = await this.auth.findOneBy({
-//       identifier,
-//       identityType,
-//     })
-//     if (!identifierItem) {
-//       this.ctx.throw(new UnauthorizedError('identifier match fail'))
-//     }
-//     switch (identityType) {
-//       case 'email':
-//         if (!await this.encrypt.bcryptCompare(credential, identifierItem.credential)) {
-//           this.ctx.throw(new UnprocessableEntityError('identifier match fail'))
-//         }
-//         break
-//       default:
-//         this.ctx.throw(new UnprocessableEntityError(''))
-//     }
-//     // 创建session
-//     const sessionId = await this.auth.createSession(identifierItem.userId, this.ctx.header['user-agent'])
-//     this.ctx.logger.info(`Login Success: ${identifierItem.userId} ${sessionId}`)
-//     this.ctx.setCookie(CookieKeys.Session, sessionId)
-//     return true
-//   }
-// }
+    logger.debug('Create `Auth` Model', values)
+    return proceed()
+  },
+}

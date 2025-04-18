@@ -9,5 +9,4 @@ module.exports = async function (req, res, next) {
   }
 
   await next()
-  return
 }

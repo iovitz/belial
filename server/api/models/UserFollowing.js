@@ -1,27 +1,33 @@
 /**
- * {{name}} Model
+ * UserFollowing Model
  *
- * @description :: {{description}}
+ * @description :: User Following model
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
 const { TwitterSnowflake } = require('@sapphire/snowflake')
 
 const logger = rootLogger.child({
-  scope: 'Model-{{name}}',
+  scope: 'Model-UserFollowing',
 })
 
 module.exports = {
   primaryKey: 'id',
   attributes: {
-    name: { type: 'string', required: true },
-    // ...
-
+    follower: {
+      model: 'user',
+    },
+    followed: {
+      model: 'user',
+    },
+    userFollowingGroups: {
+      model: 'userFollowingGroup',
+    },
   },
   beforeCreate(values, proceed) {
     values.id = TwitterSnowflake.generate().toString()
 
-    logger.debug('Create `{{name}}` Model', values)
+    logger.debug('Create `UserFollowing` Model', values)
     return proceed()
   },
 }

@@ -66,7 +66,7 @@ module.exports.http = {
         // TODO 校验Log ID是否合法
         const traceId = req.header(HEADER_TRACE_ID_KEY) ?? `${clientId}-${ulid()}`
 
-        req.clientId = res.clientId =clientId
+        req.clientId = res.clientId = clientId
         req.traceId = res.traceId = traceId
         req.logger = res.logger = globalThis.rootLogger.child({
           scope: traceId,
@@ -97,6 +97,9 @@ module.exports.http = {
     },
     unprocessable: {
       responseType: 'unprocessable',
+    },
+    conflict: {
+      responseType: 'conflict',
     },
   },
 }

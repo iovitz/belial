@@ -17,6 +17,6 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': ['access-log', 'block', 'limiter'],
+  '*': ['access-log', 'point-kill', 'limiter'],
 
 }

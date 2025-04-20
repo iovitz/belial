@@ -3,7 +3,6 @@ import { Inject, Provide } from '@midwayjs/core'
 import * as bcrypt from 'bcrypt'
 import * as pako from 'pako'
 import * as crypto from 'node:crypto'
-import * as cryptoJS from 'crypto-js'
 import { ConfigService } from './config'
 
 @Provide()
@@ -46,19 +45,11 @@ export class EncryptService {
     return bcrypt.compare(data, encrypted)
   }
 
-  async bcryptEncode(data: string) {
+  bcryptEncode(data: string) {
     return bcrypt.hash(data, 5)
   }
 
   md5(str: string) {
     return crypto.createHash('md5').update(str).digest('hex')
-  }
-
-  aesEncrypt(message: string) {
-    return cryptoJS.AES.encrypt(message, this.configService.get('AES_PRIVATE_KEY')).toString()
-  }
-
-  aesDecrypt(encrypted: string) {
-    return cryptoJS.AES.decrypt(encrypted, this.configService.get('AES_PRIVATE_KEY')).toString(cryptoJS.enc.Utf8)
   }
 }

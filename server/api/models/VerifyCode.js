@@ -5,8 +5,6 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const { TwitterSnowflake } = require('@sapphire/snowflake')
-
 const logger = rootLogger.child({
   scope: 'Model-VerifyCode',
 })
@@ -19,8 +17,6 @@ module.exports = {
     status: { type: 'boolean', required: true },
   },
   beforeCreate(values, proceed) {
-    values.id = TwitterSnowflake.generate().toString()
-
     logger.debug('Create `VerifyCode` Model', values)
     return proceed()
   },

@@ -49,6 +49,7 @@
     "sails-mysql": "^3.0.1",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7",
+    "svg-captcha": "^1.4.0",
     "triple-beam": "^1.4.1",
     "ua-parser-js": "^2.0.3",
     "ulid": "^2.3.0",

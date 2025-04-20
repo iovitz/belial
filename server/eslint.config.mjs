@@ -16,6 +16,8 @@ export default antfu(
         _: 'readonly',
         sails: 'readonly',
         rootLogger: 'readonly',
+        VerifyCode: 'readonly',
+        VerifyService: 'readonly',
       },
     },
   },

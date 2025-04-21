@@ -1,11 +1,9 @@
 /**
  * {{name}} Model
  *
- * @description :: {{description}}
+ * @description :: implement the description here
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
-
-const { TwitterSnowflake } = require('@sapphire/snowflake')
 
 const logger = rootLogger.child({
   scope: 'Model-{{name}}',
@@ -19,8 +17,6 @@ module.exports = {
 
   },
   beforeCreate(values, proceed) {
-    values.id = TwitterSnowflake.generate().toString()
-
     logger.debug('Create `{{name}}` Model', values)
     return proceed()
   },

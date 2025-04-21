@@ -7,12 +7,10 @@
 const statuses = require('statuses')
 
 module.exports = async function (err) {
-  const code = _.get(err, 'code')
-  const message = _.get(err, 'message')
-  console.error(this.res, '服务端内部错误', err)
+  const message = typeof err === 'string' ? err : _.get(err, 'message')
 
   return this.res.status(422).send({
-    code: code ?? 0,
+    code: 422,
     message: message ?? statuses(422),
   })
 }

@@ -25,12 +25,14 @@
 // > Note: This is not required in order to lift, but it is a convenient default.
 globalThis.__isProd = process.env.NODE_ENV === 'production'
 
+const { Ajv } = require('ajv')
 const { log: { rootLogger } } = require('./config/log')
 
 process.chdir(__dirname)
 
 // 初始化一些全局变量
 globalThis.rootLogger = rootLogger
+globalThis.ajv = new Ajv()
 
 // 捕获未处理的异常
 process.on('uncaughtException', (err) => {

@@ -13,11 +13,14 @@ export default antfu(
     },
     languageOptions: {
       globals: {
+        __isProd: 'readonly',
         _: 'readonly',
         sails: 'readonly',
+        ajv: 'readonly',
         rootLogger: 'readonly',
         VerifyCode: 'readonly',
         VerifyService: 'readonly',
+        ValidateService: 'readonly',
       },
     },
   },

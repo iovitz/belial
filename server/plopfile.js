@@ -47,10 +47,6 @@ module.exports = function (plop) {
       name: 'name',
       message: 'Action name please',
       required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Action description please',
     }],
     actions: (data) => {
       data.usage = '\'POST /api/v1/dd\': { action: \'dd\' }'
@@ -73,10 +69,6 @@ module.exports = function (plop) {
       name: 'name',
       message: 'Service name please',
       required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Service description please',
     }],
     actions: (data) => {
       // 替换名字
@@ -96,10 +88,6 @@ module.exports = function (plop) {
       name: 'name',
       message: 'Model name please',
       required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Service description please',
     }],
     actions: (data) => {
       // 替换名字
@@ -112,31 +100,6 @@ module.exports = function (plop) {
     },
   })
 
-  plop.setGenerator('helper', {
-    description: 'App Helper',
-    prompts: [{
-      type: 'input',
-      name: 'name',
-      message: 'Helper name please',
-      required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Service description please',
-    }],
-    actions: (data) => {
-      // 替换名字
-      data.name = convertFileName(data.name)
-      data.friendlyName = data.name.split('/').pop()
-      data.usage = `await sails.helpers.${data.name.split('/').map(name => camelcase(name)).join('.')}.with({})`
-      return [{
-        type: 'add',
-        path: 'api/helpers/{{name}}.js',
-        templateFile: 'generators/helper.hbs',
-      }]
-    },
-  })
-
   plop.setGenerator('hook', {
     description: 'App hook',
     prompts: [{
@@ -144,10 +107,6 @@ module.exports = function (plop) {
       name: 'name',
       message: 'Hook name please',
       required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Hook description please',
     }],
     actions: (data) => {
       // 替换名字
@@ -167,10 +126,6 @@ module.exports = function (plop) {
       name: 'name',
       message: 'Response name please',
       required: true,
-    }, {
-      type: 'input',
-      name: 'description',
-      message: 'Response description please',
     }],
     actions: (data) => {
       // 替换名字

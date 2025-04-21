@@ -30,7 +30,7 @@ const Service = {
     minLength: 6,
     maxLength: 16,
     // 字母数字和特殊字符
-    pattern: '^[\\w#?!@$%^&*-\\.]+$',
+    pattern: '^[\\w#?!@$%^&*-\]+$',
   }))(),
 
   verifyCode: (() => ajv.compile({

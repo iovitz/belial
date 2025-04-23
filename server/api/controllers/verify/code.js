@@ -10,19 +10,19 @@ const validator = ajv.compile({
   properties: {
     width: {
       type: 'string',
-      pattern: "^\\d{2,3}\\.?\\d*$",
+      pattern: '^\\d{2,3}\\.?\\d*$',
       description: 'verify code image width',
     },
     height: {
       type: 'string',
-      pattern: "^\\d{2,3}\\.?\\d*$",
+      pattern: '^\\d{2,3}\\.?\\d*$',
       description: 'verify code image height',
     },
     type: {
-      type:'string',
-      enum: ["login", "register"],
-      description:'verify code type(login / register)',
-    }
+      type: 'string',
+      enum: ['login', 'register'],
+      description: 'verify code type(login / register)',
+    },
   },
   required: ['width', 'height', 'type'],
 })

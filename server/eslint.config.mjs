@@ -18,9 +18,15 @@ export default antfu(
         sails: 'readonly',
         ajv: 'readonly',
         rootLogger: 'readonly',
-        VerifyCode: 'readonly',
+
         VerifyService: 'readonly',
         ValidateService: 'readonly',
+        AuthService: 'readonly',
+
+        User: 'readonly',
+        Auth: 'readonly',
+        Session: 'readonly',
+        VerifyCode: 'readonly',
       },
     },
   },

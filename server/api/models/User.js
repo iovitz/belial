@@ -5,8 +5,6 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const { ulid } = require('ulid')
-
 const logger = rootLogger.child({
   scope: 'Model-User',
 })
@@ -17,14 +15,13 @@ module.exports = {
     nickname: { type: 'string', required: true },
     avatar: { type: 'string', required: false },
     desc: { type: 'string', required: false },
-    sex: { type: 'number', required: true },
+    sex: { type: 'number', required: false },
 
     auths: { collection: 'auth', via: 'user' },
+    sessions: { collection: 'session', via: 'user' },
     followers: { collection: 'userFollowing', via: 'followed' },
   },
   beforeCreate(values, proceed) {
-    values.id = ulid()
-
     logger.debug('Create `User` Model', values)
     return proceed()
   },

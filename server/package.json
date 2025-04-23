@@ -5,6 +5,7 @@
   "description": "a Sails application",
   "author": "bytedance",
   "license": "",
+  "type": "commonjs",
   "repository": {
     "type": "git",
     "url": "git://github.com/bytedance/sails.git"

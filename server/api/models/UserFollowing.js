@@ -5,8 +5,6 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const { TwitterSnowflake } = require('@sapphire/snowflake')
-
 const logger = rootLogger.child({
   scope: 'Model-UserFollowing',
 })
@@ -25,8 +23,6 @@ module.exports = {
     },
   },
   beforeCreate(values, proceed) {
-    values.id = TwitterSnowflake.generate().toString()
-
     logger.debug('Create `UserFollowing` Model', values)
     return proceed()
   },

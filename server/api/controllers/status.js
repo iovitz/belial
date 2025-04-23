@@ -6,6 +6,7 @@
  */
 
 module.exports = function (req, res) {
+  req.logger.info('`status action` has been executed')
   const data = 'success'
 
   return res.ok(data)

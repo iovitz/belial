@@ -5,6 +5,9 @@
  * @usage       :: 'POST /api/v1/auth/login': { action: 'auth/login' },
  */
 
+const { Buffer } = require('node:buffer')
+const crypto = require('node:crypto')
+
 const bodyValidator = ajv.compile({
   type: 'object',
   properties: {
@@ -30,10 +33,19 @@ const bodyValidator = ajv.compile({
   required: ['identityType', 'identifier', 'credential'],
 })
 
-module.exports = function (req, res) {
+module.exports = async function (req, res) {
   if (!bodyValidator(req.body)) {
     return res.unprocessable(bodyValidator.errors.map(e => e.message).join('\n'))
   }
 
-  return res.ok('OK')
+  const decryptedCredential = crypto.privateDecrypt(
+    {
+      key: sails.config.custom.aesPrivateKey,
+      padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
+    },
+    Buffer.from(req.body.credential, 'base64'),
+  ).toString()
+  await AuthService.createUser(req.body.identityType, req.body.identifier, decryptedCredential)
+
+  return res.ok(true)
 }

@@ -34,38 +34,47 @@ import './styles/variables.css';
 import Home from './pages/home';
 import Mine from './pages/mine';
 import Video from './pages/video';
+import MyVideos from './pages/my-videos';
+import { Contact, WapHomeO } from '@react-vant/icons';
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/mine">
-            <Mine />
-          </Route>
-          <Route exact path="/video">
-            <Video />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="home" href="/home">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="mine" href="/mine">
-            <IonIcon icon={images} />
-            <IonLabel>Mine</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
+      <IonRouterOutlet>
+        <Route path="/tab">
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route exact path="/tab/home">
+                <Home />
+              </Route>
+              <Route exact path="/tab/mine">
+                <Mine />
+              </Route>
+            </IonRouterOutlet>
+            <IonTabBar slot="bottom">
+              <IonTabButton tab="home" href="/tab/home">
+                <WapHomeO fontSize={20} />
+                <IonLabel>Home</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="mine" href="/tab/mine">
+                <Contact fontSize={20} />
+                <IonLabel>Mine</IonLabel>
+              </IonTabButton>
+            </IonTabBar>
+          </IonTabs>
+        </Route>
+        <Route exact path="/video">
+          <Video />
+        </Route>
+        <Route exact path="/my-videos">
+          <MyVideos />
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/tab/home" />
+        </Route>
+      </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
 );

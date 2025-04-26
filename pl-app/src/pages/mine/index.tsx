@@ -33,30 +33,40 @@ const Mine: React.FC = () => {
           </Cell>
         </CellGroup>
         <Cell.Group title='系统功能'>
-          <Cell isLink title={
-            <div className="flex items-center h-full">
-              <TvO fontSize={16} className="mr-1" />
-              我的视频
-            </div>
-          } />
-          <Cell isLink title={
-            <div className="flex items-center h-full">
-              <StarO fontSize={16} className="mr-1" />
-              收藏
-            </div>
-          } />
-          <Cell isLink title={
-            <div className="flex items-center h-full">
-              <LikeO fontSize={16} className="mr-1" />
-              关注
-            </div>
-          } />
-          <Cell isLink title={
-            <div className="flex items-center h-full">
-              <UnderwayO fontSize={16} className="mr-1" />
-              历史记录
-            </div>
-          } />
+
+          <Link to="/my-videos">
+            <Cell isLink title={
+              <div className="flex items-center h-full">
+                <TvO fontSize={16} className="mr-1" />
+                我的视频
+              </div>
+            } />
+          </Link>
+          <Link to="/my-video">
+            <Cell isLink title={
+              <div className="flex items-center h-full">
+                <StarO fontSize={16} className="mr-1" />
+                收藏
+              </div>
+            } />
+          </Link>
+          <Link to="/my-video">
+            <Cell isLink title={
+              <div className="flex items-center h-full">
+                <LikeO fontSize={16} className="mr-1" />
+                关注
+              </div>
+            } />
+          </Link>
+          <Link to="/dashboard/users/1">
+            <Cell isLink title={
+              <div className="flex items-center h-full">
+                <UnderwayO fontSize={16} className="mr-1" />
+                历史记录
+              </div>
+            } />
+          </Link>
+
         </Cell.Group>
       </IonContent>
     </IonPage>

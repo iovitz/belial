@@ -27,9 +27,10 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import './styles/tailwind.css'
 
 /* Theme variables */
-import './theme/variables.css';
+import './styles/variables.css';
 import Home from './pages/home';
 import Mine from './pages/mine';
 import Video from './pages/video';

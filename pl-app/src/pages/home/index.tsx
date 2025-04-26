@@ -1,26 +1,38 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import clsx from 'clsx';
+import { useState, useSyncExternalStore } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from 'react-vant';
+import { useAsyncFn } from 'react-use';
+import { Button, NavBar, PullRefresh, Search } from 'react-vant';
+import { Toast, } from 'react-vant'
+import { HomeBanner } from './home-banner';
+import VideoCardFlowRow from '../../components/video-card-flow/video-card-flow-row';
 
 
 const Home: React.FC = () => {
+  const [searchContent, setSearchContent] = useState("")
+
+  const [{ loading }, doFetch] = useAsyncFn(async () => {
+    const response = await fetch('https://api.example.com/data');
+    return response.json();
+  });
+
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
-        </IonToolbar>
+        <Search value={searchContent} onChange={setSearchContent} clearable placeholder="请输入搜索关键词" />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <h1>Home</h1>
-        <Link to="/video">User 1</Link>
-        <Button type='primary'>faef</Button>
-
+        <PullRefresh
+          successText='刷新成功'
+          onRefresh={() => doFetch()}
+          disabled={loading}
+          className='h-full !overflow-y-scroll'
+          pullDistance={100}
+        >
+          <HomeBanner />
+          <VideoCardFlowRow />
+        </PullRefresh>
       </IonContent>
     </IonPage>
   );

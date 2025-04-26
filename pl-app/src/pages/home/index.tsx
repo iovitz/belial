@@ -1,10 +1,7 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import clsx from 'clsx';
 import { useState, useSyncExternalStore } from 'react';
-import { Link } from 'react-router-dom';
 import { useAsyncFn } from 'react-use';
 import { Button, NavBar, PullRefresh, Search } from 'react-vant';
-import { Toast, } from 'react-vant'
 import { HomeBanner } from './home-banner';
 import VideoCardFlowRow from '../../components/video-card-flow/video-card-flow-row';
 

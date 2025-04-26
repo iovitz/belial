@@ -1,20 +1,52 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import clsx from 'clsx';
-import { useState, useSyncExternalStore } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 import { useAsyncFn } from 'react-use';
-import { Button, NavBar, PullRefresh, Search } from 'react-vant';
-import { Toast, } from 'react-vant'
-import VideoCardFlowRow from '../../components/video-card-flow/video-card-flow-row';
+import { Button, Cell, Flex, List, NavBar, PullRefresh, Search } from 'react-vant';
+import { VideoCardFlowColumn } from '../../components/video-card-flow/video-card-flow-column';
 
+
+interface LikeVideo {
+  id: string
+  cover: string
+  title: string
+  time: string
+  playCount: number
+}
 
 const MyVideos: React.FC = () => {
-  const [searchContent, setSearchContent] = useState("")
+  const [page, setPage] = useState(0)
 
-  const [{ loading }, doFetch] = useAsyncFn(async () => {
-    const response = await fetch('https://api.example.com/data');
-    return response.json();
-  });
+  const [finished, setFinished] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const [myVideoList, setMyVideoList] = useState<LikeVideo[]>([])
+  const fetchMyVideos = async () => {
+    if (loading) {
+      return
+    }
+    console.log('拉取数据')
+    setLoading(true)
+    const newData: LikeVideo[] = []
+    await new Promise((res) => setTimeout(res, 1000))
+    for (let i = 0; i < 10; i++) {
+      newData.push({
+        id: `${page * 10 + i + 1}`,
+        cover: 'https://fakeimg.pl/1920x1080/2775b6/',
+        title: `翻山渡河钻雨林，这趟拍摄南美毒枭遭老罪了翻山渡河钻雨林，这趟拍摄南美毒枭遭老罪了${i}`,
+        time: '2021-09-01',
+        playCount: 100,
+      })
+    }
+    setPage(page + 1)
+    setMyVideoList([...myVideoList, ...newData])
+    setLoading(false)
+  }
+
+
+  useEffect(() => {
+    fetchMyVideos()
+  }, [])
+
 
   return (
     <IonPage>
@@ -27,15 +59,32 @@ const MyVideos: React.FC = () => {
       <IonContent fullscreen>
         <PullRefresh
           successText='刷新成功'
-          onRefresh={() => doFetch()}
-          disabled={loading}
+          onRefresh={() => fetchMyVideos()}
           className='h-full !overflow-y-scroll'
           pullDistance={100}
         >
-          <VideoCardFlowRow />
+          <List finished={finished} loadingText="加载。。。" offset={100} onLoad={() => fetchMyVideos()}>
+            {
+              myVideoList.map((item) => {
+                return <Cell key={item.id} title={
+                  <>
+
+                    <VideoCardFlowColumn id={item.id} title={item.title} cover={item.cover} playCount={item.playCount} time={item.time} />
+
+                    <Flex direction='row-reverse'>
+                      <Flex.Item span={8} className='text-center'>修改</Flex.Item>
+                      <Flex.Item span={8} className='text-center'>视频</Flex.Item>
+                      <Flex.Item span={8} className='text-center'>刪除</Flex.Item>
+                    </Flex>
+                  </>
+                }>
+                </Cell>
+              })
+            }
+          </List>
         </PullRefresh>
-      </IonContent>
-    </IonPage>
+      </IonContent >
+    </IonPage >
   );
 };
 

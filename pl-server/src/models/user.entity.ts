@@ -8,7 +8,7 @@ import {
 } from 'typeorm'
 import { Video } from './video.entity'
 import { Session } from './session.entity'
-import { VideoComment } from './videl-comment.entity'
+import { VideoComment } from './video-comment.entity'
 import { Auth } from './auth.entity'
 
 @Entity('user', {

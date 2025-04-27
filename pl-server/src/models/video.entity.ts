@@ -10,7 +10,7 @@ import {
 } from 'typeorm'
 
 import { User } from './user.entity'
-import { VideoComment } from './videl-comment.entity'
+import { VideoComment } from './video-comment.entity'
 import { VideoCategory } from './video-category.entity'
 import { VideoTagMapping } from './video-tag-mapping.entity'
 

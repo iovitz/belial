@@ -16,6 +16,7 @@ const LoginOrRegister: React.FC = () => {
         <NavBar
           title="登录"
           onClickLeft={goBack}
+          rightText={<Button size="small">注册</Button>}
         />
       </IonHeader>
       <IonContent fullscreen>
@@ -42,7 +43,26 @@ const LoginOrRegister: React.FC = () => {
             name="password"
             label="密码"
           >
-            <Input placeholder="请输入密码" />
+            <Input type="password" placeholder="请输入密码" />
+          </Form.Item>
+          <Form.Item
+            rules={[{ required: true, message: '请填写密码' }]}
+            name="repeat"
+            label="重复密码"
+          >
+            <Input type="password" placeholder="请重复密码" />
+          </Form.Item>
+          <Form.Item
+            rules={[{ required: true, message: '请输入验证码' }]}
+            name="code"
+            label="验证码"
+            suffix={(
+              <Button size="small" type="primary">
+                ABCD
+              </Button>
+            )}
+          >
+            <Input placeholder="请输入验证码" />
           </Form.Item>
         </Form>
       </IonContent>

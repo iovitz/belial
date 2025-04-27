@@ -1,35 +1,103 @@
-# Build Your First Ionic App: Photo Gallery (Ionic React and Capacitor)
+# 项目文档
 
-Get started with Ionic by building a photo gallery app that runs on iOS, Android, and the web - with just one codebase. This is the complete project referenced in the ["Your First App: React" guide](https://ionicframework.com/docs/react/your-first-app). Follow along to create a complete CRUD (create-read-update-delete) experience.
+[TOC]
 
-Powered by [Ionic React](https://ionicframework.com/docs/react) (web app) and [Capacitor](https://capacitor.ionicframework.com) (native app runtime).
+## 开发启动
 
-## How It Works
+STEP 1：安装pnpm，项目使用pnpm管理依赖包，需要先安装pnpm
 
-After the user navigates to Tab 2 (Photos), they can tap/click on the camera button to open up the device's camera. After taking or selecting a photo, it's stored permanently into the device's filesystem. When the user reopens the app at a later time, the photo images are loaded from the filesystem and displayed again in the gallery. The user can tap on a photo to be presented with the option to remove the photo.
+```shell
+npm i pnpm -g
+```
 
-## Feature Overview
-* App framework: [React](https://reactjs.org/)
-* UI components: [Ionic Framework](https://ionicframework.com/docs/components)
-  * Camera button: [Floating Action Button (FAB)](https://ionicframework.com/docs/api/fab)
-  * Photo Gallery display: [Grid](https://ionicframework.com/docs/api/grid)
-  * Delete Photo dialog: [Action Sheet](https://ionicframework.com/docs/api/action-sheet) 
-* Native runtime: [Capacitor](https://capacitor.ionicframework.com)
-  * Taking photos: [Camera API](https://capacitor.ionicframework.com/docs/apis/camera)
-  * Writing photo to the filesystem: [Filesystem API](https://capacitor.ionicframework.com/docs/apis/filesystem)
-  * Storing photo gallery metadata: [Preferences API](https://capacitor.ionicframework.com/docs/apis/preferences)
+STEP 2：使用pnpm安装依赖
 
-## Project Structure
-* Tab2 (Photos) (`src/pages/Tab2.tsx`): Photo Gallery UI and basic logic.
-* usePhotoGallery Hook (`src/hooks/usePhotoGallery.ts`): Logic encapsulating Capacitor APIs, including Camera, Filesystem, and Preferences.
+```shell
+pnpm install
+```
 
-## How to Run
+STEP 3：准备Secret Key
 
-> Note: It's highly recommended to follow along with the [tutorial guide](https://ionicframework.com/docs/react/your-first-app), which goes into more depth, but this is the fastest way to run the app. 
+项目中用到了一些三方服务和数据库，使用需要申请这些服务的密钥，项目中用到的密钥统一放在`.env`文件中，如果想使用自己的密钥可以替换`.env`文件中的内容
 
-0) Install Ionic if needed: `npm install -g @ionic/cli`.
-1) Clone this repository.
-2) In a terminal, change directory into the repo: `cd photo-gallery-capacitor-react`.
-3) Install all packages: `npm install`.
-4) Run on the web: `ionic serve`.
-5) Run on iOS or Android: See [here](https://ionicframework.com/docs/building/running).
+* Github Token（没有也没关系，只要不访问Github相关接口就不会有问题）
+  * GITHUB_TOKEN：（获取提交信息，读取更新日志）：需要具有读取Commit信息的权限
+* [Multiavatar](https://multiavatar.com/)生成随机头像）
+  * SECRET_MULTIAVATAR：Multiavatar的API Access Key
+* MySQL数据库
+  * DB_MYSQL_HOST：数据库主机地址
+  * DB_MYSQL_PORT：数据库主机端口
+  * DB_MYSQL_DB_NAME：数据库名
+  * DB_MYSQL_USER：数据库用户名
+  * DB_MYSQL_PASSWORD：数据库密码
+
+STEP 4：运行项目
+
+```shell
+pnpm dev
+```
+
+## 技术选型
+
+* MidwayJS
+  * [midwayjs](https://midwayjs.org/docs/intro)
+  * [@midwayjs/swagger](https://midwayjs.org/docs/decorator_index#midwayjsswagger)
+  * [@midwayjs/typeorm](https://midwayjs.org/docs/extensions/orm)
+  * [typeorm](https://typeorm.io/)
+  * [@midwayjs/validate](https://midwayjs.org/docs/hooks/validate)
+  * [zod](https://zod.dev/)
+  * [@midwayjs/socketio](https://midwayjs.org/docs/extensions/socketio)
+  * [socket.io](https://socket.io/docs/v4/)
+* 其他
+  * [lodash工具库](https://www.npmjs.com/package/lodash)
+  * [nanoid生成唯一ID](https://www.npmjs.com/package/nanoid)
+  * [svg-captcha生成验证码](https://www.npmjs.com/package/svg-captcha)
+  * [crypto-js字符串加密](https://www.npmjs.com/package/crypto-js)
+  * [bcryptjs密码加密](https://www.npmjs.com/package/bcryptjs)
+  * [octokit](https://www.npmjs.com/package/octokit)
+
+## 项目规范
+
+### 项目配置
+
+项目中的SecretKey统一放在环境变量中，开发环境下会使用`dotenv`加载`.env`文件，开发配置可以直接把SecretKey放到`.env`文件里，生产环境不会加载`.env`文件，建议放到Linux的环境变量中进行读取
+
+### 代码规范
+
+---
+
+### 日志
+
+打印日志时避免日志中出现换行符号，不利于日志查看
+
+### 数据库定义规范
+
+思考数据量的大小
+
+### 依赖规范
+
+所有的依赖必须指定版本
+
+### Git规范
+
+#### 分支模型
+
+##### 开发分支develop
+
+主要代码分支
+
+##### 线上分支release-XX
+
+线上代码分支
+
+##### 需求分支feat-xx
+
+##### BUG修复分支fix-xx
+
+##### 重构分支refactor-xx
+
+#### 提交信息规范
+
+> [提交信息规范文档](https://www.conventionalcommits.org/zh-hans/v1.0.0/)
+
+### 发版规范

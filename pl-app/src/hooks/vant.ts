@@ -29,7 +29,7 @@ export function useVantListStatus<T = any>(options: {
     }
   }, [])
 
-  function fetchListData() {
+  function fetchListData(refetch?: boolean) {
     if (loading) {
       logger.debug('loading return')
       return Promise.resolve()
@@ -43,6 +43,18 @@ export function useVantListStatus<T = any>(options: {
         }
         else {
           setFinished(true)
+        }
+
+        if (refetch) {
+          setValue(data.data)
+          setPage(1)
+          setTotal(0)
+          setError(null)
+          setLoading(false)
+          setFinished(false)
+        }
+        else {
+          setValue([...value, ...data.data])
         }
       })
       .catch((error) => {

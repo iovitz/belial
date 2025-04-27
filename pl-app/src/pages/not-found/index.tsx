@@ -1,23 +1,27 @@
+import { useRouterBack } from '@/hooks/router'
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { NavBar } from 'react-vant'
 
-const Video: React.FC = () => {
+const NotFound: React.FC = () => {
+  const { goBack } = useRouterBack()
   return (
     <IonPage>
       <IonHeader className="!shadow-none">
-        <IonToolbar>
-          <IonTitle>Video</IonTitle>
-        </IonToolbar>
+        <NavBar
+          title="页面不存在"
+          onClickLeft={goBack}
+        />
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Video</IonTitle>
+            <IonTitle size="large">NotFound</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <h1>Video</h1>
+        <h1>NotFound</h1>
       </IonContent>
     </IonPage>
   )
 }
 
-export default Video
+export default NotFound

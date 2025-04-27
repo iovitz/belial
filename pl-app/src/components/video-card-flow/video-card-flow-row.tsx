@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { Grid, GridItem } from 'react-vant'
 import VideoCard from './video-card'
 
-const VideoCardFlowRow = () => {
-
-  const [videoList, setVideoList] = useState([
+function VideoCardFlowRow() {
+  const [videoList, _setVideoList] = useState([
     {
       id: '1',
       cover: 'https://fakeimg.pl/1920x1080/2775b6/',
@@ -51,16 +50,19 @@ const VideoCardFlowRow = () => {
   return (
 
     <Grid
-      border={false} columnNum={2}
+      border={false}
+      columnNum={2}
     >
       {
-        videoList.map(videoItem => {
-          return <GridItem key={videoItem.id}>
-            <VideoCard id={videoItem.id} cover={videoItem.cover} title={videoItem.title} author={videoItem.author} />
-          </GridItem>
+        videoList.map((videoItem) => {
+          return (
+            <GridItem key={videoItem.id}>
+              <VideoCard id={videoItem.id} cover={videoItem.cover} title={videoItem.title} author={videoItem.author} />
+            </GridItem>
+          )
         })
       }
-    </Grid >
+    </Grid>
   )
 }
 

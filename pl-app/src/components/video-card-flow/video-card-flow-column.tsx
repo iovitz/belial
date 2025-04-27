@@ -2,20 +2,23 @@ import React from 'react'
 import VideoCoverImage from '../video-cover-image'
 import { Typography } from 'react-vant'
 
-export const VideoCardFlowColumn = (props: {
+export function VideoCardFlowColumn(props: {
   id: string
   cover: string
   title: string
   time: string
   playCount: number
-}) => {
+}) {
   return (
     <div className="flex leading-none">
       <VideoCoverImage src={props.cover} width="150px" />
       <div className="flex min-w-0 ml-2  flex-col justify-between w-full">
-        <Typography.Text className="text-sm" ellipsis={{
-          rows: 2,
-        }}>
+        <Typography.Text
+          className="text-sm"
+          ellipsis={{
+            rows: 2,
+          }}
+        >
           {props.title}
         </Typography.Text>
 
@@ -33,4 +36,3 @@ export const VideoCardFlowColumn = (props: {
     </div>
   )
 }
-

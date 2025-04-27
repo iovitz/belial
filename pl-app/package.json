@@ -43,7 +43,8 @@
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
     "react-use": "^17.6.0",
-    "react-vant": "^3.3.5"
+    "react-vant": "^3.3.5",
+    "video.js": "^8.22.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "3.8.0",

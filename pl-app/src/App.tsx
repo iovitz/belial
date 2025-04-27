@@ -31,11 +31,11 @@ import './styles/tailwind.css'
 import './styles/variables.css'
 import Home from './pages/home'
 import Mine from './pages/mine'
-import Video from './pages/video'
 import MyVideos from './pages/my-videos'
 import { Contact, WapHomeO } from '@react-vant/icons'
 import NotFound from './pages/not-found'
 import LikeVideos from './pages/like-videos'
+import Play from './pages/play'
 
 setupIonicReact()
 
@@ -66,11 +66,11 @@ const App: React.FC = () => (
             </IonTabBar>
           </IonTabs>
         </Route>
-        <Route exact path="/video">
-          <Video />
-        </Route>
         <Route exact path="/my-videos">
           <MyVideos />
+        </Route>
+        <Route exact path="/play/:videoId">
+          <Play />
         </Route>
         <Route exact path="/like-videos">
           <LikeVideos />

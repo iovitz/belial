@@ -9,8 +9,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
     legacy(),
+    tailwindcss(),
   ],
   resolve: {
     alias: {

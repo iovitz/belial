@@ -1,5 +1,5 @@
 import { useRouterBack } from '@/hooks/router'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonContent, IonHeader, IonPage } from '@ionic/react'
 import { NavBar } from 'react-vant'
 
 const NotFound: React.FC = () => {
@@ -13,11 +13,6 @@ const NotFound: React.FC = () => {
         />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">NotFound</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <h1>NotFound</h1>
       </IonContent>
     </IonPage>

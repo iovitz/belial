@@ -36,6 +36,7 @@ import { Contact, WapHomeO } from '@react-vant/icons'
 import NotFound from './pages/not-found'
 import LikeVideos from './pages/like-videos'
 import Play from './pages/play'
+import LoginOrRegister from './pages/login'
 
 setupIonicReact()
 
@@ -71,6 +72,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/play/:videoId">
           <Play />
+        </Route>
+        <Route exact path="/login">
+          <LoginOrRegister />
         </Route>
         <Route exact path="/like-videos">
           <LikeVideos />

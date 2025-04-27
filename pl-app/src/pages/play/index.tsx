@@ -1,7 +1,7 @@
 import VideoIntroduction from '@/components/video-introduction'
 import VideoPlayer from '@/components/video-player'
 import { useRouterBack } from '@/hooks/router'
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonContent, IonHeader, IonPage } from '@ionic/react'
 import { Button, Cell, Input, NavBar, Tabs } from 'react-vant'
 
 const Play: React.FC = () => {
@@ -15,11 +15,6 @@ const Play: React.FC = () => {
         />
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Video</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <VideoPlayer type="video/mp4" url="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4" />
         <Cell>
           <Input

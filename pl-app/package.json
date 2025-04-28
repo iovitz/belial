@@ -31,6 +31,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "ahooks": "^3.8.4",
+    "axios": "^1.9.0",
     "chalk": "^5.4.1",
     "clsx": "^2.1.1",
     "ionicons": "^7.0.0",
@@ -44,6 +45,7 @@
     "react-router-dom": "^5.3.4",
     "react-use": "^17.6.0",
     "react-vant": "^3.3.5",
+    "socket.io-client": "^4.8.1",
     "video.js": "^8.22.0"
   },
   "devDependencies": {

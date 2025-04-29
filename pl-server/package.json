@@ -26,9 +26,6 @@
     "logs:pm2": "pm2 logs xb",
     "update:dependence": "pnpx npm-check-updates"
   },
-  "pnpm": {
-    "neverBuiltDependencies": []
-  },
   "dependencies": {
     "@casl/ability": "^6.7.3",
     "@midwayjs/bootstrap": "^3.12.0",

@@ -104,3 +104,9 @@ export class IOClient implements PageIO {
     }) as unknown as Promise<T>
   }
 }
+
+export const ioClient = new IOClient({
+  baseURL: '/api-pl',
+  timeout: 10000,
+  socketPath: '/api-pl/ws',
+})

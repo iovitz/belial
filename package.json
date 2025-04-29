@@ -12,6 +12,9 @@
     "lint-staged": "pnpm --filter server --filter app run lint-staged",
     "prepare": "husky"
   },
+  "pnpm": {
+    "neverBuiltDependencies": []
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

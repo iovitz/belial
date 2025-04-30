@@ -9,7 +9,7 @@
     "dev:app": "pnpm --prefix pl-app dev",
     "dev:server": "pnpm --prefix pl-server dev",
     "cz": "node_modules/.bin/cz",
-    "lint-staged": "pnpm --filter server --filter app run lint-staged",
+    "lint-staged": "pnpm --filter app run lint-staged",
     "prepare": "husky"
   },
   "pnpm": {

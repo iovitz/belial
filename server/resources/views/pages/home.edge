@@ -30,7 +30,21 @@
       }
     </style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+      
+    </script>
+    <script type="module">
+      import {
+        io
+      } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
+      
+      const socket = io("http://localhost:3333");
+      //listen to ping sent by socket.io
+      
+      socket.on("ping", data => {
+        console.log(data);
+      });
+    </script>
 
     <script>
       tailwind.config = {
@@ -401,7 +415,7 @@
       <div
         class="text-sm text-center [&>code]:font-medium [&>code]:text-[#a599ff] bg-sand-12 text-sand-1 relative py-2"
       >
-        Route for this page is registered in <code>start/routes.ts</code> file, rendering <code>resources/views/pages/home.edge</code> template
+        Route for this page is registered in <code>start/routes.ts</code>file, rendering <code>resources/views/pages/home.edge</code>template
       </div>
     </div>
   </body>

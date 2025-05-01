@@ -30,6 +30,7 @@
     "#tests/*": "./tests/*.js",
     "#start/*": "./start/*.js",
     "#config/*": "./config/*.js"
+
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.8.2",
@@ -62,7 +63,8 @@
     "edge.js": "^6.2.1",
     "luxon": "^3.6.1",
     "mysql2": "^3.14.1",
-    "reflect-metadata": "^0.2.2"
+    "reflect-metadata": "^0.2.2",
+    "socket.io": "^4.8.1"
   },
   "hotHook": {
     "boundaries": [

@@ -5,7 +5,6 @@ app.ready(() => {
   Ws.boot()
   const io = Ws.io
   io?.on('connection', (socket) => {
-    console.log(socket.id)
     Ws.io?.emit('ping', { message: 'pong send by adonisJS' })
   })
 })

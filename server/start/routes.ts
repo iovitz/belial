@@ -10,6 +10,4 @@
 const UsersController = () => import('#controllers/users_controller')
 import router from '@adonisjs/core/services/router'
 
-router.on('/').render('pages/home')
-
 router.get('/api/user/v1/info', [UsersController, 'getHello'])

@@ -22,7 +22,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * to return the HTML contents to send as a response.
    */
   protected statusPages: Record<StatusPageRange, StatusPageRenderer> = {
-    '400..599': (error, { view }) => {
+    '400..599': (error, _ctx) => {
       return createError(error.status)
     },
   }

@@ -2,11 +2,16 @@ import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import createHttpError from 'http-errors'
 
+const SKIP_FORMAT_FLAG = Symbol('SKIP_FORMAT_FLAG')
+
 export default class ResponseFormatterMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
     /**
      * Middleware logic goes here (before the next call)
      */
+    ctx.skipFormat = () => {
+      ctx[SKIP_FORMAT_FLAG] = true
+    }
     /**
      * Call next method in the pipeline and return its output
      */
@@ -15,6 +20,9 @@ export default class ResponseFormatterMiddleware {
     if (!ctx.response.getStatus()) return
 
     const originalResponse = ctx.response.getBody()
+    if (!ctx[SKIP_FORMAT_FLAG]) {
+      return output
+    }
     if (originalResponse instanceof createHttpError.HttpError) {
       ctx.response.json({
         success: false,
@@ -28,5 +36,12 @@ export default class ResponseFormatterMiddleware {
       })
     }
     return output
+  }
+}
+
+declare module '@adonisjs/core/http' {
+  interface HttpContext {
+    skipFormat: () => void
+    [SKIP_FORMAT_FLAG]?: boolean
   }
 }

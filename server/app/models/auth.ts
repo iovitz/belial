@@ -3,12 +3,32 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Auth extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: bigint
 
   @column({
-    columnName: 'type',
+    columnName: 'identityType',
   })
-  declare type: string
+  declare identityType: string
+
+  @column({
+    columnName: 'identifier',
+  })
+  declare identifier: string
+
+  @column({
+    columnName: 'credential',
+  })
+  declare credential: string
+
+  @column({
+    columnName: 'verified',
+  })
+  declare verified: boolean
+
+  @column({
+    columnName: 'user_id',
+  })
+  declare userId: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

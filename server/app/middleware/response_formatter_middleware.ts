@@ -1,6 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
-import createHttpError from 'http-errors'
+import { get } from 'lodash-es'
 
 const SKIP_FORMAT_FLAG = Symbol('SKIP_FORMAT_FLAG')
 
@@ -20,15 +20,15 @@ export default class ResponseFormatterMiddleware {
     if (!ctx.response.getStatus()) return
 
     const originalResponse = ctx.response.getBody()
-    if (!ctx[SKIP_FORMAT_FLAG]) {
+    if (ctx[SKIP_FORMAT_FLAG]) {
       return output
     }
-    if (originalResponse instanceof createHttpError.HttpError) {
+    if (originalResponse instanceof Error) {
       ctx.response.json({
         success: false,
         msg: originalResponse.message,
       })
-      ctx.response.status(originalResponse.status)
+      ctx.response.status(get(originalResponse, ['status'], 500))
     } else {
       ctx.response.json({
         success: true,

@@ -1,9 +1,18 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-export default class UserRelation extends BaseModel {
+export default class VerifyCode extends BaseModel {
   @column({ isPrimary: true })
-  declare id: number
+  declare id: string
+
+  @column()
+  declare code: string
+
+  @column()
+  declare type: string
+
+  @column()
+  declare status: boolean
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

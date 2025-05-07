@@ -5,11 +5,16 @@ export default class extends BaseSchema {
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
-      table.bigint('id').primary().comment('主键ID')
+      table.string('id', 26).primary().comment('主键ID')
       table.string('code').notNullable().comment('验证码')
       table.string('type').notNullable().comment('验证码类型')
       table.boolean('status').defaultTo(false).comment('是否已经验证')
-      table.bigint('user_id').references('id').inTable('users').onDelete('CASCADE')
+      table
+        .string('user_id', 26)
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+        .comment('用户ID')
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

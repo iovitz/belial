@@ -1,7 +1,7 @@
-import { TwitterSnowflake } from '@sapphire/snowflake'
+import { ulid } from 'ulid'
 
 export class DbService {
-  generate() {
-    return TwitterSnowflake.generate().toString()
+  genBigIntID() {
+    return ulid()
   }
 }

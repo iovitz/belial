@@ -6,10 +6,11 @@ import { HttpContext } from '@adonisjs/core/http'
 import moment from 'moment'
 
 @inject()
-export class SecurityService extends DbService {
-  constructor(protected ctx: HttpContext) {
-    super()
-  }
+export class SecurityService {
+  constructor(
+    protected ctx: HttpContext,
+    protected dbService: DbService
+  ) {}
 
   async getVerifyCode(type: string, width: number, height: number, length = 4) {
     const code = svgCaptcha.create({
@@ -22,7 +23,7 @@ export class SecurityService extends DbService {
       background: '#ffffff',
     })
     const verifyCode = await VerifyCode.create({
-      id: this.generate(),
+      id: this.dbService.genBigIntID(),
       code: code.text,
       type,
     })

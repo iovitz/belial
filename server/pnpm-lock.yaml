@@ -32,9 +32,6 @@ importers:
       '@casl/ability':
         specifier: ^6.7.3
         version: 6.7.3
-      '@sapphire/snowflake':
-        specifier: ^3.5.5
-        version: 3.5.5
       '@ucast/mongo2js':
         specifier: ^1.4.0
         version: 1.4.0
@@ -74,6 +71,9 @@ importers:
       svg-captcha:
         specifier: ^1.4.0
         version: 1.4.0
+      ulid:
+        specifier: ^3.0.0
+        version: 3.0.0
     devDependencies:
       '@adonisjs/assembler':
         specifier: ^7.8.2
@@ -881,10 +881,6 @@ packages:
     resolution: {integrity: sha512-ECyOuDeH3C1I8jH2MK1RtBJW+YPMvSfT0a5NN0nHfQYnDSJ6tUiZH3gzwVP5/Kfh/+Tt7tpWVF9LXNTnhTJ3kA==}
     cpu: [x64]
     os: [win32]
-
-  '@sapphire/snowflake@3.5.5':
-    resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
-    engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
@@ -3067,6 +3063,10 @@ packages:
     resolution: {integrity: sha512-ZPtzy0hu4cZjv3z5NW9gfKnNLjoz4y6uv4HlelAjDK7sY/xOkKZv9xK/WQpcsBB3jEybChz9DPC2U/+cusjJVQ==}
     engines: {node: '>=18'}
 
+  ulid@3.0.0:
+    resolution: {integrity: sha512-yvZYdXInnJve6LdlPIuYmURdS2NP41ZoF4QW7SXwbUKYt53+0eDAySO+rGSvM2O/ciuB/G+8N7GQrZ1mCJpuqw==}
+    hasBin: true
+
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
@@ -3952,8 +3952,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.40.1':
     optional: true
-
-  '@sapphire/snowflake@3.5.5': {}
 
   '@sec-ant/readable-stream@0.4.1': {}
 
@@ -6057,6 +6055,8 @@ snapshots:
       random-bytes: 1.0.0
 
   uint8array-extras@1.4.0: {}
+
+  ulid@3.0.0: {}
 
   undici-types@5.26.5: {}
 

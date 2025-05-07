@@ -10,16 +10,19 @@ export class AuthService {
   async createUser(identifier: string, credential: string, identityType: string, nickname: string) {
     return db.transaction(async (trx) => {
       const newUserId = this.dbService.genBigIntID()
+
+      await trx.insertQuery().table('users').insert({
+        id: newUserId,
+        nickname,
+      })
+
       await trx.insertQuery().table('auths').insert({
         id: this.dbService.genBigIntID(),
         userId: newUserId,
         identifier,
         credential,
         identityType,
-      })
-      await trx.insertQuery().table('users').insert({
-        id: this.dbService.genBigIntID(),
-        nickname,
+        verified: true,
       })
     })
   }

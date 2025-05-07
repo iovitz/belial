@@ -10,7 +10,7 @@ export default class Session extends BaseModel {
   declare id: string
 
   @column({
-    columnName: 'user_id',
+    columnName: 'userId',
   })
   declare userId: string | null
 
@@ -19,9 +19,9 @@ export default class Session extends BaseModel {
   })
   declare useragent: string | null
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
   declare updatedAt: DateTime
 }

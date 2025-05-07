@@ -10,14 +10,14 @@ export default class extends BaseSchema {
       table.string('type').notNullable().comment('验证码类型')
       table.boolean('status').defaultTo(false).comment('是否已经验证')
       table
-        .string('user_id', 26)
+        .string('userId', 26)
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
         .comment('用户ID')
 
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 

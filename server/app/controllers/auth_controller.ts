@@ -18,9 +18,9 @@ export default class AuthController {
     // 验证码校验
 
     // 查询是否已经注册
-    const identifierItem = await Auth.find({
+    const identifierItem = await Auth.findBy({
       identifier,
-      identityType,
+      identityType: identityType,
     })
     if (identifierItem) {
       throw createHttpError(422, 'identifier already exist')
@@ -30,7 +30,7 @@ export default class AuthController {
     switch (identityType) {
       case 'email':
         logger.info('使用邮箱注册')
-        credential = await this.encryptService.bcryptEncode(bodyCredential)
+        credential = await this.encryptService.argon2Hash(bodyCredential)
         break
       default:
         throw createHttpError(422, 'identityType not support')
@@ -52,7 +52,7 @@ export default class AuthController {
     }
     switch (identityType) {
       case 'email':
-        if (!(await this.encryptService.bcryptCompare(credential, identifierItem.credential))) {
+        if (!(await this.encryptService.argon2Verify(credential, identifierItem.credential))) {
           throw createHttpError(401, 'identifier match fail')
         }
         break

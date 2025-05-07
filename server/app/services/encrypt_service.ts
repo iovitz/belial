@@ -1,8 +1,9 @@
 import { Buffer } from 'node:buffer'
-import * as bcrypt from 'bcrypt'
-import * as pako from 'pako'
-import * as crypto from 'node:crypto'
+import bcrypt from 'bcrypt'
+import pako from 'pako'
+import crypto from 'node:crypto'
 import env from '#start/env'
+import * as argon2 from 'argon2'
 
 export class EncryptService {
   aesPublicEncrypt(message: string) {
@@ -41,12 +42,12 @@ export class EncryptService {
     return Buffer.from(pako.gzip(str, { level: 9 })).toString('base64')
   }
 
-  bcryptCompare(data: string, encrypted: string) {
-    return bcrypt.compare(data, encrypted)
+  argon2Verify(data: string, encrypted: string) {
+    return argon2.verify(data, encrypted)
   }
 
-  bcryptEncode(data: string) {
-    return bcrypt.hash(data, 5)
+  argon2Hash(data: string) {
+    return argon2.hash(data)
   }
 
   md5(str: string) {

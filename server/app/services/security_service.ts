@@ -27,7 +27,12 @@ export class SecurityService {
       code: code.text,
       type,
     })
-    this.ctx.logger.info('generate verify code:', verifyCode.code)
+    this.ctx.logger.info(
+      {
+        code: verifyCode.code,
+      },
+      'generate verify code:'
+    )
 
     return {
       id: verifyCode.id,

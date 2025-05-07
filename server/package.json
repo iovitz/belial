@@ -66,6 +66,7 @@
     "@casl/ability": "^6.7.3",
     "@ucast/mongo2js": "^1.4.0",
     "@vinejs/vine": "^3.0.0",
+    "argon2": "^0.43.0",
     "bcrypt": "^5.1.1",
     "edge.js": "^6.2.1",
     "http-errors": "^2.0.0",

@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class Auth extends BaseModel {
+  static table = 'auths'
   static selfAssignPrimaryKey = true
 
   @column({
@@ -30,13 +31,13 @@ export default class Auth extends BaseModel {
   declare verified: boolean
 
   @column({
-    columnName: 'user_id',
+    columnName: 'userId',
   })
   declare userId: string
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
   declare updatedAt: DateTime
 }

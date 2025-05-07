@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { afterFind, BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column } from '@adonisjs/lucid/orm'
 
 export default class VerifyCode extends BaseModel {
   static selfAssignPrimaryKey = true

@@ -1,33 +1,39 @@
+import { inject } from '@adonisjs/core'
+import { DbService } from './db_service.js'
+import db from '@adonisjs/lucid/services/db'
+import Session from '#models/session'
+
+@inject()
 export class AuthService {
+  constructor(private dbService: DbService) {}
   // Your code here
-  // createUser(identifier: string, credential: string, identityType: string, nickname: string) {
-  //   return this.dataSourceManager.getDataSource('default').transaction(async (manager) => {
-  //     const newUserId = snowflakeIdGenerator.generate()
-  //     const auth = new Auth()
-  //     auth.id = snowflakeIdGenerator.generate()
-  //     auth.userId = newUserId
-  //     auth.identifier = identifier
-  //     auth.credential = credential
-  //     auth.identityType = identityType
-  //     const user = new User()
-  //     user.id = newUserId
-  //     user.nickname = nickname
-  //     await manager.save(user)
-  //     await manager.save(auth)
-  //   })
-  // }
-  // async createSession(userId: string, ua: string) {
-  //   const newSessionItem = this.session.create({
-  //     id: snowflakeIdGenerator.generate(),
-  //     userId,
-  //     useragent: ua,
-  //   })
-  //   await this.session.save(newSessionItem)
-  //   return newSessionItem.id
-  // }
-  // async getUserBySessionId(sessionId: string) {
-  //   return this.session.findOneBy({
-  //     id: sessionId,
-  //   })
-  // }
+  async createUser(identifier: string, credential: string, identityType: string, nickname: string) {
+    return db.transaction(async (trx) => {
+      const newUserId = this.dbService.genBigIntID()
+      await trx.insertQuery().table('auths').insert({
+        id: this.dbService.genBigIntID(),
+        userId: newUserId,
+        identifier,
+        credential,
+        identityType,
+      })
+      await trx.insertQuery().table('users').insert({
+        id: this.dbService.genBigIntID(),
+        nickname,
+      })
+    })
+  }
+
+  async createSession(userId: string, ua: string) {
+    const newSessionItem = await Session.create({
+      id: this.dbService.genBigIntID(),
+      userId,
+      useragent: ua,
+    })
+    return newSessionItem.id
+  }
+
+  async getUserBySessionId(sessionId: string) {
+    return Session.find(sessionId)
+  }
 }

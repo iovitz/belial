@@ -12,7 +12,7 @@ export default class Session extends BaseModel {
   @column({
     columnName: 'user_id',
   })
-  declare user_id: string | null
+  declare userId: string | null
 
   @column({
     columnName: 'useragent',

@@ -8,7 +8,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 export default class SecurityController {
   constructor(private securityService: SecurityService) {}
   getAesPublicKey = async (_ctx: HttpContext) => {
-    return env.get('AES_PUBLIC_KEY')
+    return { publicKey: env.get('AES_PUBLIC_KEY') }
   }
 
   async getCaptcha({ request }: HttpContext) {

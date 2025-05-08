@@ -17,7 +17,6 @@ const loggerConfig = defineConfig({
       transport: {
         targets: targets()
           .pushIf(!app.inProduction, targets.pretty())
-          .pushIf(app.inProduction, targets.file({ destination: 1 }))
           .push({
             target: 'pino-roll',
             level: 'info',

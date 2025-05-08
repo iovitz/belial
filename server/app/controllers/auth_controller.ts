@@ -54,7 +54,7 @@ export default class AuthController {
     const { identifier, credential, identityType } = body
     // TODO 验证码校验
 
-    const identifierItem = await Auth.find({
+    const identifierItem = await Auth.findBy({
       identifier,
       identityType,
     })

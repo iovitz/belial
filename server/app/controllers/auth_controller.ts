@@ -15,7 +15,7 @@ export default class AuthController {
   async register({ request, logger }: HttpContext) {
     const body = await registerValidator.validate(request.body())
     const { identifier, credential: bodyCredential, identityType, nickname } = body
-    // 验证码校验
+    // TODO 验证码校验
 
     // 查询是否已经注册
     const identifierItem = await Auth.findBy({
@@ -29,20 +29,31 @@ export default class AuthController {
     let credential: string
     switch (identityType) {
       case 'email':
-        logger.info('使用邮箱注册')
+        logger.info('register with email')
+        // TODO 校验邮箱
+        // TODO 发送验证码
         credential = await this.encryptService.argon2Hash(bodyCredential)
         break
       default:
         throw createHttpError(422, 'identityType not support')
     }
 
-    await this.authService.createUser(identifier, credential!, identityType, nickname)
-    return true
+    const userId = await this.authService.createUser(
+      identifier,
+      credential!,
+      identityType,
+      nickname
+    )
+    return {
+      userId,
+    }
   }
 
   async login({ request, response, logger }: HttpContext) {
     const body = await loginValidator.validate(request.body())
     const { identifier, credential, identityType } = body
+    // TODO 验证码校验
+
     const identifierItem = await Auth.find({
       identifier,
       identityType,

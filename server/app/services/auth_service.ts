@@ -24,6 +24,7 @@ export class AuthService {
         identityType,
         verified: true,
       })
+      return newUserId
     })
   }
 

@@ -1,5 +1,4 @@
 import { Buffer } from 'node:buffer'
-import bcrypt from 'bcrypt'
 import pako from 'pako'
 import crypto from 'node:crypto'
 import env from '#start/env'

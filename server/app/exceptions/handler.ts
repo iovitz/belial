@@ -1,7 +1,7 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
-import type { HttpError, StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
-import createError from 'http-errors'
+import { get } from 'lodash-es'
+import createHttpError from 'http-errors'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -11,41 +11,22 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   protected debug = !app.inProduction
 
   /**
-   * Status pages are used to display a custom HTML pages for certain error
-   * codes. You might want to enable them in production only, but feel
-   * free to enable them in development as well.
-   */
-  protected renderStatusPages = true
-
-  public async renderValidationError(error: HttpError, ctx: HttpContext) {
-    ctx.response.json(error)
-  }
-
-  public async renderError(error: HttpError, ctx: HttpContext): Promise<void> {
-    ctx.response.json(error)
-  }
-
-  /**
-   * Status pages is a collection of error code range and a callback
-   * to return the HTML contents to send as a response.
-   */
-  protected statusPages: Record<StatusPageRange, StatusPageRenderer> = {
-    '400..599': (error, _ctx) => {
-      return createError(error.status)
-    },
-  }
-
-  /**
    * The method is used for handling errors and returning
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
-    return super.handle(error, ctx)
+    const status = get(error, ['status'], 500)
+    const message = get(error, ['message'], 'Server Error')
+    ctx.logger.error(error, `Error Response ${status} ${message}`)
+    ctx.response.status(status).send({
+      success: false,
+      message: message,
+    })
   }
 
   /**
    * The method is used to report error to the logging service or
-   * the a third party error monitoring service.
+   * the third party error monitoring service.
    *
    * @note You should not attempt to send a response from this method.
    */

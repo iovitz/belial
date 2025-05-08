@@ -3,33 +3,19 @@ import type { NextFn } from '@adonisjs/core/types/http'
 import { get } from 'lodash-es'
 
 const SKIP_FORMAT_FLAG = Symbol('SKIP_FORMAT_FLAG')
-
+/**
+ * Response formatter middleware
+ */
 export default class ResponseFormatterMiddleware {
   async handle(ctx: HttpContext, next: NextFn) {
-    /**
-     * Middleware logic goes here (before the next call)
-     */
-    ctx.skipFormat = () => {
-      ctx[SKIP_FORMAT_FLAG] = true
-    }
-    /**
-     * Call next method in the pipeline and return its output
-     */
     const output = await next()
 
-    if (!ctx.response.getStatus()) return
+    const originalResponse: unknown = ctx.response.getBody()
 
-    const originalResponse = ctx.response.getBody()
     if (ctx[SKIP_FORMAT_FLAG]) {
       return output
     }
-    if (originalResponse instanceof Error) {
-      ctx.response.json({
-        success: false,
-        msg: originalResponse.message,
-      })
-      ctx.response.status(get(originalResponse, ['status'], 500))
-    } else {
+    if (ctx.response.getStatus() < 400) {
       ctx.response.json({
         success: true,
         data: originalResponse,

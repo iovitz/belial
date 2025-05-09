@@ -37,7 +37,12 @@ export class AuthService {
     return newSessionItem.id
   }
 
-  async getUserBySessionId(sessionId: string) {
+  async getSessionById(sessionId: string) {
     return Session.find(sessionId)
+  }
+
+  async deleteSession(sessionId: string) {
+    const sessionRecord = await Session.findOrFail(sessionId)
+    return sessionRecord.delete()
   }
 }

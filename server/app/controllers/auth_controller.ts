@@ -52,6 +52,7 @@ export default class AuthController {
   async login({ request, response, logger }: HttpContext) {
     const body = await loginValidator.validate(request.body())
     const { identifier, credential, identityType } = body
+
     // TODO 验证码校验
 
     const identifierItem = await Auth.findBy({
@@ -63,7 +64,7 @@ export default class AuthController {
     }
     switch (identityType) {
       case 'email':
-        if (!(await this.encryptService.argon2Verify(credential, identifierItem.credential))) {
+        if (!(await this.encryptService.argon2Verify(identifierItem.credential, credential))) {
           throw createHttpError(401, 'identifier match fail')
         }
         break
@@ -76,7 +77,27 @@ export default class AuthController {
       request.header('user-agent') ?? ''
     )
     logger.info(`Login Success: ${identifierItem.userId} ${sessionId}`)
-    response.cookie('ss-id', sessionId)
+    response.cookie('ss', sessionId, {
+      domain: '',
+      path: '/',
+      maxAge: '30d',
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+    })
     return true
+  }
+
+  async logout(ctx: HttpContext) {
+    const sessionId = ctx.request.cookie('ss-id')
+    if (sessionId) {
+      await this.authService.deleteSession(sessionId)
+    }
+    ctx.response.clearCookie('ss-id')
+    ctx.response.status(401)
+    ctx.response.json({
+      success: true,
+      data: null,
+    })
   }
 }

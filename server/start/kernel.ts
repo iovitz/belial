@@ -34,6 +34,7 @@ server.use([
  */
 router.use([
   () => import('@adonisjs/core/bodyparser_middleware'),
+  () => import('#middleware/access_log_middleware'),
   () => import('#middleware/response_formatter_middleware'),
   () => import('#middleware/block_middleware'),
 ])

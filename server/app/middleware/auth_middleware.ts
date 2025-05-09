@@ -8,9 +8,6 @@ import createHttpError from 'http-errors'
 export default class AuthMiddleware {
   constructor(private authService: AuthService) {}
   async handle(ctx: HttpContext, next: NextFn) {
-    /**
-     * Middleware logic goes here (before the next call)
-     */
     const sessionId = ctx.request.cookie('ss')
     if (!sessionId) {
       throw createHttpError[401]()
@@ -19,12 +16,16 @@ export default class AuthMiddleware {
     if (!session) {
       throw createHttpError[401]()
     }
-    console.log(session)
 
-    /**
-     * Call next method in the pipeline and return its output
-     */
+    ctx.userId = session.userId
+
     const output = await next()
     return output
+  }
+}
+
+declare module '@adonisjs/core/http' {
+  interface HttpContext {
+    userId: string
   }
 }

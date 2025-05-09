@@ -3,8 +3,8 @@ import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import User from './user.js'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
-export default class Session extends BaseModel {
-  static table = 'sessions'
+export default class Relationship extends BaseModel {
+  static table = 'relationships'
   static selfAssignPrimaryKey = true
 
   @column({
@@ -18,16 +18,19 @@ export default class Session extends BaseModel {
   declare userId: string
 
   @column({
-    columnName: 'useragent',
+    columnName: 'friendId',
   })
-  declare useragent: string | null
+  declare friendId: string
+
+  @column()
+  declare status: number
 
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 
-  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
+  @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 }

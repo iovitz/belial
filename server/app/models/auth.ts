@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
+import User from './user.js'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Auth extends BaseModel {
   static table = 'auths'
@@ -34,6 +36,9 @@ export default class Auth extends BaseModel {
     columnName: 'userId',
   })
   declare userId: string
+
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
   declare createdAt: DateTime

@@ -11,11 +11,23 @@ const AuthController = () => import('#controllers/auth_controller')
 const SecurityController = () => import('#controllers/securities_controller')
 import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
+const FriendController = () => import('#controllers/friends_controller')
 const UsersController = () => import('#controllers/users_controller')
 
 router.post('/api/auth/v1/register', [AuthController, 'register'])
 router.post('/api/auth/v1/login', [AuthController, 'login'])
 router.get('/api/auth/v1/logout', [AuthController, 'logout']).use(middleware.auth())
+
+router
+  .post('/api/friend/v1/application', [FriendController, 'createFriendApplication'])
+  .use(middleware.auth())
+router
+  .post('/api/friend/v1/operate_application', [FriendController, 'operateApplication'])
+  .use(middleware.auth())
+router.get('/api/friend/v1/list', [FriendController, 'getMyFriends']).use(middleware.auth())
+router
+  .get('/api/friend/v1/applications', [FriendController, 'getMyApplication'])
+  .use(middleware.auth())
 
 router.get('/api/user/v1/me', [UsersController, 'getOwnUserInfo']).use(middleware.auth())
 router.get('/api/user/v1/:userId', [UsersController, 'getUserInfo']).use(middleware.auth())

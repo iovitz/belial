@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
-import Relationship from './relationship.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
-import RelationshipApply from './relationship_apply.js'
 import Auth from './auth.js'
 import Session from './session.js'
+import Friend from './friend.js'
+import FriendApplication from './friend_application.js'
 
 export default class User extends BaseModel {
   static table = 'users'
@@ -35,15 +35,15 @@ export default class User extends BaseModel {
   })
   declare sex: number | null
 
-  @hasMany(() => Relationship, {
+  @hasMany(() => Friend, {
     foreignKey: 'userId',
   })
-  declare posts: HasMany<typeof Relationship>
+  declare posts: HasMany<typeof Friend>
 
-  @hasMany(() => RelationshipApply, {
+  @hasMany(() => FriendApplication, {
     foreignKey: 'toUserId',
   })
-  declare relationshipApplies: HasMany<typeof RelationshipApply>
+  declare friendApplications: HasMany<typeof FriendApplication>
 
   @hasMany(() => Auth, {
     foreignKey: 'userId',

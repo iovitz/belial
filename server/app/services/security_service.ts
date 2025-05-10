@@ -23,7 +23,7 @@ export class SecurityService {
       background: '#ffffff',
     })
     const verifyCode = await VerifyCode.create({
-      id: this.dbService.genBigIntID(),
+      id: this.dbService.genPrimaryKey(),
       code: code.text,
       type,
     })

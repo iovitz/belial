@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 
-export default class RelationshipApply extends BaseModel {
-  static table = 'relationship_applies'
+export default class FriendApplication extends BaseModel {
+  static table = 'friend_applications'
   static selfAssignPrimaryKey = true
 
   @column({
@@ -13,7 +13,7 @@ export default class RelationshipApply extends BaseModel {
   @column({
     columnName: 'fromUserId',
   })
-  declare formUserId: string
+  declare fromUserId: string
 
   @column({
     columnName: 'toUserId',
@@ -21,13 +21,18 @@ export default class RelationshipApply extends BaseModel {
   declare toUserId: string
 
   @column({
+    columnName: 'message',
+  })
+  declare message: string
+
+  @column({
     columnName: 'status',
   })
   declare status: number
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ autoCreate: true, columnName: 'createdAt' })
   declare createdAt: DateTime
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  @column.dateTime({ autoCreate: true, autoUpdate: true, columnName: 'updatedAt' })
   declare updatedAt: DateTime
 }

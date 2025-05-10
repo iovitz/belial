@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'relationships'
+  protected tableName = 'friends'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -20,10 +20,10 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .comment('好友ID')
 
-      table.tinyint('status').notNullable().comment('关系状态').defaultTo(0)
+      table.tinyint('status').notNullable().defaultTo(0).comment('关系状态')
 
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('createdAt')
+      table.timestamp('updatedAt')
     })
   }
 

@@ -9,7 +9,7 @@ export class AuthService {
   // Your code here
   async createUser(identifier: string, credential: string, identityType: string, nickname: string) {
     return db.transaction(async (trx) => {
-      const newUserId = this.dbService.genBigIntID()
+      const newUserId = this.dbService.genPrimaryKey()
 
       await trx.insertQuery().table('users').insert({
         id: newUserId,
@@ -17,7 +17,7 @@ export class AuthService {
       })
 
       await trx.insertQuery().table('auths').insert({
-        id: this.dbService.genBigIntID(),
+        id: this.dbService.genPrimaryKey(),
         userId: newUserId,
         identifier,
         credential,
@@ -30,7 +30,7 @@ export class AuthService {
 
   async createSession(userId: string, ua: string) {
     const newSessionItem = await Session.create({
-      id: this.dbService.genBigIntID(),
+      id: this.dbService.genPrimaryKey(),
       userId,
       useragent: ua,
     })
@@ -38,15 +38,12 @@ export class AuthService {
   }
 
   async getSessionById(sessionId: string) {
-    return Session.findBy({
-      id: sessionId,
-      status: 0,
-    })
+    return Session.query().where({ id: sessionId, status: 0 }).first()
   }
 
   async deleteSession(sessionId: string) {
-    const sessionRecord = await Session.findOrFail(sessionId)
-    sessionRecord.status = 1
-    return sessionRecord.save()
+    return Session.query().where({ id: sessionId, status: 0 }).update({
+      status: 1,
+    })
   }
 }

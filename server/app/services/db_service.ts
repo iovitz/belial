@@ -1,7 +1,7 @@
 import { ulid } from 'ulid'
 
 export class DbService {
-  genBigIntID() {
+  genPrimaryKey() {
     return ulid()
   }
 }

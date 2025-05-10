@@ -1,6 +1,11 @@
+import Friend from '#models/friend'
 import FriendApplication from '#models/friend_application'
 import { FriendService } from '#services/friend_service'
-import { createFriendApplicationValidator, operateApplicationValidator } from '#validators/friend'
+import {
+  createFriendApplicationValidator,
+  deleteFriendValidator,
+  operateApplicationValidator,
+} from '#validators/friend'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import createHttpError from 'http-errors'
@@ -21,6 +26,19 @@ export default class FriendController {
     }
   }
 
+  async deleteFriend(ctx: HttpContext) {
+    const query = await deleteFriendValidator.validate(ctx.request.qs())
+    const friend = await Friend.findBy({
+      userId: ctx.userId,
+      friendId: query.friendId,
+    })
+    if (!friend) {
+      throw createHttpError[422]('friend not found')
+    }
+    await friend.delete()
+    return true
+  }
+
   async operateApplication(ctx: HttpContext) {
     const body = await operateApplicationValidator.validate(ctx.request.body())
     const application = await FriendApplication.findBy({
@@ -28,15 +46,11 @@ export default class FriendController {
       toUserId: ctx.userId,
       status: 0,
     })
-
     if (!application) {
       throw createHttpError[422]('application not found or already been handled')
     }
-
     application.status = body.agree ? 1 : 2
-
     await application.save()
-
     return true
   }
 

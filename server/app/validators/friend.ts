@@ -7,6 +7,11 @@ export const createFriendApplicationValidator = vine.compile(
   })
 )
 
+export const deleteFriendValidator = vine.compile(
+  vine.object({
+    friendId: vine.string().trim().maxLength(26).minLength(26),
+  })
+)
 export const operateApplicationValidator = vine.compile(
   vine.object({
     applicationId: vine.string().trim().maxLength(26).minLength(26),

@@ -89,7 +89,7 @@ export default class AuthController {
   }
 
   async logout(ctx: HttpContext) {
-    const sessionId = ctx.request.cookie('ss-id')
+    const sessionId = ctx.request.cookie('ss')
     if (sessionId) {
       await this.authService.deleteSession(sessionId)
     }

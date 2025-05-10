@@ -13,6 +13,7 @@ export default class extends BaseSchema {
         .inTable('users')
         .onDelete('CASCADE')
         .comment('用户ID')
+      table.tinyint('status').defaultTo(0).comment('状态，0: 正常，1: 已登出')
 
       table.timestamp('createdAt')
       table.timestamp('updatedAt')

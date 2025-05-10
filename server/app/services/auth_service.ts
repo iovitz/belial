@@ -38,11 +38,15 @@ export class AuthService {
   }
 
   async getSessionById(sessionId: string) {
-    return Session.find(sessionId)
+    return Session.findBy({
+      id: sessionId,
+      status: 0,
+    })
   }
 
   async deleteSession(sessionId: string) {
     const sessionRecord = await Session.findOrFail(sessionId)
-    return sessionRecord.delete()
+    sessionRecord.status = 1
+    return sessionRecord.save()
   }
 }

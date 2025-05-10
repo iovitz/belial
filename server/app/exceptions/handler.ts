@@ -2,7 +2,6 @@ import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { get } from 'lodash-es'
 import { inject } from '@adonisjs/core'
-import { TracerService } from '#services/tracer_service'
 
 @inject()
 export default class HttpExceptionHandler extends ExceptionHandler {

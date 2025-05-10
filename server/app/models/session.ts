@@ -22,6 +22,11 @@ export default class Session extends BaseModel {
   })
   declare useragent: string | null
 
+  @column({
+    columnName: 'status',
+  })
+  declare status: number
+
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
 

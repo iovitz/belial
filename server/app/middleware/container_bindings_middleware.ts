@@ -17,7 +17,7 @@ export default class ContainerBindingsMiddleware {
 
   handle(ctx: HttpContext, next: NextFn) {
     ctx.containerResolver.bindValue(HttpContext, ctx)
-    ctx.containerResolver.bindValue(Logger, ctx.logger)
+    // ctx.containerResolver.bindValue(Logger, ctx.logger)
     const tracer = this.tracerService.child(ctx.request.id() ?? '-')
     ctx.containerResolver.bindValue(
       TracerService,

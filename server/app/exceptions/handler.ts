@@ -6,9 +6,6 @@ import { TracerService } from '#services/tracer_service'
 
 @inject()
 export default class HttpExceptionHandler extends ExceptionHandler {
-  constructor(private tracerService: TracerService) {
-    super()
-  }
   /**
    * In debug mode, the exception handler will display verbose errors
    * with pretty printed stack traces.

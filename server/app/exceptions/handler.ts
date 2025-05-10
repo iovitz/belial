@@ -1,9 +1,14 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { get } from 'lodash-es'
-import createHttpError from 'http-errors'
+import { inject } from '@adonisjs/core'
+import { TracerService } from '#services/tracer_service'
 
+@inject()
 export default class HttpExceptionHandler extends ExceptionHandler {
+  constructor(private tracerService: TracerService) {
+    super()
+  }
   /**
    * In debug mode, the exception handler will display verbose errors
    * with pretty printed stack traces.
@@ -17,7 +22,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   async handle(error: unknown, ctx: HttpContext) {
     const status = get(error, ['status'], 500)
     const message = get(error, ['message'], 'Server Error')
-    ctx.logger.error(error, `Error Response ${status} ${message}`)
+    ctx.tracer.error(`Error Response ${status} ${message}`, error as Error)
     ctx.response.status(status).send({
       success: false,
       message: message,

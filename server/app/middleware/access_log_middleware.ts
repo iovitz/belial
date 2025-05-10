@@ -1,28 +1,27 @@
+import { TracerService } from '#services/tracer_service'
+import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 
+@inject()
 export default class AccessLogMiddleware {
+  constructor(private tracerService: TracerService) {}
   async handle(ctx: HttpContext, next: NextFn) {
     const startNs = process.hrtime.bigint()
 
     // 记录启动日志
-    ctx.logger.info(
-      {
-        method: ctx.request.method(),
-        url: ctx.request.url(),
-      },
-      '>>> request in'
-    )
+    this.tracerService.info('>>> request in', {
+      method: ctx.request.method(),
+      url: ctx.request.url(),
+    })
 
     // 记录响应时间
     ctx.response.onFinish(() => {
       const cost = `${(process.hrtime.bigint() - startNs).toLocaleString()}ns`
-      ctx.logger.info(
-        {
-          cost,
-        },
-        '<<< request out'
-      )
+      this.tracerService.info('<<< request out', {
+        cost,
+        status: ctx.response.getStatus(),
+      })
     })
 
     const output = await next()

@@ -11,13 +11,19 @@ const loggerConfig = defineConfig({
    */
   loggers: {
     app: {
-      enabled: true,
+      enabled: false,
       name: env.get('APP_NAME'),
       level: env.get('LOG_LEVEL'),
       formatters: {},
       transport: {
         targets: targets()
-          .pushIf(!app.inProduction, targets.pretty())
+          .pushIf(
+            !app.inProduction,
+            targets.pretty({
+              translateTime: 'yyyy-mm-dd HH:MM:ss',
+              singleLine: true,
+            })
+          )
           .push({
             target: 'pino-roll',
             level: 'info',

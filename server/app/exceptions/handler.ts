@@ -5,16 +5,8 @@ import { inject } from '@adonisjs/core'
 
 @inject()
 export default class HttpExceptionHandler extends ExceptionHandler {
-  /**
-   * In debug mode, the exception handler will display verbose errors
-   * with pretty printed stack traces.
-   */
   protected debug = !app.inProduction
 
-  /**
-   * The method is used for handling errors and returning
-   * response to the client
-   */
   async handle(error: unknown, ctx: HttpContext) {
     const status = get(error, ['status'], 500)
     const message = get(error, ['message'], 'Server Error')

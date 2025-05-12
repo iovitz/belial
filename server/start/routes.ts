@@ -31,6 +31,7 @@ router
 
 router.get('/api/user/v1/me', [UsersController, 'getOwnUserInfo']).use(middleware.auth())
 router.get('/api/user/v1/:userId', [UsersController, 'getUserInfo']).use(middleware.auth())
+router.patch('/api/user/v1/:userId', [UsersController, 'updateUserInfo']).use(middleware.auth())
 
 router.get('/api/security/v1/aes_public_key', [SecurityController, 'getAesPublicKey'])
 router.get('/api/security/v1/captcha', [SecurityController, 'getCaptcha'])

@@ -1,5 +1,5 @@
 import { UserService } from '#services/user_service'
-import { getUserInfoValidator } from '#validators/user'
+import { getUserInfoValidator, updateUserInfoValidator } from '#validators/user'
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
 
@@ -19,6 +19,13 @@ export default class UsersController {
     // todo 需要好友关系才能查询
     const userInfo = await this.userService.getUserInfoById(params.userId)
 
+    return userInfo
+  }
+
+  async updateUserInfo(ctx: HttpContext) {
+    const body = await updateUserInfoValidator.validate(ctx.request.body())
+    const { userId } = ctx
+    const userInfo = await this.userService.updateUserInfo(userId, body)
     return userInfo
   }
 }

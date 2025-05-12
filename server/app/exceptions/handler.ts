@@ -6,9 +6,6 @@ import { inject } from '@adonisjs/core'
 @inject()
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
-   * In debug mode, the exception handler will display verbose errors
-   * with pretty printed stack traces.
-   */
   protected debug = !app.inProduction
 
   protected ignoreStackStatuses = [404]

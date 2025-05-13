@@ -1,10 +1,11 @@
-import app from '@adonisjs/core/services/app'
 import chalk, { ChalkInstance } from 'chalk'
 import { isEmpty, isObject } from 'lodash-es'
 import { stringify } from 'safe-stable-stringify'
 import { SPLAT } from 'triple-beam'
 import { createLogger, format, transports } from 'winston'
 import 'winston-daily-rotate-file'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 function formatObject(param: unknown) {
   if (param instanceof Error && param.stack) {
@@ -95,14 +96,14 @@ function getFileLoggingTransport(level: string) {
 }
 
 export const rootLogger = createLogger({
-  level: app.inProduction ? 'info' : 'debug',
+  level: isProd ? 'info' : 'debug',
   levels: customLevels,
   defaultMeta: {
     pid: process.pid,
   },
 })
 
-if (app.inProduction) {
+if (isProd) {
   rootLogger.add(getFileLoggingTransport('info'))
   rootLogger.add(getFileLoggingTransport('error'))
 }

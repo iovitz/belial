@@ -9,7 +9,8 @@
 |
 */
 
-import { Ignitor, prettyPrintError } from '@adonisjs/core'
+import { rootLogger } from '#shared/logger/index'
+import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
 
 /**
@@ -41,5 +42,5 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
   .start()
   .catch((error) => {
     process.exitCode = 1
-    prettyPrintError(error)
+    rootLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
   })

@@ -1,15 +1,15 @@
 import VerifyCode from '#models/verify_code'
-import svgCaptcha from 'svg-captcha'
-import { DbService } from './db_service.js'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import moment from 'moment'
+import svgCaptcha from 'svg-captcha'
+import { DbService } from './db_service.js'
 
 @inject()
 export class SecurityService {
   constructor(
     protected ctx: HttpContext,
-    protected dbService: DbService
+    protected dbService: DbService,
   ) {}
 
   async getVerifyCode(type: string, width: number, height: number, length = 4) {
@@ -31,7 +31,7 @@ export class SecurityService {
       {
         code: verifyCode.code,
       },
-      'generate verify code:'
+      'generate verify code:',
     )
 
     return {

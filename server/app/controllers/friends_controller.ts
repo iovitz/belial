@@ -1,3 +1,4 @@
+import type { HttpContext } from '@adonisjs/core/http'
 import Friend from '#models/friend'
 import FriendApplication from '#models/friend_application'
 import { FriendService } from '#services/friend_service'
@@ -7,7 +8,6 @@ import {
   operateApplicationValidator,
 } from '#validators/friend'
 import { inject } from '@adonisjs/core'
-import type { HttpContext } from '@adonisjs/core/http'
 import createHttpError from 'http-errors'
 
 @inject()
@@ -19,7 +19,7 @@ export default class FriendController {
     const newApplicationRecord = await this.friendService.createFriendApplication(
       ctx.userId,
       body.targetUserId,
-      body.message
+      body.message,
     )
     return {
       applicationId: newApplicationRecord.id,

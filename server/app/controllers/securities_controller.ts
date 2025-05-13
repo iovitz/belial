@@ -1,8 +1,8 @@
+import type { HttpContext } from '@adonisjs/core/http'
 import { SecurityService } from '#services/security_service'
 import env from '#start/env'
 import { getCaptchaValidator } from '#validators/security'
 import { inject } from '@adonisjs/core'
-import type { HttpContext } from '@adonisjs/core/http'
 
 @inject()
 export default class SecurityController {

@@ -1,7 +1,7 @@
+import * as crypto from 'node:crypto'
 import env from '#start/env'
 import vine from '@vinejs/vine'
 import createHttpError from 'http-errors'
-import * as crypto from 'node:crypto'
 
 export const registerValidator = vine.compile(
   vine.object({
@@ -19,7 +19,7 @@ export const registerValidator = vine.compile(
               key: env.get('AES_PRIVATE_KEY'), // PEM 格式字符串
               padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
             },
-            Buffer.from(v, 'base64') // 假设密文是 Base64
+            Buffer.from(v, 'base64'), // 假设密文是 Base64
           )
           .toString()
         if (res.length > 16) {
@@ -33,7 +33,7 @@ export const registerValidator = vine.compile(
     identityType: vine.string().trim().maxLength(30).minLength(1),
     verifyCode: vine.string().trim().maxLength(4).minLength(4),
     verifyCodeId: vine.string().trim().maxLength(26).minLength(26),
-  })
+  }),
 )
 export const loginValidator = vine.compile(
   vine.object({
@@ -50,7 +50,7 @@ export const loginValidator = vine.compile(
               key: env.get('AES_PRIVATE_KEY'), // PEM 格式字符串
               padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
             },
-            Buffer.from(v, 'base64') // 假设密文是 Base64
+            Buffer.from(v, 'base64'), // 假设密文是 Base64
           )
           .toString()
         if (res.length > 16) {
@@ -64,5 +64,5 @@ export const loginValidator = vine.compile(
     identityType: vine.string().trim().maxLength(30).minLength(1),
     verifyCode: vine.string().trim().maxLength(4).minLength(4),
     verifyCodeId: vine.string().trim().maxLength(26).minLength(26),
-  })
+  }),
 )

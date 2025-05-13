@@ -8,7 +8,7 @@ export class UserService {
 
   updateUserInfo(
     userId: string,
-    userInfo: Partial<Pick<User, 'nickname' | 'avatar' | 'desc' | 'sex'>>
+    userInfo: Partial<Pick<User, 'nickname' | 'avatar' | 'desc' | 'sex'>>,
   ) {
     return User.updateOrCreate({ id: userId }, userInfo)
   }

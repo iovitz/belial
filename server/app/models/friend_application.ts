@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
 
 export default class FriendApplication extends BaseModel {
   static table = 'friend_applications'

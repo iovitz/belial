@@ -1,7 +1,7 @@
-import { inject } from '@adonisjs/core'
-import { DbService } from './db_service.js'
 import Friend from '#models/friend'
 import FriendApplication from '#models/friend_application'
+import { inject } from '@adonisjs/core'
+import { DbService } from './db_service.js'
 
 @inject()
 export class FriendService {

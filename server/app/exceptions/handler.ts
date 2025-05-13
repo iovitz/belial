@@ -1,7 +1,7 @@
-import app from '@adonisjs/core/services/app'
-import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
-import { get } from 'lodash-es'
 import { inject } from '@adonisjs/core'
+import { ExceptionHandler, HttpContext } from '@adonisjs/core/http'
+import app from '@adonisjs/core/services/app'
+import { get } from 'lodash-es'
 
 @inject()
 export default class HttpExceptionHandler extends ExceptionHandler {
@@ -14,7 +14,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
     const message = get(error, ['message'], 'Server Error')
     ctx.response.status(status).send({
       success: false,
-      message: message,
+      message,
     })
   }
 

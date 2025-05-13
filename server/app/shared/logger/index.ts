@@ -1,10 +1,10 @@
-import chalk, { ChalkInstance } from 'chalk'
-import { stringify } from 'safe-stable-stringify'
-import { createLogger, format, transports } from 'winston'
-import { SPLAT } from 'triple-beam'
-import 'winston-daily-rotate-file'
-import { isEmpty, isObject } from 'lodash-es'
 import app from '@adonisjs/core/services/app'
+import chalk, { ChalkInstance } from 'chalk'
+import { isEmpty, isObject } from 'lodash-es'
+import { stringify } from 'safe-stable-stringify'
+import { SPLAT } from 'triple-beam'
+import { createLogger, format, transports } from 'winston'
+import 'winston-daily-rotate-file'
 
 function formatObject(param: unknown) {
   if (param instanceof Error && param.stack) {
@@ -48,7 +48,7 @@ const consoleTransport = new transports.Console({
   format: format.combine(
     all(),
     format.timestamp({ format: 'HH:mm:ss.SSS' }),
-    format.printf(getOutputFormatter(false))
+    format.printf(getOutputFormatter(false)),
   ),
 })
 
@@ -105,6 +105,7 @@ export const rootLogger = createLogger({
 if (app.inProduction) {
   rootLogger.add(getFileLoggingTransport('info'))
   rootLogger.add(getFileLoggingTransport('error'))
-} else {
+}
+else {
   rootLogger.add(consoleTransport)
 }

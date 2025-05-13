@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
 
 export default class VerifyCode extends BaseModel {
   static table = 'verify_codes'

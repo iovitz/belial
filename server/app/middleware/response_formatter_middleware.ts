@@ -1,6 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
-import { get } from 'lodash-es'
 
 const SKIP_FORMAT_FLAG = Symbol('SKIP_FORMAT_FLAG')
 /**

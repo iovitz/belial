@@ -1,8 +1,7 @@
-import { Logger } from '@adonisjs/core/logger'
-import { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import { TracerService } from '#services/tracer_service'
 import { inject } from '@adonisjs/core'
+import { HttpContext } from '@adonisjs/core/http'
 
 /**
  * The container bindings middleware binds classes to their request
@@ -21,7 +20,7 @@ export default class ContainerBindingsMiddleware {
     const tracer = this.tracerService.child(ctx.request.id() ?? '-')
     ctx.containerResolver.bindValue(
       TracerService,
-      this.tracerService.child(ctx.request.id() ?? '-')
+      this.tracerService.child(ctx.request.id() ?? '-'),
     )
     ctx.tracer = tracer
     return next()

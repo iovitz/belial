@@ -1,8 +1,8 @@
 import { Buffer } from 'node:buffer'
-import pako from 'pako'
 import crypto from 'node:crypto'
 import env from '#start/env'
 import * as argon2 from 'argon2'
+import pako from 'pako'
 
 export class EncryptService {
   aesPublicEncrypt(message: string) {
@@ -12,7 +12,7 @@ export class EncryptService {
           key: env.get('AES_PUBLIC_KEY'), // PEM 格式字符串
           padding: crypto.constants.RSA_PKCS1_OAEP_PADDING, // 推荐 OAEP 填充
         },
-        Buffer.from(message)
+        Buffer.from(message),
       )
       .toString('base64')
   }
@@ -23,13 +23,13 @@ export class EncryptService {
         key: env.get('AES_PRIVATE_KEY'),
         padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
       },
-      Buffer.from(encoded, 'base64')
+      Buffer.from(encoded, 'base64'),
     )
   }
 
   ungzip(gzipBase64Str: string) {
     return JSON.parse(
-      pako.ungzip(Buffer.from(gzipBase64Str, 'base64') as unknown as pako.Data, { to: 'string' })
+      pako.ungzip(Buffer.from(gzipBase64Str, 'base64') as unknown as pako.Data, { to: 'string' }),
     )
   }
 

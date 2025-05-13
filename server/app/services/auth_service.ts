@@ -1,7 +1,7 @@
-import { inject } from '@adonisjs/core'
-import { DbService } from './db_service.js'
-import db from '@adonisjs/lucid/services/db'
 import Session from '#models/session'
+import { inject } from '@adonisjs/core'
+import db from '@adonisjs/lucid/services/db'
+import { DbService } from './db_service.js'
 
 @inject()
 export class AuthService {

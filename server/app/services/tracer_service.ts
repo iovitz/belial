@@ -6,10 +6,10 @@ export type LogContext =
   | string
   | Error
   | {
-      tracerId?: string
-      error?: Error
-      [key: string]: unknown
-    }
+    tracerId?: string
+    error?: Error
+    [key: string]: unknown
+  }
 
 @inject()
 export class TracerService {

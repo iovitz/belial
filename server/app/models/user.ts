@@ -1,10 +1,10 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
+import { DateTime } from 'luxon'
 import Auth from './auth.js'
-import Session from './session.js'
 import Friend from './friend.js'
 import FriendApplication from './friend_application.js'
+import Session from './session.js'
 
 export default class User extends BaseModel {
   static table = 'users'

@@ -7,10 +7,11 @@
 |
 */
 
+import { middleware } from '#start/kernel'
+import router from '@adonisjs/core/services/router'
+
 const AuthController = () => import('#controllers/auth_controller')
 const SecurityController = () => import('#controllers/securities_controller')
-import router from '@adonisjs/core/services/router'
-import { middleware } from '#start/kernel'
 const FriendController = () => import('#controllers/friends_controller')
 const UsersController = () => import('#controllers/users_controller')
 

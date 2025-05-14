@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script lang="javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script lang="javascript" src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+</head>
+
+<body>
+  <div id="container">
+
+  </div>
+  <input type="text" id="input" />
+  <button id="button">发送</button>
+
+  <script lang="javascript">
+    const params = new URLSearchParams(window.location.search);
+    const socket = io('http://localhost:3333');
+    const userId = params.get('userId')
+    const groupId = params.get('groupId')
+
+    socket.on('group_message', (message) => {
+      console.log(message)
+      $('#container').append($(`<h1>${message.message}</h1>`))
+    })
+
+    if(groupId) {
+      socket.emit('join_group', { groupId: groupId })
+    }
+
+    $('#button').click(() => {
+      const message = $('input').val()
+      if(groupId) {
+        socket.emit('group_message', { groupId: groupId, message })
+      }
+      else if(userId) {
+        socket.emit('private_message', { userId: userId, message });
+      }
+    })
+
+  </script>
+</body>
+
+</html>

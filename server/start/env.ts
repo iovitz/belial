@@ -9,38 +9,32 @@
 |
 */
 
-import { rootLogger } from '#shared/logger/index'
 import { Env } from '@adonisjs/core/env'
 
-let AppEnv: Env<{}>
+export default await Env.create(new URL('../', import.meta.url), {
+  NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
+  PORT: Env.schema.number(),
+  APP_KEY: Env.schema.string(),
+  HOST: Env.schema.string({ format: 'host' }),
+  LOG_LEVEL: Env.schema.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
 
-try {
-  AppEnv = await Env.create(new URL('../', import.meta.url), {
-    NODE_ENV: Env.schema.enum(['development', 'production', 'test'] as const),
-    PORT: Env.schema.number(),
-    APP_KEY: Env.schema.number(),
-    HOST: Env.schema.string({ format: 'host' }),
-    LOG_LEVEL: Env.schema.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
+  /*
+    |----------------------------------------------------------
+    | Variables for configuring database connection
+    |----------------------------------------------------------
+    */
+  DB_HOST: Env.schema.string({ format: 'host' }),
+  DB_PORT: Env.schema.number(),
+  DB_USER: Env.schema.string(),
+  DB_PASSWORD: Env.schema.string.optional(),
+  DB_DATABASE: Env.schema.string(),
 
-    /*
-  |----------------------------------------------------------
-  | Variables for configuring database connection
-  |----------------------------------------------------------
-  */
-    DB_HOST: Env.schema.string({ format: 'host' }),
-    DB_PORT: Env.schema.number(),
-    DB_USER: Env.schema.string(),
-    DB_PASSWORD: Env.schema.string.optional(),
-    DB_DATABASE: Env.schema.string(),
+  // AES Encryption
+  AES_PUBLIC_KEY: Env.schema.string(),
+  AES_PRIVATE_KEY: Env.schema.string(),
 
-    // AES Encryption
-    AES_PUBLIC_KEY: Env.schema.string(),
-    AES_PRIVATE_KEY: Env.schema.string(),
-  })
-}
-catch (error) {
-  rootLogger.error(`Error creating Env instance: ${error.help}`, error)
-  throw error
-}
-
-export default AppEnv
+  // Ali Cloud
+  ALI_CLOUD_ACCESS_KEY_ID: Env.schema.string(),
+  ALI_CLOUD_ACCESS_KEY_SECRET: Env.schema.string(),
+  ALI_CLOUD_ARN: Env.schema.string(),
+})

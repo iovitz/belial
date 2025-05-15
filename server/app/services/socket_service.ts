@@ -30,6 +30,15 @@ export class SocketService {
       },
     })
 
+    SocketService.io.use((socket, next) => {
+      const userId = socket.handshake.auth.userId
+      if (!userId) {
+        return next(new Error('invalid userId'))
+      }
+      socket.data.userId = userId
+      next()
+    })
+
     SocketService.io.on('connection', (_socket) => {
       const socket = _socket as SocketConnection
       socket.tracer = this.tracer.child(`socket-${socket.id}`)

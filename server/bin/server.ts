@@ -9,7 +9,7 @@
 |
 */
 
-import { rootLogger } from '#shared/logger/index'
+import { TracerService } from '#services/tracer_service'
 import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
 
@@ -42,5 +42,5 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
   .start()
   .catch((error) => {
     process.exitCode = 1
-    rootLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
+    TracerService.appLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
   })

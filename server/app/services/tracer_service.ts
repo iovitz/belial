@@ -1,6 +1,43 @@
-import { rootLogger } from '#shared/logger/index'
 import { inject } from '@adonisjs/core'
-import { Logger } from 'winston'
+import chalk from 'chalk';
+import l4j, {type Logger} from 'log4js';
+
+const tokens = {
+  name: function (logEvent: any) {
+    const info = logEvent.context.name;
+    return info ? ` ${info}` : '';
+  },
+};
+
+l4j.configure({
+  appenders: {
+    stdout: {
+      type: 'stdout',
+      layout: {
+        type: 'pattern',
+        pattern: `${chalk.blue('%p')}${chalk.red('%x{name}')} %m`,
+        tokens,
+      },
+    },
+    all: {
+      type: 'file',
+      filename: 'logs/app',
+      pattern: 'yyyy-MM-dd.log',
+      alwaysIncludePattern: true, // 设置文件名称为 filename + pattern
+      level: 'info',
+      layout: {
+        type: 'pattern',
+        pattern: '%d{yyyy-MM-dd hh:mm:ss.SSS} %z %p%x{name} %m',
+        tokens,
+      },
+      maxLogSize: '10m',
+    },
+  },
+  categories: {
+    default: { appenders: ['stdout', 'all'], level: 'debug' },
+  },
+});
+
 
 export type LogContext =
   | string
@@ -13,16 +50,12 @@ export type LogContext =
 
 @inject()
 export class TracerService {
-  private static appLogger = rootLogger.child({
-    scope: 'APP',
-  })
+  static appLogger = l4j.getLogger('APP')
 
   private logger!: Logger
 
-  setScope(scope: string) {
-    this.logger = TracerService.appLogger.child({
-      scope,
-    })
+  setLogger(logger: Logger) {
+    this.logger = logger
   }
 
   error(message: string, context?: LogContext) {
@@ -37,26 +70,21 @@ export class TracerService {
     this.logger.info(message, context)
   }
 
-  /**
-   * @deprecated 使用 `tracer.info` 替代，这个方法只给NestJS内部调用
-   * @param message
-   * @param context
-   */
-  log(message: string, context?: LogContext) {
-    this.logger.info(message, context)
-  }
-
-  verbose(message: string, context?: LogContext) {
-    this.logger.verbose(message, context)
-  }
-
   debug(message: string, context?: LogContext) {
     this.logger.debug(message, context)
   }
 
-  child(scope: string) {
-    const tracerService = new TracerService()
-    tracerService.setScope(scope)
-    return tracerService
+  trace(message: string, context?: LogContext) {
+    this.logger.trace(message, context)
+  }
+
+
+
+  child(name: string) {
+    const logger = l4j.getLogger();
+    logger.addContext('name', name);
+    const newTracer = new TracerService()
+    newTracer.setLogger(logger)
+    return newTracer
   }
 }

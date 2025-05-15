@@ -20,7 +20,7 @@ export default class ContainerBindingsMiddleware {
     const tracer = this.tracerService.child(ctx.request.id() ?? '-')
     ctx.containerResolver.bindValue(
       TracerService,
-      tracer
+      tracer,
     )
     ctx.tracer = tracer
     return next()

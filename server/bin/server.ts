@@ -1,3 +1,4 @@
+/* eslint-disable import/first */
 /*
 |--------------------------------------------------------------------------
 | HTTP server entrypoint
@@ -8,11 +9,13 @@
 | command to run this file and monitor file changes
 |
 */
+const scopeGloabl: any = globalThis
+
+scopeGloabl.__isProd = false
 
 import { TracerService } from '#services/tracer_service'
 import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
-
 /**
  * URL to the application root. AdonisJS need it to resolve
  * paths to file and directories for scaffolding commands
@@ -44,3 +47,7 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
     process.exitCode = 1
     TracerService.appLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
   })
+
+declare global {
+  const __isProd: boolean
+}

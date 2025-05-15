@@ -13,7 +13,7 @@ interface SocketConnection extends Socket<DefaultEventsMap, DefaultEventsMap, De
 export class SocketService {
   static io: Server
   static booted = false
-  static getNumberOfMembers()  {
+  static getNumberOfMembers() {
     return this.io.sockets.sockets.size
   }
 
@@ -34,7 +34,7 @@ export class SocketService {
       const socket = _socket as SocketConnection
       socket.tracer = this.tracer.child(`socket-${socket.id}`)
       socket.tracer.info('Socket Connected!', {
-        connected: SocketService.getNumberOfMembers()
+        connected: SocketService.getNumberOfMembers(),
       })
       this.bindSocketEvent(socket)
     })
@@ -52,16 +52,15 @@ export class SocketService {
   }) {
     this.tracer.info('入群', data.groupId)
     this.join(data.groupId)
-    console.log(SocketService.io.sockets.adapter.rooms.get(data.groupId)?.size)
   }
 
   handleGroupMessage(this: SocketConnection, data: {
-    message: string,
+    message: string
     groupId: string
   }) {
     this.tracer.info('群聊消息', data)
     this.to(data.groupId).emit('group_message', {
-      message: data.message
+      message: data.message,
     })
   }
 
@@ -71,7 +70,7 @@ export class SocketService {
 
   handleSocketConnection(this: SocketConnection, reason: string) {
     this.tracer.info(`Socket链接断开: ${reason}`, {
-      connected: SocketService.getNumberOfMembers()
+      connected: SocketService.getNumberOfMembers(),
     })
   }
 }

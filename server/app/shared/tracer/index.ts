@@ -14,7 +14,7 @@ l4j.configure({
       type: 'stdout',
       layout: {
         type: 'pattern',
-        pattern: `${chalk.blue('%p')}${chalk.red('%x{name}')} %m`,
+        pattern: `${chalk.blue('%p')} ${process.pid}(${process.env.NODE_APP_INSTANCE ?? 0})${chalk.red('%x{name}')} %m`,
         tokens,
       },
     },
@@ -37,3 +37,5 @@ l4j.configure({
     default: { appenders: ['stdout', 'all'], level: __isProd ? 'info' : 'debug' },
   },
 })
+
+export const appLogger = l4j.getLogger('APP')

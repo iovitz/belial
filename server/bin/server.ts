@@ -1,4 +1,5 @@
-/* eslint-disable import/first */
+/* eslint-disable perfectionist/sort-imports */
+
 /*
 |--------------------------------------------------------------------------
 | HTTP server entrypoint
@@ -9,13 +10,10 @@
 | command to run this file and monitor file changes
 |
 */
-const scopeGloabl: any = globalThis
-
-scopeGloabl.__isProd = false
-
-import { TracerService } from '#services/tracer_service'
+import './_prepare_server_environment.js'
 import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
+import { appLogger } from '#shared/tracer/index'
 /**
  * URL to the application root. AdonisJS need it to resolve
  * paths to file and directories for scaffolding commands
@@ -33,6 +31,10 @@ function IMPORTER(filePath: string) {
   return import(filePath)
 }
 
+if (__isProd) {
+  appLogger.info('Server Environments', JSON.stringify(process.env))
+}
+
 new Ignitor(APP_ROOT, { importer: IMPORTER })
   .tap((app) => {
     app.booting(async () => {
@@ -43,11 +45,10 @@ new Ignitor(APP_ROOT, { importer: IMPORTER })
   })
   .httpServer()
   .start()
+  .then(() => {
+    appLogger.info(`HTTP server listening on port ${process.env.PORT || 3333} in ${process.env.NODE_ENV || 'development'} mode`)
+  })
   .catch((error) => {
     process.exitCode = 1
-    TracerService.appLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
+    appLogger.error('!!!!!!!!!!Failed to start HTTP server', error)
   })
-
-declare global {
-  const __isProd: boolean
-}

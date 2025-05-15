@@ -12,8 +12,6 @@ export type LogContext =
 
 @inject()
 export class TracerService {
-  static appLogger = l4j.getLogger('APP')
-
   private logger!: Logger
 
   setLogger(logger: Logger) {

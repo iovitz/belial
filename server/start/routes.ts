@@ -7,6 +7,7 @@
 |
 */
 
+import HomeController from '#controllers/home_controller'
 import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
@@ -14,6 +15,8 @@ const AuthController = () => import('#controllers/auth_controller')
 const SecurityController = () => import('#controllers/securities_controller')
 const FriendController = () => import('#controllers/friends_controller')
 const UsersController = () => import('#controllers/users_controller')
+
+router.get('/', [HomeController, 'getIndex'])
 
 router.post('/api/auth/v1/register', [AuthController, 'register'])
 router.post('/api/auth/v1/login', [AuthController, 'login'])

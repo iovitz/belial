@@ -2,7 +2,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export default class VerifyCode extends BaseModel {
-  static table = 't_verify_code'
+  static table = 't_verify_codes'
   static selfAssignPrimaryKey = true
 
   @column({

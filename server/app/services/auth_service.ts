@@ -11,12 +11,12 @@ export class AuthService {
     return db.transaction(async (trx) => {
       const newUserId = this.dbService.genPrimaryKey()
 
-      await trx.insertQuery().table('users').insert({
+      await trx.insertQuery().table('t_users').insert({
         id: newUserId,
         nickname,
       })
 
-      await trx.insertQuery().table('auths').insert({
+      await trx.insertQuery().table('t_auths').insert({
         id: this.dbService.genPrimaryKey(),
         userId: newUserId,
         identifier,

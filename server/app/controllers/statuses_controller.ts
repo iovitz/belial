@@ -6,7 +6,7 @@ export default class StatusesController {
   }
 
   getTest({ response }: HttpContext) {
-    response.cookie('ss', '01JVBXAA970Z2K32GDZ8Y9H6YR', {
+    response.cookie('ss', '01JVC01DHJR19CPG5965HHY498', {
       domain: '',
       path: '/',
       maxAge: '30d',

@@ -41,5 +41,5 @@ router.patch('/api/user/v1/:userId', [UsersController, 'updateUserInfo']).use(mi
 router.get('/api/security/v1/aes_public_key', [SecurityController, 'getAesPublicKey'])
 router.get('/api/security/v1/captcha', [SecurityController, 'getCaptcha'])
 
-router.get('/status', [StatusesController, 'getStatus'])
-router.get('/status/test', [StatusesController, 'getTest'])
+router.get('/api/status', [StatusesController, 'getStatus'])
+router.get('/api/status/test', [StatusesController, 'getTest'])

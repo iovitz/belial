@@ -1,16 +1,17 @@
 import VerifyCode from '#models/verify_code'
+import { DaoService } from '#shared/dao'
 import { inject } from '@adonisjs/core'
 import { HttpContext } from '@adonisjs/core/http'
 import moment from 'moment'
 import svgCaptcha from 'svg-captcha'
-import { DbService } from './db_service.js'
 
 @inject()
-export class SecurityService {
+export class SecurityService extends DaoService<typeof VerifyCode> {
   constructor(
     protected ctx: HttpContext,
-    protected dbService: DbService,
-  ) {}
+  ) {
+    super(VerifyCode, {})
+  }
 
   async getVerifyCode(type: string, width: number, height: number, length = 4) {
     const code = svgCaptcha.create({
@@ -23,7 +24,7 @@ export class SecurityService {
       background: '#ffffff',
     })
     const verifyCode = await VerifyCode.create({
-      id: this.dbService.genPrimaryKey(),
+      id: this.genPrimaryKey(),
       code: code.text,
       type,
     })

@@ -1,11 +1,13 @@
 import Friend from '#models/friend'
 import FriendApplication from '#models/friend_application'
+import { DaoService } from '#shared/dao'
 import { inject } from '@adonisjs/core'
-import { DbService } from './db_service.js'
 
 @inject()
-export class FriendService {
-  constructor(private dbService: DbService) {}
+export class FriendService extends DaoService<typeof Friend> {
+  constructor() {
+    super(Friend, {})
+  }
 
   getMyFriends(userId: string) {
     return Friend.query().where({
@@ -16,7 +18,7 @@ export class FriendService {
 
   createFriendApplication(fromUserId: string, toUserId: string, message: string) {
     return FriendApplication.create({
-      id: this.dbService.genPrimaryKey(),
+      id: this.genPrimaryKey(),
       fromUserId,
       toUserId,
       message,

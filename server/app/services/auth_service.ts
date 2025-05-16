@@ -1,36 +1,42 @@
+import Auth from '#models/auth'
 import Session from '#models/session'
+import { DaoService } from '#shared/dao'
 import { inject } from '@adonisjs/core'
-import db from '@adonisjs/lucid/services/db'
-import { DbService } from './db_service.js'
 
 @inject()
-export class AuthService {
-  constructor(private dbService: DbService) {}
+export class AuthService extends DaoService<typeof Auth> {
+  constructor() {
+    super(Auth, {})
+  }
+
   // Your code here
   async createUser(identifier: string, credential: string, identityType: string, nickname: string) {
-    return db.transaction(async (trx) => {
-      const newUserId = this.dbService.genPrimaryKey()
-
-      await trx.insertQuery().table('t_users').insert({
-        id: newUserId,
-        nickname,
-      })
-
-      await trx.insertQuery().table('t_auths').insert({
-        id: this.dbService.genPrimaryKey(),
-        userId: newUserId,
-        identifier,
-        credential,
-        identityType,
-        verified: true,
-      })
-      return newUserId
-    })
+    const newUserId = this.genPrimaryKey()
+    const data = await this.createWithTransaction([
+      {
+        db: 't_users',
+        data: {
+          id: newUserId,
+          nickname,
+        },
+      },
+      {
+        db: 't_auths',
+        data: {
+          userId: newUserId,
+          identifier,
+          credential,
+          identityType,
+          verified: true,
+        },
+      },
+    ])
+    return data
   }
 
   async createSession(userId: string, ua: string) {
     const newSessionItem = await Session.create({
-      id: this.dbService.genPrimaryKey(),
+      id: this.genPrimaryKey(),
       userId,
       useragent: ua,
     })

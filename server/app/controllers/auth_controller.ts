@@ -20,9 +20,9 @@ export default class AuthController {
     const { identifier, credential: bodyCredential, identityType, nickname } = body
 
     // 验证码校验
-    if (!await this.securityService.checkVerifyCode('register', body.verifyCodeId, body.verifyCode)) {
-      throw createHttpError(400, 'Verification code verification failed')
-    }
+    // if (!await this.securityService.checkVerifyCode('register', body.verifyCodeId, body.verifyCode)) {
+    //   throw createHttpError(400, 'Verification code verification failed')
+    // }
 
     // 查询是否已经注册
     const identifierItem = await Auth.findBy({
@@ -47,14 +47,14 @@ export default class AuthController {
         throw createHttpError(422, 'identityType not support')
     }
 
-    const userId = await this.authService.createUser(
+    const [newUserRecord] = await this.authService.createUser(
       identifier,
       credential!,
       identityType,
       nickname,
     )
     return {
-      userId,
+      userId: newUserRecord.id,
     }
   }
 

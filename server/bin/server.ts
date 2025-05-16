@@ -13,7 +13,7 @@
 import './_prepare_server_environment.js'
 import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
-import { appLogger } from '#shared/tracer/index'
+import { appLogger } from '#shared/shared'
 /**
  * URL to the application root. AdonisJS need it to resolve
  * paths to file and directories for scaffolding commands

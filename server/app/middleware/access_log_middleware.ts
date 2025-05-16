@@ -21,6 +21,7 @@ export default class AccessLogMiddleware {
       this.tracerService.info('<<< request out', {
         cost,
         status: ctx.response.getStatus(),
+        userId: ctx.userId,
       })
     })
 

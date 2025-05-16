@@ -1,4 +1,5 @@
 import { inject } from '@adonisjs/core'
+import stringify from 'json-stringify-safe'
 import l4j, { Logger } from 'log4js'
 
 export type LogContext =
@@ -19,23 +20,23 @@ export class TracerService {
   }
 
   error(message: string, context?: LogContext) {
-    this.logger.error(message, context)
+    this.logger.error(message, stringify(context))
   }
 
   warn(message: string, context?: LogContext) {
-    this.logger.warn(message, context)
+    this.logger.warn(message, stringify(context))
   }
 
   info(message: string, context?: LogContext) {
-    this.logger.info(message, context)
+    this.logger.info(message, stringify(context))
   }
 
   debug(message: string, context?: LogContext) {
-    this.logger.debug(message, context)
+    this.logger.debug(message, stringify(context))
   }
 
   trace(message: string, context?: LogContext) {
-    this.logger.trace(message, context)
+    this.logger.trace(message, stringify(context))
   }
 
   child(name: string) {

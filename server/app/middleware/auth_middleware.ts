@@ -7,6 +7,7 @@ import createHttpError from 'http-errors'
 @inject()
 export default class AuthMiddleware {
   constructor(private authService: AuthService) {}
+
   async handle(ctx: HttpContext, next: NextFn) {
     const sessionId = ctx.request.cookie('ss')
     if (!sessionId) {

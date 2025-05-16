@@ -13,7 +13,8 @@
 import './_prepare_server_environment.js'
 import { Ignitor } from '@adonisjs/core'
 import 'reflect-metadata'
-import { appLogger } from '#shared/shared'
+import { appLogger } from '#shared/tracer'
+import stringify from 'json-stringify-safe'
 /**
  * URL to the application root. AdonisJS need it to resolve
  * paths to file and directories for scaffolding commands
@@ -32,7 +33,7 @@ function IMPORTER(filePath: string) {
 }
 
 if (__isProd) {
-  appLogger.info('Server Environments', JSON.stringify(process.env))
+  appLogger.info('Server Environments', stringify(process.env))
 }
 
 new Ignitor(APP_ROOT, { importer: IMPORTER })

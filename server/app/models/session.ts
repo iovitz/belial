@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 import User from './user.js'
 
 export default class Session extends BaseModel {
-  static table = 'sessions'
+  static table = 't_sessions'
   static selfAssignPrimaryKey = true
 
   @column({

@@ -7,7 +7,7 @@ import FriendApplication from './friend_application.js'
 import Session from './session.js'
 
 export default class User extends BaseModel {
-  static table = 'users'
+  static table = 't_users'
   static selfAssignPrimaryKey = true
 
   @column({

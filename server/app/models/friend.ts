@@ -2,7 +2,7 @@ import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
 export default class Friend extends BaseModel {
-  static table = 'friends'
+  static table = 't_friends'
   static selfAssignPrimaryKey = true
 
   @column({

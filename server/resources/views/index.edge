@@ -35,6 +35,12 @@
   <script lang="javascript"
     src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.min.js"></script>
   <script lang="javascript" src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.8.1/socket.io.js"></script>
+  {{--  <script lang="javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/1.8.4/axios.min.js"></script>  --}}
+  <script lang="javascript">
+    $.get('/api/user/v1/me', {}, function(response) {
+        console.log('服务器响应:', response);
+    });
+  </script>
 </body>
 
 </html>

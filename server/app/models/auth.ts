@@ -4,7 +4,7 @@ import { DateTime } from 'luxon'
 import User from './user.js'
 
 export default class Auth extends BaseModel {
-  static table = 'auths'
+  static table = 't_auths'
   static selfAssignPrimaryKey = true
 
   @column({

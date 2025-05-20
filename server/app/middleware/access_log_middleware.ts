@@ -13,12 +13,9 @@ export default class AccessLogMiddleware {
     const originalIp = forwardedIps[0]?.trim() || ctx.request.ip()
 
     // 获取原始IP
-    if (originalIp !== '::11') {
-      const data = await this.requestClient.get<HttpContext['ipInfo']>('http://ip-api.com/json/').catch(() => null).then((data) => {
-        if (data?.status === 'successs') {
-          return data
-        }
-        return null
+    if (originalIp !== ':11') {
+      const data = await this.requestClient.get<HttpContext['ipInfo']>(`https://freeipapi.com/api/json/120.234.91.248`).catch(() => null).then((data) => {
+        return data
       })
       ctx.ipInfo = data
     }
@@ -27,7 +24,7 @@ export default class AccessLogMiddleware {
     this.tracer.info('>>> request in', {
       method: ctx.request.method(),
       url: ctx.request.url(),
-      ipInfo: `${ctx.ipInfo?.country ?? '-'}(${ctx.ipInfo?.countryCode ?? '-'}) ${ctx.ipInfo?.regionName ?? '-'} ${ctx.ipInfo?.city ?? '-'} ${ctx.ipInfo?.lat ?? '-'} ${ctx.ipInfo?.lon ?? '-'}`,
+      ipInfo: `${ctx.ipInfo?.countryName ?? '-'}(${ctx.ipInfo?.countryCode ?? '-'}) ${ctx.ipInfo?.regionName ?? '-'} ${ctx.ipInfo?.cityName ?? '-'}(${ctx.ipInfo?.latitude ?? '-'},${ctx.ipInfo?.longitude ?? '-'})`,
     })
 
     // 记录响应时间
@@ -46,23 +43,46 @@ export default class AccessLogMiddleware {
   }
 }
 
+// {
+//   ipVersion: 4,
+//   ipAddress: '120.234.91.248',
+//   latitude: 22.58333,
+//   longitude: 113.083328,
+//   countryName: 'China',
+//   countryCode: 'CN',
+//   timeZone: '+08:00',
+//   zipCode: '529000',
+//   cityName: 'Jiangmen',
+//   regionName: 'Guangdong',
+//   isProxy: false,
+//   continent: 'Asia',
+//   continentCode: 'AS',
+//   currency: { code: 'CNY', name: 'Yuan Renminbi' },
+//   language: 'Mandarin',
+//   timeZones: [ 'Asia/Shanghai', 'Asia/Urumqi' ],
+//   tlds: [ '.cn', '.中国', '.中國', '.公司', '.网络' ]
+// }
+
 declare module '@adonisjs/core/http' {
   interface HttpContext {
     ipInfo: null | {
-      status?: string
-      country?: string
-      countryCode?: string
-      region?: string
-      regionName?: string
-      city?: string
-      zip?: string
-      lat?: number
-      lon?: number
-      timezone?: string
-      isp?: string
-      org?: string
-      as?: string
-      query?: string
+      ipVersion: number
+      ipAddress: string
+      latitude: number
+      longitude: number
+      countryName: string
+      countryCode: string
+      timeZone: string
+      zipCode: string
+      cityName: string
+      regionName: string
+      isProxy: boolean
+      continent: string
+      continentCode: string
+      currency: { code: string, name: string }
+      language: string
+      timeZones: string[]
+      tlds: string[]
     }
   }
 }
